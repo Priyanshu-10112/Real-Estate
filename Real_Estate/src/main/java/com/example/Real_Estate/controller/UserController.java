@@ -35,6 +35,13 @@ public class UserController {
 		model.addAttribute("Properties", properties);
 		return "dashboard";
 	}
+	@RequestMapping("/properties")
+	public String properties(HttpSession session, Model model) {
+		List<Properties> properties = ps.findAllProperties();
+		session.setAttribute("Properties", properties);
+		model.addAttribute("Properties", properties);
+		return "properties";
+	}
 	@GetMapping("/property")
 	@ResponseBody
 	public String propertyDetail() {
@@ -47,12 +54,12 @@ public class UserController {
 	    return "property-details"; 
 	}
 
-	@GetMapping("/dashboard/filter")
+	@GetMapping("/properties/filter")
 	public String filter(@ModelAttribute PropertyDto propertyDto, Model model, HttpSession session, HttpServletRequest request) {
 		List<Properties> filteredProperties = ps.findByFilter(propertyDto);
 		model.addAttribute("Properties", filteredProperties);
 		session.setAttribute("Properties", filteredProperties);
 		
-		return "dashboard";
+		return "properties";
 	}
 }

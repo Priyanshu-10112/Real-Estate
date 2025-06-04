@@ -18,6 +18,9 @@
             --light-bg: #f8f9fa;
             --dark-text: #2c3e50;
             --light-text: #ffffff;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --hover-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            --transition: all 0.3s ease;
         }
 
         body {
@@ -153,271 +156,624 @@
             padding: 20px 0;
         }
 
-        .section-title {
-            color: var(--dark-text);
-            font-weight: 700;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .dashboard-stats {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .dashboard-stats:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--dark-text);
-        }
-
-        .stat-label {
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-        }
-
-        .property-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 2rem;
-        }
-
-        .property-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .property-image {
+        /* Enhanced Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.95), rgba(41, 128, 185, 0.95)), 
+                        url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3') center/cover;
+            padding: 6rem 0;
+            margin-bottom: 4rem;
+            color: white;
+            text-align: center;
             position: relative;
-            height: 220px;
-            background: var(--light-bg);
+            overflow: hidden;
         }
 
-        .property-fav {
-            position: absolute;
-            top: 1.2rem;
-            right: 1.2rem;
-            z-index: 2;
-            font-size: 1.7rem;
-            color: #e0e0e0;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .property-fav.favorited {
-            color: var(--accent-color);
-        }
-
-        .property-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .property-overlay {
+        .hero-section::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            pointer-events: none;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.1;
         }
 
-        .property-overlay-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 1.2rem 1.2rem 0 1.2rem;
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        .property-price {
-            background: rgba(255,255,255,0.92);
-            color: var(--dark-text);
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.2;
+            background: linear-gradient(to right, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            animation: fadeInUp 1s ease-out 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease-out 0.4s;
+            animation-fill-mode: both;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+
+        .hero-feature:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .hero-feature i {
             font-size: 1.5rem;
-            font-weight: 700;
-            border-radius: 12px;
-            padding: 0.4rem 1.2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            color: #fff;
         }
 
-        .property-status {
-            background: rgba(255,255,255,0.92);
-            color: #888;
-            font-size: 1rem;
-            font-weight: 600;
+        .hero-feature span {
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 4rem 0;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-features {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-feature {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* New Filter Section Design */
+        .filter-section {
+            background: white;
             border-radius: 20px;
-            padding: 0.3rem 1.2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .property-info {
-            padding: 2rem 2rem 1.2rem 2rem;
-            flex: 1;
+        .filter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-color);
+        }
+
+        .filter-header {
             display: flex;
-            flex-direction: column;
-            gap: 0.7rem;
+            align-items: center;
+            margin-bottom: 2rem;
+            gap: 1rem;
         }
 
-        .property-info h3 {
+        .filter-header i {
             font-size: 2rem;
-            font-weight: 700;
-            color: var(--dark-text);
-            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
         }
 
-        .property-info p {
-            color: var(--secondary-color);
+        .filter-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark-text);
             margin: 0;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 1.1rem;
         }
 
-        .property-features {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin: 1rem 0 0.5rem 0;
-        }
-
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-            background: var(--light-bg);
-            border-radius: 6px;
-            padding: 0.2rem 0.7rem;
-        }
-
-        .feature i {
+        .form-label i {
             color: var(--primary-color);
-            font-size: 1.2rem;
-        }
-
-        .property-actions {
-            display: flex;
-            gap: 1.2rem;
-            margin-top: 1.2rem;
-        }
-
-        .property-actions .btn {
-            flex: 1;
-            border-radius: 2rem;
-            font-size: 1.15rem;
-            font-weight: 500;
-            padding: 0.9rem 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        }
-
-        .property-actions .btn-primary {
-            background: var(--primary-color);
-            color: var(--light-text);
-            border: none;
-        }
-
-        .property-actions .btn-primary:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-        }
-
-        .property-actions .btn-outline {
-            background: white;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-        }
-
-        .property-actions .btn-outline:hover {
-            background: var(--primary-color);
-            color: var(--light-text);
-            transform: translateY(-2px);
-        }
-
-        .filter-left {
-            margin-left: 0 !important;
-            margin-right: auto !important;
-            width: auto !important;
-        }
-
-        .filter-card-left {
-            margin-left: 0 !important;
-            margin-right: auto !important;
-            width: auto !important;
-            max-width: none !important;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         .form-control, .form-select {
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            background: var(--light-bg);
         }
 
         .form-control:focus, .form-select:focus {
-            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
             border-color: var(--primary-color);
+            background: white;
         }
 
         .btn-search {
             background: var(--primary-color);
             color: var(--light-text);
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-top: 1rem;
         }
 
         .btn-search:hover {
             background: #2980b9;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        /* New Property Cards Layout */
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        /* Enhanced Property Card Styles */
+        .property-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .property-image {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .property-card:hover .property-image img {
+            transform: scale(1.05);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .property-badge.available { background: #2ecc71; }
+        .property-badge.rent { background: #f1c40f; }
+        .property-badge.sold { background: #e74c3c; }
+        .property-badge.pre-launch { background: #9b59b6; }
+
+        .property-price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            background: var(--light-bg);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .property-price::before {
+            content: '₹';
+            font-size: 1.4rem;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .property-price::after {
+            content: '';
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--secondary-color);
+            opacity: 0.7;
+            margin-left: 0.5rem;
+        }
+
+        .property-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .property-location {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .property-location i {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .property-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature {
+            background: var(--light-bg);
+            padding: 1.2rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            color: var(--dark-text);
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .feature:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .feature i {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+
+        .feature:hover i {
+            color: white;
+        }
+
+        .property-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .property-actions .btn {
+            padding: 1.2rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .property-actions .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .property-actions .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .property-actions .btn-primary i {
+            font-size: 1.2rem;
+        }
+
+        .property-meta {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .meta-item {
+            background: rgba(255,255,255,0.9);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .no-properties {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .no-properties i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .no-properties h3 {
+            color: var(--dark-text);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .no-properties p {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
         }
 
         @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+            
             .property-info {
-                padding: 1.2rem 1rem 1rem 1rem;
+                padding: 1.5rem;
             }
-            .property-card {
-                border-radius: 14px;
-            }
+            
             .property-image {
-                height: 160px;
+                height: 220px;
             }
-            .property-info h3 {
+            
+            .property-title {
                 font-size: 1.3rem;
             }
-            .property-actions {
-                flex-direction: column;
-                gap: 0.7rem;
+            
+            .property-features {
+                grid-template-columns: 1fr;
             }
+            
+            .property-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .property-actions .btn {
+                width: 100%;
+            }
+        }
+
+        /* Add new content sections */
+        .page-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .page-intro h2 {
+            font-size: 2.5rem;
+            color: var(--dark-text);
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .page-intro p {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .property-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .stat-card p {
+            color: var(--secondary-color);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .property-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .page-intro h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .property-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn-reset {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-width: 150px;
+        }
+
+        .btn-reset:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-reset i {
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -426,7 +782,7 @@
 
     <div class="dashboard-container">
         <div class="container">
-            <h1 class="section-title">Welcome Back, <span>${user.firstName}</span></h1>
+            <h1 class="section-title">Properties</h1>
             
             <%
             // Property type display map
@@ -448,157 +804,203 @@
             propertyTypeDisplay.put("VACANT_LAND_NON_AGRICULTURAL", "Vacant Land (Non-agricultural)");
             %>
 
-            <div class="property-filter-section filter-left">
-                <div class="filter-section mb-4">
-                    <div class="card filter-card-left">
-                        <div class="card-body">
-                            <form id="propertyFilter" action="${pageContext.request.contextPath}/user/dashboard/filter" method="GET" class="row g-2 align-items-end flex-wrap">
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">Price Range</label>
-                                    <select class="form-select" name="price">
-                                        <option value="">Any Price</option>
-                                        <option value="100000">Under ₹100,000</option>
-                                        <option value="250000">Under ₹250,000</option>
-                                        <option value="500000">Under ₹500,000</option>
-                                        <option value="1000000">Under ₹1,000,000</option>
-                                        <option value="2000000">Under ₹2,000,000</option>
-                                        <option value="5000000">Under ₹5,000,000</option>
-                                    </select>
-                                </div>
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">Property Type</label>
-                                    <select class="form-select" name="propertyType">
-                                        <option value="">All Types</option>
-                                        <option value="APARTMENT_FLAT">Apartment / Flat</option>
-                                        <option value="INDEPENDENT_HOUSE_VILLA">Independent House / Villa</option>
-                                        <option value="BUILDER_FLOOR_APARTMENT">Builder Floor Apartment</option>
-                                        <option value="STUDIO_APARTMENT">Studio Apartment</option>
-                                        <option value="PENTHOUSE">Penthouse</option>
-                                        <option value="ROW_HOUSE_TOWNHOUSE">Row House / Townhouse</option>
-                                        <option value="RESIDENTIAL_PLOT_LAND">Residential Plot / Land</option>
-                                        <option value="COMMERCIAL_OFFICE_SPACE">Commercial Office Space</option>
-                                        <option value="SHOP_SHOWROOM">Shop / Showroom</option>
-                                        <option value="WAREHOUSE_GODOWN">Warehouse / Godown</option>
-                                        <option value="INDUSTRIAL_LAND_FACTORY">Industrial Land / Factory</option>
-                                        <option value="AGRICULTURAL_LAND_FARMLAND">Agricultural Land / Farmland</option>
-                                        <option value="MIXED_USE_PROPERTY">Mixed-Use Property</option>
-                                        <option value="CO_WORKING_SPACE">Co-working Space</option>
-                                        <option value="VACANT_LAND_NON_AGRICULTURAL">Vacant Land (Non-agricultural)</option>
-                                    </select>
-                                </div>
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">Status</label>
-                                    <select class="form-select" name="status">
-                                        <option value="">All Status</option>
-                                        <option value="AVAILABLE">Available</option>
-                                        <option value="RENT">Rent</option>
-                                        <option value="PRE_LAUNCH">Pre-launch</option>
-                                        <option value="SOLD">Sold</option>
-                                    </select>
-                                </div>
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">City</label>
-                                    <input type="text" class="form-control" placeholder="Enter City" name="city" list="cityList">
-                                    <datalist id="cityList">
-                                        <!-- Madhya Pradesh Cities -->
-                                        <option value="Indore, Madhya Pradesh">
-                                        <option value="Bhopal, Madhya Pradesh">
-                                        <option value="Jabalpur, Madhya Pradesh">
-                                        <option value="Gwalior, Madhya Pradesh">
-                                        <option value="Ujjain, Madhya Pradesh">
-                                        <option value="Sagar, Madhya Pradesh">
-                                        <option value="Dewas, Madhya Pradesh">
-                                        <option value="Satna, Madhya Pradesh">
-                                        <option value="Ratlam, Madhya Pradesh">
-                                        <option value="Rewa, Madhya Pradesh">
-                                        <option value="Murwara, Madhya Pradesh">
-                                        <option value="Singrauli, Madhya Pradesh">
-                                        <option value="Burhanpur, Madhya Pradesh">
-                                        <option value="Khandwa, Madhya Pradesh">
-                                        <option value="Morena, Madhya Pradesh">
-                                        <option value="Bhind, Madhya Pradesh">
-                                        <option value="Chhindwara, Madhya Pradesh">
-                                        <option value="Guna, Madhya Pradesh">
-                                        <option value="Shivpuri, Madhya Pradesh">
-                                        <option value="Vidisha, Madhya Pradesh">
-                                    </datalist>
-                                </div>
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" placeholder="Enter address" name="address">
-                                </div>
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">Area</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="Enter area" name="area" min="0" step="0.01">
-                                        <select class="form-select" name="areaUnit" style="max-width: 100px;">
-                                            <option value="sqft">sq ft</option>
-                                            <option value="sqm">sq m</option>
-                                            <option value="acres">acres</option>
-                                            <option value="hectares">hectares</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-auto d-flex align-items-end">
-                                    <button type="submit" class="btn btn-primary w-100">
-                                        <i class="fas fa-search"></i> Search
-                                    </button>
-                                </div>
-                            </form>
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">Find Your Dream Property</h1>
+                    <p class="hero-subtitle">Discover the perfect home from our extensive collection of properties. Whether you're looking for a cozy apartment, a spacious villa, or a commercial space, we have the perfect property waiting for you.</p>
+                    <div class="hero-features">
+                        <div class="hero-feature">
+                            <i class="fas fa-home"></i>
+                            <span>500+ Properties</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>20+ Locations</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-star"></i>
+                            <span>4.8/5 Rating</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="property-cards-section">
-                <div class="property-grid" th:fragment="property-grid">
-                    <% List<Properties> properties = (List<Properties>)request.getAttribute("Properties"); %>
-                    <% if(properties != null && !properties.isEmpty()) { %>
-                        <% for(Properties p1 : properties) { %>
-                            <div class="property-card">
-                                <div class="property-image">
-                                    <span class="property-fav" onclick="this.classList.toggle('favorited')">
-                                        <i class="fa-regular fa-heart"></i>
-                                    </span>
-                                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3" alt="<%= p1.getPropertyType() %>">
-                                    <div class="property-overlay">
-                                        <div class="property-overlay-top">
-                                            <span class="property-price">₹<%= p1.getPrice() %></span>
-                                            <span class="property-status status-<%= p1.getStatus().toString().toLowerCase() %>">
-                                                <%= p1.getStatus() %>
-                                            </span>
-                                        </div>
-                                    </div>
+            <div class="page-intro">
+                <h2>Discover Your Perfect Property</h2>
+                <p>Browse through our extensive collection of properties, from luxurious apartments to spacious villas. Each property is carefully selected to meet your needs and preferences.</p>
+            </div>
+
+            <div class="container">
+                <div class="property-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-home"></i>
+                        <h3>500+</h3>
+                        <p>Properties Listed</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3>1000+</h3>
+                        <p>Happy Clients</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>20+</h3>
+                        <p>Locations</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <h3>4.8</h3>
+                        <p>Average Rating</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-header">
+                    <i class="fas fa-filter"></i>
+                    <h2 class="filter-title">Search Properties</h2>
+                </div>
+                <form id="propertyFilter" action="${pageContext.request.contextPath}/user/properties/filter" method="GET">
+                    <div class="filter-grid">
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-tag"></i> Price Range</label>
+                            <select class="form-select" name="price">
+                                <option value="">Any Price</option>
+                                <option value="100000">Under ₹100,000</option>
+                                <option value="250000">Under ₹250,000</option>
+                                <option value="500000">Under ₹500,000</option>
+                                <option value="1000000">Under ₹1,000,000</option>
+                                <option value="2000000">Under ₹2,000,000</option>
+                                <option value="5000000">Under ₹5,000,000</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-home"></i> Property Type</label>
+                            <select class="form-select" name="propertyType">
+                                <option value="">All Types</option>
+                                <option value="APARTMENT_FLAT">Apartment / Flat</option>
+                                <option value="INDEPENDENT_HOUSE_VILLA">Independent House / Villa</option>
+                                <option value="BUILDER_FLOOR_APARTMENT">Builder Floor Apartment</option>
+                                <option value="STUDIO_APARTMENT">Studio Apartment</option>
+                                <option value="PENTHOUSE">Penthouse</option>
+                                <option value="ROW_HOUSE_TOWNHOUSE">Row House / Townhouse</option>
+                                <option value="RESIDENTIAL_PLOT_LAND">Residential Plot / Land</option>
+                                <option value="COMMERCIAL_OFFICE_SPACE">Commercial Office Space</option>
+                                <option value="SHOP_SHOWROOM">Shop / Showroom</option>
+                                <option value="WAREHOUSE_GODOWN">Warehouse / Godown</option>
+                                <option value="INDUSTRIAL_LAND_FACTORY">Industrial Land / Factory</option>
+                                <option value="AGRICULTURAL_LAND_FARMLAND">Agricultural Land / Farmland</option>
+                                <option value="MIXED_USE_PROPERTY">Mixed-Use Property</option>
+                                <option value="CO_WORKING_SPACE">Co-working Space</option>
+                                <option value="VACANT_LAND_NON_AGRICULTURAL">Vacant Land (Non-agricultural)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-info-circle"></i> Status</label>
+                            <select class="form-select" name="status">
+                                <option value="">All Status</option>
+                                <option value="AVAILABLE">Available</option>
+                                <option value="RENT">Rent</option>
+                                <option value="PRE_LAUNCH">Pre-launch</option>
+                                <option value="SOLD">Sold</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-city"></i> City</label>
+                            <input type="text" class="form-control" placeholder="Enter City" name="city" list="cityList">
+                            <datalist id="cityList">
+                                <!-- Madhya Pradesh Cities -->
+                                <option value="Indore, Madhya Pradesh">
+                                <option value="Bhopal, Madhya Pradesh">
+                                <option value="Jabalpur, Madhya Pradesh">
+                                <option value="Gwalior, Madhya Pradesh">
+                                <option value="Ujjain, Madhya Pradesh">
+                                <option value="Sagar, Madhya Pradesh">
+                                <option value="Dewas, Madhya Pradesh">
+                                <option value="Satna, Madhya Pradesh">
+                                <option value="Ratlam, Madhya Pradesh">
+                                <option value="Rewa, Madhya Pradesh">
+                                <option value="Murwara, Madhya Pradesh">
+                                <option value="Singrauli, Madhya Pradesh">
+                                <option value="Burhanpur, Madhya Pradesh">
+                                <option value="Khandwa, Madhya Pradesh">
+                                <option value="Morena, Madhya Pradesh">
+                                <option value="Bhind, Madhya Pradesh">
+                                <option value="Chhindwara, Madhya Pradesh">
+                                <option value="Guna, Madhya Pradesh">
+                                <option value="Shivpuri, Madhya Pradesh">
+                                <option value="Vidisha, Madhya Pradesh">
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-map-marker-alt"></i> Address</label>
+                            <input type="text" class="form-control" placeholder="Enter address" name="address">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-ruler-combined"></i> Area</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="Enter area" name="area" min="0" step="0.01">
+                                <select class="form-select" name="areaUnit" style="max-width: 100px;">
+                                    <option value="sqft">sq ft</option>
+                                    <option value="sqm">sq m</option>
+                                    <option value="acres">acres</option>
+                                    <option value="hectares">hectares</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-search flex-grow-1">
+                            <i class="fas fa-search"></i> Search Properties
+                        </button>
+                        <button type="button" class="btn btn-reset" id="resetFilters">
+                            <i class="fas fa-undo"></i> Reset Filters
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="property-grid">
+                <% List<Properties> properties = (List<Properties>)session.getAttribute("Properties"); %>
+                <% if(properties != null && !properties.isEmpty()) { %>
+                    <% for(Properties p1 : properties) { %>
+                        <div class="property-card">
+                            <div class="property-image">
+                                <span class="property-badge <%= p1.getStatus().toString().toLowerCase() %>">
+                                    <%= p1.getStatus() %>
+                                </span>
+                                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3" alt="<%= p1.getPropertyType() %>">
+                            </div>
+                            <div class="property-info">
+                                <div class="property-price"><%= p1.getPrice() %></div>
+                                <h3 class="property-title"><%= propertyTypeDisplay.getOrDefault(p1.getPropertyType().toString(), p1.getPropertyType().toString()) %></h3>
+                                <div class="property-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <%= p1.getAddress() %>, <%= p1.getCity() %>
                                 </div>
-                                <div class="property-info">
-                                    <h3><%= propertyTypeDisplay.getOrDefault(p1.getPropertyType().toString(), p1.getPropertyType().toString()) %></h3>
-                                    <p>
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <%= p1.getAddress() %>, <%= p1.getCity() %>
-                                    </p>
-                                    <div class="property-features">
-                                        <% if (p1.getArea() != null && p1.getArea() > 0) { %>
-                                            <span class="feature">
-                                                <i class="fas fa-ruler-combined"></i>
-                                                <%= p1.getArea() %> <%= p1.getAreaUnit() %>
-                                            </span>
-                                        <% } %>
-                                    </div>
-                                    <div class="property-actions">
-                                        <button class="btn btn-primary"  onclick="ajaxRedirectOnHover(<%= p1.getId() %>)">View Details</button>
-                                        <button class="btn btn-outline">Contact Agent</button>
-                                    </div>
+                                <div class="property-features">
+                                    <% if (p1.getArea() != null && p1.getArea() > 0) { %>
+                                        <span class="feature">
+                                            <i class="fas fa-ruler-combined"></i>
+                                            <%= p1.getArea() %> <%= p1.getAreaUnit() %>
+                                        </span>
+                                    <% } %>
+                                </div>
+                                <div class="property-actions">
+                                    <button class="btn btn-primary" data-property-id="<%= p1.getId() %>">
+                                        <i class="fas fa-eye"></i> View Details
+                                    </button>
                                 </div>
                             </div>
-                        <% } %>
-                    <% } else { %>
-                        <div class="no-properties">
-                            <i class="fas fa-home fa-3x"></i>
-                            <h3>No Properties Found</h3>
-                            <p>There are no properties available matching your criteria.</p>
                         </div>
                     <% } %>
-                </div>
+                <% } else { %>
+                    <div class="no-properties">
+                        <i class="fas fa-home"></i>
+                        <h3>No Properties Found</h3>
+                        <p>There are no properties available matching your criteria.</p>
+                    </div>
+                <% } %>
             </div>
         </div>
     </div>
@@ -609,31 +1011,106 @@
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
     <script>
 $(document).ready(function() {
-        // Handle page refresh
+    // Handle search form submission
+    $('#propertyFilter').on('submit', function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        $('.btn-search').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Searching...');
+        
+        // Get form data
+        var formData = $(this).serialize();
+        
+        // Make AJAX call
+        $.ajax({
+            url: '${pageContext.request.contextPath}/user/properties/filter',
+            type: 'GET',
+            data: formData,
+            success: function(response) {
+                // Update the property grid with new results
+                $('.property-grid').html($(response).find('.property-grid').html());
+                
+                // Reinitialize any necessary event handlers
+                initializeEventHandlers();
+            },
+            error: function(xhr, status, error) {
+                alert('Error occurred while searching properties. Please try again.');
+            },
+            complete: function() {
+                // Reset button state
+                $('.btn-search').prop('disabled', false).html('<i class="fas fa-search"></i> Search Properties');
+            }
+        });
+    });
+
+    // Handle property details click
+    function initializeEventHandlers() {
+        $('.property-actions .btn-primary').off('click').on('click', function(e) {
+            e.preventDefault();
+            var propertyId = $(this).data('property-id');
+            
+            // Show loading state
+            $(this).prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Loading...');
+            
+            // Make AJAX call
+            $.ajax({
+                url: '${pageContext.request.contextPath}/user/property',
+                method: 'GET',
+                success: function(response) {
+                    if (response.trim() === 'go') {
+                        window.location.href = '${pageContext.request.contextPath}/user/property-details/' + propertyId;
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Error occurred while loading property details. Please try again.');
+                    // Reset button state
+                    $(this).prop('disabled', false).html('<i class="fas fa-eye"></i> View Details');
+                }
+            });
+        });
+    }
+
+    // Initialize event handlers on page load
+    initializeEventHandlers();
+
+    // Handle page refresh
     $(window).on('beforeunload', function() {
         // Clear any filter results from session
         $.ajax({
-            url: '${pageContext.request.contextPath}/user/dashboard',
+            url: '${pageContext.request.contextPath}/user/properties',
             type: 'GET',
             async: false
         });
     });
 
-    // Handle property details click
-    window.ajaxRedirectOnHover = function(propertyId) {
+    // Handle reset filters button
+    $('#resetFilters').on('click', function() {
+        // Show loading state
+        $(this).prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Resetting...');
+        
+        // Reset all form fields
+        $('#propertyFilter')[0].reset();
+        
+        // Make AJAX call to get all properties
         $.ajax({
-            url: '${pageContext.request.contextPath}/user/property',
-            method: 'GET',
+            url: '${pageContext.request.contextPath}/user/properties',
+            type: 'GET',
             success: function(response) {
-                if (response.trim() === 'go') {
-                    window.location.href = '${pageContext.request.contextPath}/user/property-details/' + propertyId;
-                }
+                // Update the property grid with all properties
+                $('.property-grid').html($(response).find('.property-grid').html());
+                
+                // Reinitialize event handlers
+                initializeEventHandlers();
             },
             error: function(xhr, status, error) {
-                alert("Something went wrong with the AJAX call.");
+                alert('Error occurred while resetting filters. Please try again.');
+            },
+            complete: function() {
+                // Reset button state
+                $('#resetFilters').prop('disabled', false).html('<i class="fas fa-undo"></i> Reset Filters');
             }
         });
-    };
+    });
 });
 </script>
 
