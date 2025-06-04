@@ -13,21 +13,23 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/newcss.css">
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            --secondary-gradient: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            --success-gradient: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-            --warning-gradient: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
-            --danger-gradient: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ffffff;
         }
 
         body {
-            background-color: #f8f9fa;
+            background-color: var(--light-bg);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding-top: 80px;
         }
 
+        /* Navigation Styles */
         .navbar {
-            background: var(--primary-gradient) !important;
+            background: white !important;
             box-shadow: 0 2px 15px rgba(0,0,0,0.1);
             padding: 0.8rem 0;
             position: fixed;
@@ -43,63 +45,75 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: var(--primary-color) !important;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
         }
 
         .navbar-brand i {
             font-size: 1.8rem;
-            color: #fff;
-        }
-
-        .navbar-brand span {
-            color: #fff;
-        }
-
-        .navbar-nav {
-            gap: 0.5rem;
-        }
-
-        .nav-item {
-            position: relative;
+            color: var(--primary-color);
         }
 
         .nav-link {
-            color: rgba(255, 255, 255, 0.9) !important;
+            color: var(--dark-text) !important;
             font-weight: 500;
-            padding: 0.5rem 1rem !important;
+            padding: 0.8rem 1.2rem !important;
             border-radius: 8px;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            margin: 0 0.2rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .nav-link i {
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff !important;
-            transform: translateY(-2px);
-        }
-
-        .nav-link.active {
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff !important;
-        }
-
-        .nav-link.active::after {
+        .nav-link::before {
             content: '';
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 30px;
-            height: 3px;
-            background: #fff;
-            border-radius: 3px;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--light-bg);
+            transform: translateY(-2px);
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link:hover::before {
+            width: 80%;
+        }
+
+        .nav-link.active {
+            background: var(--light-bg);
+            font-weight: 600;
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link.active::before {
+            width: 80%;
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+            color: var(--primary-color);
+        }
+
+        .nav-link:hover i {
+            transform: scale(1.1);
         }
 
         .navbar-toggler {
@@ -113,22 +127,24 @@
         }
 
         .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2852, 152, 219, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
 
         @media (max-width: 991.98px) {
             .navbar-collapse {
-                background: var(--primary-gradient);
+                background: white;
                 padding: 1rem;
                 border-radius: 10px;
                 margin-top: 1rem;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             }
 
             .nav-link {
                 padding: 0.8rem 1rem !important;
+                margin: 0.2rem 0;
             }
 
-            .nav-link.active::after {
+            .nav-link::before {
                 display: none;
             }
         }
@@ -139,7 +155,7 @@
         }
 
         .section-title {
-            color: #2c3e50;
+            color: var(--dark-text);
             font-weight: 700;
             font-size: 2rem;
             margin-bottom: 1.5rem;
@@ -162,7 +178,7 @@
         .stat-value {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #2c3e50;
+            color: var(--dark-text);
             margin-bottom: 0.5rem;
         }
 
@@ -173,7 +189,7 @@
         }
 
         .add-property-btn {
-            background: var(--primary-gradient);
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             border: none;
             padding: 12px 25px;
             border-radius: 10px;
@@ -205,8 +221,8 @@
         }
 
         .form-control:focus, .form-select:focus {
-            box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15);
-            border-color: #2c3e50;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15);
+            border-color: var(--primary-color);
         }
 
         .card {
@@ -228,7 +244,7 @@
 
         .table th {
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--dark-text);
             border-top: none;
         }
 
@@ -261,7 +277,7 @@
         }
 
         .modal-header {
-            background: var(--primary-gradient);
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
             color: white;
             border-radius: 15px 15px 0 0;
             padding: 1.5rem;
@@ -277,69 +293,18 @@
 
         .form-label {
             font-weight: 500;
-            color: #2c3e50;
+            color: var(--dark-text);
             margin-bottom: 0.5rem;
         }
 
         .input-group-text {
-            background: #f8f9fa;
+            background: var(--light-bg);
             border: 1px solid #e0e0e0;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/agent/dashboard">
-                <i class="fas fa-user-tie"></i>
-                <span>Agent Portal</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/agent/dashboard">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/agent/properties">
-                            <i class="fas fa-building"></i>
-                            <span>My Properties</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/agent/clients">
-                            <i class="fas fa-users"></i>
-                            <span>Clients</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/agent/appointments">
-                            <i class="fas fa-calendar-check"></i>
-                            <span>Appointments</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/profile">
-                            <i class="fas fa-user-circle"></i>
-                            <span>Profile</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/login">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <jsp:include page="/WEB-INF/views/common/nav-agent.jsp" />
 
     <div class="dashboard-container">
         <div class="container">

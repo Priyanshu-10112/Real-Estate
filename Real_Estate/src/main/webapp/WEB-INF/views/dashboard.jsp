@@ -12,28 +12,140 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #34495e;
-            --accent-color: #3498db;
-            --light-gray: #f8f9fa;
-            --dark-gray: #343a40;
-            --success-color: #2ecc71;
-            --warning-color: #f1c40f;
-            --danger-color: #e74c3c;
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #ffffff;
         }
 
         body {
-            background-color: var(--light-gray);
+            background-color: var(--light-bg);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 80px;
         }
 
+        /* Navigation Styles */
         .navbar {
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%) !important;
+            background: white !important;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding: 0.8rem 0;
             position: fixed;
+            width: 100%;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color) !important;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .navbar-brand i {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .nav-link {
+            color: var(--dark-text) !important;
+            font-weight: 500;
+            padding: 0.8rem 1.2rem !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            margin: 0 0.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--light-bg);
+            transform: translateY(-2px);
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link:hover::before {
+            width: 80%;
+        }
+
+        .nav-link.active {
+            background: var(--light-bg);
+            font-weight: 600;
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link.active::before {
+            width: 80%;
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+            color: var(--primary-color);
+        }
+
+        .nav-link:hover i {
+            transform: scale(1.1);
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2852, 152, 219, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: white;
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 1rem;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+
+            .nav-link {
+                padding: 0.8rem 1rem !important;
+                margin: 0.2rem 0;
+            }
+
+            .nav-link::before {
+                display: none;
+            }
         }
 
         .dashboard-container {
@@ -41,16 +153,19 @@
             padding: 20px 0;
         }
 
-        .dashboard-header {
-            background: none !important;
+        .section-title {
+            color: var(--dark-text);
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .dashboard-stats {
             background: white;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 1.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: transform 0.3s ease;
         }
 
@@ -61,13 +176,13 @@
         .stat-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: var(--accent-color);
+            color: var(--primary-color);
         }
 
         .stat-value {
             font-size: 2rem;
             font-weight: bold;
-            color: var(--primary-color);
+            color: var(--dark-text);
         }
 
         .stat-label {
@@ -77,23 +192,26 @@
 
         .property-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 24px rgba(44,62,80,0.10);
-            transition: box-shadow 0.3s, transform 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             margin-bottom: 2rem;
         }
+
         .property-card:hover {
-            box-shadow: 0 8px 32px rgba(44,62,80,0.18);
-            transform: translateY(-4px) scale(1.01);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
+
         .property-image {
             position: relative;
             height: 220px;
-            background: #f3f3f3;
+            background: var(--light-bg);
         }
+
         .property-fav {
             position: absolute;
             top: 1.2rem;
@@ -104,38 +222,47 @@
             cursor: pointer;
             transition: color 0.2s;
         }
+
         .property-fav.favorited {
-            color: #e74c3c;
+            color: var(--accent-color);
         }
+
         .property-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
+
         .property-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0; height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             pointer-events: none;
         }
+
         .property-overlay-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             padding: 1.2rem 1.2rem 0 1.2rem;
         }
+
         .property-price {
             background: rgba(255,255,255,0.92);
-            color: var(--primary-color);
+            color: var(--dark-text);
             font-size: 1.5rem;
             font-weight: 700;
             border-radius: 12px;
             padding: 0.4rem 1.2rem;
-            box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
+
         .property-status {
             background: rgba(255,255,255,0.92);
             color: #888;
@@ -143,8 +270,9 @@
             font-weight: 600;
             border-radius: 20px;
             padding: 0.3rem 1.2rem;
-            box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
+
         .property-info {
             padding: 2rem 2rem 1.2rem 2rem;
             flex: 1;
@@ -152,12 +280,14 @@
             flex-direction: column;
             gap: 0.7rem;
         }
+
         .property-info h3 {
             font-size: 2rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--dark-text);
             margin: 0 0 0.5rem 0;
         }
+
         .property-info p {
             color: var(--secondary-color);
             margin: 0;
@@ -166,57 +296,111 @@
             gap: 0.5rem;
             font-size: 1.1rem;
         }
+
         .property-features {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin: 1rem 0 0.5rem 0;
         }
+
         .feature {
             display: flex;
             align-items: center;
             gap: 0.4rem;
             color: var(--secondary-color);
             font-size: 1.1rem;
-            background: #f3f6fa;
+            background: var(--light-bg);
             border-radius: 6px;
             padding: 0.2rem 0.7rem;
         }
+
         .feature i {
-            color: var(--accent-color);
+            color: var(--primary-color);
             font-size: 1.2rem;
         }
+
         .property-actions {
             display: flex;
             gap: 1.2rem;
             margin-top: 1.2rem;
         }
+
         .property-actions .btn {
             flex: 1;
             border-radius: 2rem;
             font-size: 1.15rem;
             font-weight: 500;
             padding: 0.9rem 0;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 8px rgba(44,62,80,0.06);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
+
         .property-actions .btn-primary {
             background: var(--primary-color);
-            color: #fff;
+            color: var(--light-text);
             border: none;
         }
+
         .property-actions .btn-primary:hover {
-            background: var(--accent-color);
+            background: #2980b9;
+            transform: translateY(-2px);
         }
+
         .property-actions .btn-outline {
-            background: #fff;
+            background: white;
             color: var(--primary-color);
             border: 2px solid var(--primary-color);
         }
+
         .property-actions .btn-outline:hover {
             background: var(--primary-color);
-            color: #fff;
+            color: var(--light-text);
+            transform: translateY(-2px);
         }
+
+        .filter-left {
+            margin-left: 0 !important;
+            margin-right: auto !important;
+            width: auto !important;
+        }
+
+        .filter-card-left {
+            margin-left: 0 !important;
+            margin-right: auto !important;
+            width: auto !important;
+            max-width: none !important;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .btn-search {
+            background: var(--primary-color);
+            color: var(--light-text);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-search:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 768px) {
             .property-info {
                 padding: 1.2rem 1rem 1rem 1rem;
@@ -235,97 +419,10 @@
                 gap: 0.7rem;
             }
         }
-        .loading {
-            position: relative;
-            min-height: 200px;
-        }
-
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 40px;
-            height: 40px;
-            margin: -20px 0 0 -20px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .filter-left {
-            margin-left: 0 !important;
-            margin-right: auto !important;
-            width: auto !important;
-        }
-
-        .filter-card-left {
-            margin-left: 0 !important;
-            margin-right: auto !important;
-            width: auto !important;
-            max-width: none !important;
-        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/user/dashboard">
-                <i class="fas fa-home"></i>
-                <span>My Dashboard</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/user/dashboard">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/user/favorites">
-                            <i class="fas fa-heart"></i>
-                            <span>Favorites</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/user/appointments">
-                            <i class="fas fa-calendar-check"></i>
-                            <span>Appointments</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/user/messages">
-                            <i class="fas fa-envelope"></i>
-                            <span>Messages</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/profile">
-                            <i class="fas fa-user-circle"></i>
-                            <span>Profile</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/login">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <jsp:include page="/WEB-INF/views/common/nav-user.jsp" />
 
     <div class="dashboard-container">
         <div class="container">
