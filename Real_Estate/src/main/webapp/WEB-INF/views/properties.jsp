@@ -474,6 +474,13 @@
             z-index: 1;
         }
 
+        .property-price .rupee-symbol {
+             font-size: 1.4rem;
+             font-weight: 400; /* Make it less bold than the number */
+             vertical-align: top;
+             margin-right: 0.2rem;
+        }
+
         .property-price .amount {
             display: block;
         }
@@ -926,30 +933,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label"><i class="fas fa-city"></i> City</label>
-                            <input type="text" class="form-control" placeholder="Enter City" name="city" list="cityList">
-                            <datalist id="cityList">
-                                <!-- Madhya Pradesh Cities -->
-                                <option value="Indore, Madhya Pradesh">
-                                <option value="Bhopal, Madhya Pradesh">
-                                <option value="Jabalpur, Madhya Pradesh">
-                                <option value="Gwalior, Madhya Pradesh">
-                                <option value="Ujjain, Madhya Pradesh">
-                                <option value="Sagar, Madhya Pradesh">
-                                <option value="Dewas, Madhya Pradesh">
-                                <option value="Satna, Madhya Pradesh">
-                                <option value="Ratlam, Madhya Pradesh">
-                                <option value="Rewa, Madhya Pradesh">
-                                <option value="Murwara, Madhya Pradesh">
-                                <option value="Singrauli, Madhya Pradesh">
-                                <option value="Burhanpur, Madhya Pradesh">
-                                <option value="Khandwa, Madhya Pradesh">
-                                <option value="Morena, Madhya Pradesh">
-                                <option value="Bhind, Madhya Pradesh">
-                                <option value="Chhindwara, Madhya Pradesh">
-                                <option value="Guna, Madhya Pradesh">
-                                <option value="Shivpuri, Madhya Pradesh">
-                                <option value="Vidisha, Madhya Pradesh">
-                            </datalist>
+                            <input type="text" class="form-control" placeholder="Enter City" name="city">
                         </div>
                         <div class="form-group">
                             <label class="form-label"><i class="fas fa-map-marker-alt"></i> Address</label>
