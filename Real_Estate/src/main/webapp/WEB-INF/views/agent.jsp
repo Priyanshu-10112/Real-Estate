@@ -468,6 +468,7 @@
                                             <th>Status</th>
                                             <th>Address</th>
                                             <th>City</th>
+                                            <th>State</th>
                                             <th>Area</th>
                                             <th>Agent</th>
                                             <th>Actions</th>
@@ -485,6 +486,7 @@
                                                 <td><span class="property-status status-<%= p1.getStatus().toString().toLowerCase() %>"><%= p1.getStatus() %></span></td>
                                                 <td><%= p1.getAddress() %></td>
                                                 <td><%= p1.getCity() %></td>
+                                                <td><%= p1.getState() %></td>
                                                 <td><%= p1.getArea()%>  <%=p1.getAreaUnit()%></td>
                                                 <td><%= p1.getUser_id().getEmail() %></td>                                            
                                                 <td>
@@ -566,32 +568,36 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                    <label class="form-label">City</label>
-                                    <input type="text" class="form-control" placeholder="Enter City" name="city" list="cityList">
-                                    <datalist id="cityList">
-                                        <!-- Madhya Pradesh Cities -->
-                                        <option value="Indore, Madhya Pradesh">
-                                        <option value="Bhopal, Madhya Pradesh">
-                                        <option value="Jabalpur, Madhya Pradesh">
-                                        <option value="Gwalior, Madhya Pradesh">
-                                        <option value="Ujjain, Madhya Pradesh">
-                                        <option value="Sagar, Madhya Pradesh">
-                                        <option value="Dewas, Madhya Pradesh">
-                                        <option value="Satna, Madhya Pradesh">
-                                        <option value="Ratlam, Madhya Pradesh">
-                                        <option value="Rewa, Madhya Pradesh">
-                                        <option value="Murwara, Madhya Pradesh">
-                                        <option value="Singrauli, Madhya Pradesh">
-                                        <option value="Burhanpur, Madhya Pradesh">
-                                        <option value="Khandwa, Madhya Pradesh">
-                                        <option value="Morena, Madhya Pradesh">
-                                        <option value="Bhind, Madhya Pradesh">
-                                        <option value="Chhindwara, Madhya Pradesh">
-                                        <option value="Guna, Madhya Pradesh">
-                                        <option value="Shivpuri, Madhya Pradesh">
-                                        <option value="Vidisha, Madhya Pradesh">
-                                    </datalist>
-                                </div>
+                                <label class="form-label">City</label>
+                                <input type="text" class="form-control" placeholder="Enter City" name="city" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">State</label>
+                                <select class="form-select" name="state" required>
+                                    <option value="">Select State</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Uttarakhand">Uttarakhand</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Jharkhand">Jharkhand</option>
+                                    <option value="West Bengal">West Bengal</option>
+                                    <option value="Odisha">Odisha</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Goa">Goa</option>
+                                </select>
+                            </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Zip Code</label>
                                 <input type="text" name="zipCode" class="form-control" required>

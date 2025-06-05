@@ -62,7 +62,7 @@
     .navbar {
         background: white;
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        padding: 0.5rem 0;
+        padding: 0.8rem 0;
         position: fixed;
         top: 0;
         left: 0;
@@ -86,13 +86,16 @@
     .nav-link {
         color: #2c3e50 !important;
         font-weight: 500;
-        padding: 0.4rem 0.7rem !important;
-        transition: color 0.3s ease;
+        padding: 0.5rem 0.8rem !important;
+        transition: all 0.3s ease;
         white-space: nowrap;
         font-size: 0.9rem;
+        border-radius: 6px;
+        margin: 0 0.2rem;
     }
     .nav-link:hover {
         color: #3498db !important;
+        background: #f8f9fa;
     }
     .nav-link i {
         margin-right: 0.3rem;
@@ -145,22 +148,28 @@
     @media (max-width: 991.98px) {
         .navbar-collapse {
             background: white;
-            padding: 0.5rem;
+            padding: 1rem;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-top: 0.5rem;
-            max-height: calc(100vh - 60px);
+            margin-top: 0.8rem;
+            max-height: calc(100vh - 70px);
             overflow-y: auto;
         }
         .nav-link {
-            padding: 0.5rem 0.7rem !important;
-            border-radius: 5px;
+            padding: 0.7rem 1rem !important;
+            border-radius: 6px;
+            margin: 0.2rem 0;
         }
         .nav-link:hover {
             background: #f8f9fa;
         }
         .navbar-nav {
             margin-bottom: 0;
+        }
+        .nav-item:last-child .nav-link {
+            margin-top: 0.5rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem !important;
         }
     }
 </style> 

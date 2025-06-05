@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.example.Real_Estate.entity.User,java.util.List,com.example.Real_Estate.entity.Properties" %>
+<%@ page import="com.example.Real_Estate.entity.User,java.util.List,com.example.Real_Estate.entity.Properties, java.text.NumberFormat, java.util.Locale" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -402,6 +402,7 @@
             display: flex;
             flex-direction: column;
             border: 1px solid rgba(0,0,0,0.1);
+            height: 100%; /* Ensure cards in a grid have equal height */
         }
 
         .property-card:hover {
@@ -413,6 +414,7 @@
             position: relative;
             height: 280px;
             overflow: hidden;
+            flex-shrink: 0; /* Prevent image from shrinking */
         }
 
         .property-image img {
@@ -445,31 +447,45 @@
         .property-badge.sold { background: #e74c3c; }
         .property-badge.pre-launch { background: #9b59b6; }
 
+        .property-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-height: 0;
+            margin-top: 0;
+        }
+
         .property-price {
             font-size: 2.2rem;
             font-weight: 700;
             color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
+            margin-bottom: 1rem;
+            display: block;
             background: var(--light-bg);
-            padding: 1rem 1.5rem;
+            padding: 0.8rem 1.2rem;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            word-break: break-all;
+            overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
+        }
+
+        .property-price .amount {
+            display: block;
         }
 
         .property-price::before {
-            content: '₹';
-            font-size: 1.4rem;
-            font-weight: 500;
-            opacity: 0.8;
+            content: none;
         }
 
         .property-price::after {
             content: '';
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 300;
             color: var(--secondary-color);
             opacity: 0.7;
             margin-left: 0.5rem;
@@ -479,13 +495,14 @@
             font-size: 1.6rem;
             font-weight: 700;
             color: var(--dark-text);
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem; /* Reduced margin */
             line-height: 1.4;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
             font-family: 'Poppins', sans-serif;
+            margin-top: 0;
+            word-break: break-word;
         }
 
         .property-location {
@@ -494,10 +511,11 @@
             gap: 0.8rem;
             color: var(--secondary-color);
             font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
+            margin-bottom: 1rem; /* Reduced margin */
+            padding-bottom: 1rem; /* Reduced padding */
             border-bottom: 1px solid rgba(0,0,0,0.1);
             font-family: 'Inter', sans-serif;
+            word-break: break-word;
         }
 
         .property-location i {
@@ -509,7 +527,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
-            margin: 1.5rem 0;
+            margin: 1rem 0; /* Reduced vertical margin */
         }
 
         .feature {
@@ -544,9 +562,10 @@
         .property-actions {
             display: flex;
             justify-content: center;
-            margin-top: auto;
+            margin-top: auto; /* This pushes the actions to the bottom */
             padding-top: 1.5rem;
             border-top: 1px solid rgba(0,0,0,0.1);
+            flex-shrink: 0;
         }
 
         .property-actions .btn {
@@ -860,7 +879,7 @@
                     <i class="fas fa-filter"></i>
                     <h2 class="filter-title">Search Properties</h2>
                 </div>
-                <form id="propertyFilter" action="${pageContext.request.contextPath}/user/properties/filter" method="GET">
+                <form id="propertyFilter" action="${pageContext.request.contextPath}/user/properties/filter" method="POST">
                     <div class="filter-grid">
                         <div class="form-group">
                             <label class="form-label"><i class="fas fa-tag"></i> Price Range</label>
@@ -972,7 +991,15 @@
                                 <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3" alt="<%= p1.getPropertyType() %>">
                             </div>
                             <div class="property-info">
-                                <div class="property-price"><%= p1.getPrice() %></div>
+                                <div class="property-price">
+                                    <% 
+                                        long priceValue = p1.getPrice();
+                                        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
+                                        formatter.setMaximumFractionDigits(0);
+                                        String formattedPrice = formatter.format(priceValue);
+                                    %>
+                                    <span class="rupee-symbol">₹</span><%= formattedPrice.replace("₹", "").trim() %>
+                                </div>
                                 <h3 class="property-title"><%= propertyTypeDisplay.getOrDefault(p1.getPropertyType().toString(), p1.getPropertyType().toString()) %></h3>
                                 <div class="property-location">
                                     <i class="fas fa-map-marker-alt"></i>
@@ -1011,6 +1038,11 @@
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
     <script>
 $(document).ready(function() {
+    // Reset all button states on page load
+    $('.property-actions .btn-primary').each(function() {
+        $(this).prop('disabled', false).html('<i class="fas fa-eye"></i> View Details');
+    });
+
     // Handle search form submission
     $('#propertyFilter').on('submit', function(e) {
         e.preventDefault();
@@ -1024,7 +1056,7 @@ $(document).ready(function() {
         // Make AJAX call
         $.ajax({
             url: '${pageContext.request.contextPath}/user/properties/filter',
-            type: 'GET',
+            type: 'POST',
             data: formData,
             success: function(response) {
                 // Update the property grid with new results
@@ -1048,25 +1080,7 @@ $(document).ready(function() {
         $('.property-actions .btn-primary').off('click').on('click', function(e) {
             e.preventDefault();
             var propertyId = $(this).data('property-id');
-            
-            // Show loading state
-            $(this).prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Loading...');
-            
-            // Make AJAX call
-            $.ajax({
-                url: '${pageContext.request.contextPath}/user/property',
-                method: 'GET',
-                success: function(response) {
-                    if (response.trim() === 'go') {
-                        window.location.href = '${pageContext.request.contextPath}/user/property-details/' + propertyId;
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert('Error occurred while loading property details. Please try again.');
-                    // Reset button state
-                    $(this).prop('disabled', false).html('<i class="fas fa-eye"></i> View Details');
-                }
-            });
+            window.location.href = '${pageContext.request.contextPath}/user/property-details/' + propertyId;
         });
     }
 
