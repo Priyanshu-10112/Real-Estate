@@ -2,8 +2,8 @@ package com.example.Real_Estate.dto;
 
 import com.example.Real_Estate.entity.PropertyStatus;
 import com.example.Real_Estate.entity.PropertyType;
-import com.example.Real_Estate.entity.User;
-import jakarta.persistence.*;
+//import com.example.Real_Estate.entity.User;
+//import jakarta.persistence.*;
 
 public class PropertyDto {
 

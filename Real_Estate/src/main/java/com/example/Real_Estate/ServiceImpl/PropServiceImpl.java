@@ -1,7 +1,7 @@
 package com.example.Real_Estate.ServiceImpl;
 
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 
 import com.example.Real_Estate.dto.PropertyDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +34,9 @@ public class PropServiceImpl implements PropService{
 	@Override
 	public Properties findById(Long id){
 		return p1.findById(id).get();
+	}
+	@Override
+	public List<Properties> findByEmail(String email){
+		return p1.findByEmail(email);
 	}
 }

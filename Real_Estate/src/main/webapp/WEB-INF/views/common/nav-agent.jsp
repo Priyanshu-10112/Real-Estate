@@ -18,14 +18,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/properties">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/agent/agent-properties">
                         <i class="fas fa-building"></i>
-                        <span>Properties</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/agent/my-properties">
-                        <i class="fas fa-home"></i>
                         <span>My Properties</span>
                     </a>
                 </li>

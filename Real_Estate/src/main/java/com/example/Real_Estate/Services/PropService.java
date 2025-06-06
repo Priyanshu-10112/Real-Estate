@@ -11,4 +11,5 @@ public interface PropService {
 	public List<Properties> findAllProperties();
 	public List<Properties> findByFilter(PropertyDto propertyDto);
 	public Properties findById(Long id);
+	List<Properties> findByEmail(String email);
 }

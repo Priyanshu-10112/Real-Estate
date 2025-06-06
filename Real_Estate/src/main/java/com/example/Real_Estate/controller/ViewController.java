@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.Real_Estate.ServiceImpl.PropServiceImpl;
+//import com.example.Real_Estate.ServiceImpl.PropServiceImpl;
 import com.example.Real_Estate.ServiceImpl.UServiceImpl;
 import com.example.Real_Estate.entity.User;
 import com.example.Real_Estate.entity.UserRole;
@@ -22,8 +22,8 @@ public class ViewController {
 	private UServiceImpl u1;
 	
 	
-	@Autowired
-	private PropServiceImpl p1;
+	// @Autowired
+	// private PropServiceImpl p1;
 
 	@RequestMapping("/")
 	public String index() {
@@ -78,7 +78,7 @@ public class ViewController {
 		return "profile";
 	}
 	@RequestMapping("/logout")
-	public String logout() {
+	public String logout(HttpSession session) {
 		return "login";
 	}
 }

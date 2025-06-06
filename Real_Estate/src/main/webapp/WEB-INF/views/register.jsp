@@ -9,48 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/newcss.css">
     <style>
-        .navbar {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 1rem 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-        }
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #2c3e50;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .navbar-brand i {
-            color: #3498db;
-        }
-        .nav-link {
-            color: #2c3e50 !important;
-            font-weight: 500;
-            padding: 0.5rem 1rem !important;
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover {
-            color: #3498db !important;
-        }
-        .nav-link i {
-            margin-right: 0.5rem;
-            color: #3498db;
-        }
         .register-container {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 6rem 2rem 2rem;
+            padding: 2rem;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            margin-top: 0;
         }
         .register-card {
             background: white;
@@ -59,11 +24,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 500px;
-            transition: transform 0.3s ease;
-            margin-top: 0;
-        }
-        .register-card:hover {
-            transform: translateY(-5px);
         }
         .register-header {
             text-align: center;
@@ -75,11 +35,6 @@
             font-size: 2rem;
             margin-bottom: 0.8rem;
         }
-        .register-header p {
-            color: #6c757d;
-            font-size: 1.1rem;
-            margin-bottom: 0;
-        }
         .form-group {
             margin-bottom: 1.5rem;
         }
@@ -87,23 +42,16 @@
             color: #2c3e50;
             font-weight: 500;
             margin-bottom: 0.6rem;
-            display: block;
         }
         .form-control {
             border-radius: 8px;
             padding: 0.75rem 1rem;
             border: 2px solid #e9ecef;
-            font-size: 1rem;
             transition: all 0.3s ease;
-            height: auto;
         }
-        .form-select {
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            border: 2px solid #e9ecef;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            height: auto;
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
         }
         .btn-register {
             background: #3498db;
@@ -113,14 +61,11 @@
             border-radius: 8px;
             font-weight: 600;
             width: 100%;
-            margin-top: 0.5rem;
             transition: all 0.3s ease;
-            font-size: 1.05rem;
         }
         .btn-register:hover {
             background: #2980b9;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         .login-link {
             text-align: center;
@@ -128,67 +73,16 @@
             padding-top: 1.5rem;
             border-top: 1px solid #e9ecef;
         }
-        .login-link p {
-            margin-bottom: 0;
-            color: #6c757d;
-        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/">
-                <i class="fas fa-home"></i>
-                <span>EstateAura</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/">
-                            <i class="fas fa-home"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/about">
-                            <i class="fas fa-info-circle"></i>
-                            <span>About Us</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/contact">
-                            <i class="fas fa-envelope"></i>
-                            <span>Contact Us</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/login">
-                            <i class="fas fa-sign-in-alt"></i>
-                            <span>Login</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/register">
-                            <i class="fas fa-user-plus"></i>
-                            <span>Register</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <div class="register-container">
         <div class="register-card">
             <div class="register-header">
                 <h1>Create Account</h1>
                 <p class="text-muted">Join our real estate community</p>
             </div>
-            <form action="${pageContext.request.contextPath}/regis" method="post">
+            <form id="registerForm" action="\regis" method="post">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -217,7 +111,7 @@
                 </div>
                 <div class="form-group">
                     <label for="phoneNumber" class="form-label">Phone Number</label>
-                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
                 </div>
                 <div class="form-group">
                     <label for="ur" class="form-label">I am a</label>
@@ -237,9 +131,52 @@
         </div>
     </div>
 
-    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script>
+        async function handleRegister(event) {
+            event.preventDefault();
+
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return false;
+            }
+
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                password: password,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                ur: document.getElementById('ur').value
+            };
+
+            try {
+                const response = await fetch('${pageContext.request.contextPath}/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Registration successful!');
+                    window.location.href = '${pageContext.request.contextPath}/login';
+                } else {
+                    alert(data.message || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during registration');
+            }
+
+            return false;
+        }
+    </script>
 </body>
 </html> 

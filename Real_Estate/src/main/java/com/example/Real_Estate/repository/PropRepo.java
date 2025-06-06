@@ -30,4 +30,7 @@ public interface PropRepo extends JpaRepository<Properties,Long>{
         @Param("area") Double area,
         @Param("areaUnit") String areaUnit
     );
+
+    @Query("SELECT p FROM Properties p WHERE p.user_id.email = :email")
+    List<Properties> findByEmail(@Param("email") String email);
 }

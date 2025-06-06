@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.example.Real_Estate.exception.UserNotFoundException;
+//import com.example.Real_Estate.exception.UserNotFoundException;
 //import com.example.Real_Estate.utility.RequestStatus;
 
 @RestControllerAdvice
