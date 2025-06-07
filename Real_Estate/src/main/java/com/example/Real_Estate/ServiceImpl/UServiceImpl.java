@@ -52,5 +52,8 @@ public class UServiceImpl implements UserService{
 		return u1.findAll();
 	}
 
+	public User findByEmail(String email) {
+		return u1.findByEmail(email);
+	}
 	
 }

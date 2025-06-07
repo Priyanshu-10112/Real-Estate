@@ -21,7 +21,7 @@ body {
 
 .navbar {
     background: var(--card-bg) !important;
-    padding: 1.2rem 0;
+    padding: 0.8rem 0;
     box-shadow: var(--box-shadow);
     position: fixed;
     width: 100%;

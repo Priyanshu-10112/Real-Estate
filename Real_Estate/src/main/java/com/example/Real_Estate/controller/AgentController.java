@@ -51,6 +51,18 @@ public class AgentController {
 		model.addAttribute("user", user);
 		return "agent";
 	}
+	@RequestMapping("/manage-properties")
+	public String properties(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		if (user == null || user.getUr() != UserRole.AGENT) {
+			return "redirect:/login";
+		}
+		
+		List<Properties> properties = p1.findAllProperties();
+		model.addAttribute("AllProperties", properties);
+		model.addAttribute("user", user);
+		return "manage-properties";
+	}
 	@PostMapping("/properties/add")
 	public String addProperty(@ModelAttribute Properties p, HttpSession session) {
 		User loggedInUser = (User) session.getAttribute("user");

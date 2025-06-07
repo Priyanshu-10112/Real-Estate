@@ -34,12 +34,132 @@
         body {
             background-color: var(--light-bg);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding-top: 80px;
+            padding-top: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
+         /* Navigation Styles */
+         .navbar {
+            background: white !important;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding: 0.8rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
 
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color) !important;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .navbar-brand i {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .nav-link {
+            color: var(--dark-text) !important;
+            font-weight: 500;
+            padding: 0.8rem 1.2rem !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            margin: 0 0.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--light-bg);
+            transform: translateY(-2px);
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link:hover::before {
+            width: 80%;
+        }
+
+        .nav-link.active {
+            background: var(--light-bg);
+            font-weight: 600;
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link.active::before {
+            width: 80%;
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+            color: var(--primary-color);
+        }
+
+        .nav-link:hover i {
+            transform: scale(1.1);
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2852, 152, 219, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: white;
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 2rem;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+
+            .nav-link {
+                padding: 0.8rem 1rem !important;
+                margin: 0.2rem 0;
+            }
+
+            .nav-link::before {
+                display: none;
+            }
+        }
         .container {
             max-width: 1400px;
             padding: 0 2rem;
@@ -51,13 +171,14 @@
             background: var(--gradient-primary), 
                         url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3') center/cover;
             color: white;
-            padding: 4rem 0;
+            padding: 3rem 0;
             margin-bottom: 3rem;
             border-radius: 20px;
             box-shadow: var(--card-shadow);
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(5px);
+            margin-top: 80px;
         }
 
         .page-header::before {
@@ -636,17 +757,11 @@
     <jsp:include page="/WEB-INF/views/common/nav-agent.jsp" />
 
     <div class="container">
-        <div class="page-header">
+        <div class="page-header bg-light p-4 rounded shadow-sm">
             <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h1 class="mb-0">My Properties</h1>
-                    <p class="mb-0 mt-2">Manage your property listings</p>
-                </div>
-                <div class="col-md-6 text-end">
-                    <button class="btn add-property-btn" data-bs-toggle="modal" data-bs-target="#addPropertyModal">
-                        <i class="fas fa-plus"></i>
-                        Add New Property
-                    </button>
+                <div class="col-12">
+                    <h1 class="mb-2 text-primary">My Properties</h1>
+                    <p class="text-muted mb-0">Manage and track all your property listings in one place</p>
                 </div>
             </div>
         </div>
