@@ -73,6 +73,6 @@ public class AgentController {
 		
 		p.setUser_id(loggedInUser);
 		p1.add(p);
-		return "redirect:/agent/dashboard";
+		return "redirect:/agent/manage-properties";
 	}
 }

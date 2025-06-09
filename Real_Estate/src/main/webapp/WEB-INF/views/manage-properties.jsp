@@ -19,12 +19,17 @@
             --light-bg: #f8f9fa;
             --dark-text: #2c3e50;
             --light-text: #ffffff;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --hover-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            --transition: all 0.3s ease;
+            --gradient-primary: linear-gradient(135deg, #3498db, #2980b9);
+            --gradient-secondary: linear-gradient(135deg, #2c3e50, #34495e);
         }
 
         body {
             background-color: var(--light-bg);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding-top: 80px;
+            padding-top: 0;
         }
 
         /* Navigation Styles */
@@ -149,9 +154,10 @@
             }
         }
 
-        .dashboard-container {
-            margin-top: 80px;
-            padding: 20px 0;
+        .container {
+            max-width: 1400px;
+            padding: 0 2rem;
+            margin-bottom: 4rem;
         }
 
         .section-title {
@@ -161,30 +167,70 @@
             margin-bottom: 1.5rem;
         }
 
+        /* Enhanced Property Stats */
+        .property-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
         .stat-card {
             background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            height: 100%;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: var(--transition);
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
         }
 
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover i {
+            transform: scale(1.1);
+        }
+
+        .stat-card h3 {
+            font-size: 3rem;
             color: var(--dark-text);
             margin-bottom: 0.5rem;
+            font-weight: 700;
+            line-height: 1;
         }
 
-        .stat-label {
-            color: #7f8c8d;
-            font-size: 1.1rem;
+        .stat-card p {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin: 0;
             font-weight: 500;
         }
 
@@ -306,207 +352,206 @@
 <body>
     <jsp:include page="/WEB-INF/views/common/nav-agent.jsp" />
 
-    <div class="dashboard-container">
-        <div class="container">
-            <div class="row align-items-center mb-4">
-                <div class="col-md-6">
-                    <h1 class="section-title mb-0">All Properties</h1>
-                </div>
-                <div class="col-md-6 text-end">
-                    <button class="btn add-property-btn" data-bs-toggle="modal" data-bs-target="#addPropertyModal">
-                        <i class="fas fa-plus me-2"></i>Add New Property
-                    </button>
-                </div>
+    <div class="container">
+        <%
+        List<Properties> p = (List<Properties>) request.getAttribute("AllProperties");
+        User u1 = (User) request.getAttribute("user");
+        %>
+        <div class="row align-items-center mb-4 mt-5">
+            <div class="col-md-12">
+                <h1 class="section-title mb-0">Property Management</h1>
             </div>
+        </div>
 
-            <!-- Dashboard Stats -->
-            <div class="row mb-4">
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-value"></div>
-                        <div class="stat-label">Total Properties</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-value"></div>
-                        <div class="stat-label">Active Listings</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-value"></div>
-                        <div class="stat-label">Total Clients</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-value"></div>
-                        <div class="stat-label">Appointments Today</div>
-                    </div>
-                </div>
+        <!-- Dashboard Stats -->
+        <div class="property-stats">
+            <div class="stat-card">
+                <h3><i class="fas fa-home"></i><%= p != null ? p.size() : 0 %></h3>
+                <p>Total Properties</p>
             </div>
+            <div class="stat-card">
+                <h3><i class="fas fa-home"></i><%= p != null ? p.size() : 0 %></h3>
+                <p>My Properties</p>
+            </div>
+            <div class="stat-card">
+                <h3><i class="fas fa-users"></i> 0</h3>
+                <p>Total Clients</p>
+            </div>
+            <div class="stat-card">
+                <h3><i class="fas fa-calendar-check"></i> 0</h3>
+                <p>Appointments Today</p>
+            </div>
+        </div>
 
-            <!-- Search and Filters -->
-           <div class="property-filter-section filter-left">
-                <div class="filter-section mb-4">
-                    <div class="card filter-card-left">
-                        <div class="card-body">
-                            <form id="propertyFilter" action="${pageContext.request.contextPath}/user/dashboard/filter" method="GET" class="row g-2 align-items-end flex-wrap">
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">Price Range</label>
-                                    <select class="form-select" name="price">
-                                        <option value="">Any Price</option>
-                                        <option value="100000">Under ₹100,000</option>
-                                        <option value="250000">Under ₹250,000</option>
-                                        <option value="500000">Under ₹500,000</option>
-                                        <option value="1000000">Under ₹1,000,000</option>
-                                        <option value="2000000">Under ₹2,000,000</option>
-                                        <option value="5000000">Under ₹5,000,000</option>
-                                    </select>
-                                </div>
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">Property Type</label>
-                                    <select class="form-select" name="propertyType">
-                                        <option value="">All Types</option>
-                                        <option value="APARTMENT_FLAT">Apartment / Flat</option>
-                                        <option value="INDEPENDENT_HOUSE_VILLA">Independent House / Villa</option>
-                                        <option value="BUILDER_FLOOR_APARTMENT">Builder Floor Apartment</option>
-                                        <option value="STUDIO_APARTMENT">Studio Apartment</option>
-                                        <option value="PENTHOUSE">Penthouse</option>
-                                        <option value="ROW_HOUSE_TOWNHOUSE">Row House / Townhouse</option>
-                                        <option value="RESIDENTIAL_PLOT_LAND">Residential Plot / Land</option>
-                                        <option value="COMMERCIAL_OFFICE_SPACE">Commercial Office Space</option>
-                                        <option value="SHOP_SHOWROOM">Shop / Showroom</option>
-                                        <option value="WAREHOUSE_GODOWN">Warehouse / Godown</option>
-                                        <option value="INDUSTRIAL_LAND_FACTORY">Industrial Land / Factory</option>
-                                        <option value="AGRICULTURAL_LAND_FARMLAND">Agricultural Land / Farmland</option>
-                                        <option value="MIXED_USE_PROPERTY">Mixed-Use Property</option>
-                                        <option value="CO_WORKING_SPACE">Co-working Space</option>
-                                        <option value="VACANT_LAND_NON_AGRICULTURAL">Vacant Land (Non-agricultural)</option>
-                                    </select>
-                                </div>
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">Status</label>
-                                    <select class="form-select" name="status">
-                                        <option value="">All Status</option>
-                                        <option value="AVAILABLE">Available</option>
-                                        <option value="RENT">Rent</option>
-                                        <option value="PRE_LAUNCH">Pre-launch</option>
-                                        <option value="SOLD">Sold</option>
-                                    </select>
-                                </div>
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">City</label>
-                                    <input type="text" class="form-control" placeholder="Enter City" name="city" list="cityList">
-                                    <datalist id="cityList">
-                                        <!-- Madhya Pradesh Cities -->
-                                        <option value="Indore, Madhya Pradesh">
-                                        <option value="Bhopal, Madhya Pradesh">
-                                        <option value="Jabalpur, Madhya Pradesh">
-                                        <option value="Gwalior, Madhya Pradesh">
-                                        <option value="Ujjain, Madhya Pradesh">
-                                        <option value="Sagar, Madhya Pradesh">
-                                        <option value="Dewas, Madhya Pradesh">
-                                        <option value="Satna, Madhya Pradesh">
-                                        <option value="Ratlam, Madhya Pradesh">
-                                        <option value="Rewa, Madhya Pradesh">
-                                        <option value="Murwara, Madhya Pradesh">
-                                        <option value="Singrauli, Madhya Pradesh">
-                                        <option value="Burhanpur, Madhya Pradesh">
-                                        <option value="Khandwa, Madhya Pradesh">
-                                        <option value="Morena, Madhya Pradesh">
-                                        <option value="Bhind, Madhya Pradesh">
-                                        <option value="Chhindwara, Madhya Pradesh">
-                                        <option value="Guna, Madhya Pradesh">
-                                        <option value="Shivpuri, Madhya Pradesh">
-                                        <option value="Vidisha, Madhya Pradesh">
-                                    </datalist>
-                                </div>
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" placeholder="Enter address" name="address">
-                                </div>
-                                <div class="col-auto pe-3">
-                                    <label class="form-label">Area</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="Enter area" name="area" min="0" step="0.01">
-                                        <select class="form-select" name="areaUnit" style="max-width: 100px;">
-                                            <option value="sqft">sq ft</option>
-                                            <option value="sqm">sq m</option>
-                                            <option value="acres">acres</option>
-                                            <option value="hectares">hectares</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-auto d-flex align-items-end">
-                                    <button type="submit" class="btn btn-primary w-100">
-                                        <i class="fas fa-search"></i> Search
-                                    </button>
-                                </div>
-                            </form>
+        <!-- Search and Filters -->
+        <div class="filter-section mb-4 search-filters">
+            <form id="propertyFilter" action="${pageContext.request.contextPath}/user/dashboard/filter" method="GET">
+                <div class="row g-2 align-items-center">
+                    <div class="col-auto">
+                        <select class="form-select form-select-sm" name="price">
+                            <option value="">Any Price</option>
+                            <option value="100000">Under ₹100K</option>
+                            <option value="250000">Under ₹250K</option>
+                            <option value="500000">Under ₹500K</option>
+                            <option value="1000000">Under ₹1M</option>
+                            <option value="2000000">Under ₹2M</option>
+                            <option value="5000000">Under ₹5M</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <select class="form-select form-select-sm" name="propertyType">
+                            <option value="">All Types</option>
+                            <option value="APARTMENT_FLAT">Apartment</option>
+                            <option value="INDEPENDENT_HOUSE_VILLA">House/Villa</option>
+                            <option value="BUILDER_FLOOR_APARTMENT">Builder Floor</option>
+                            <option value="STUDIO_APARTMENT">Studio</option>
+                            <option value="PENTHOUSE">Penthouse</option>
+                            <option value="ROW_HOUSE_TOWNHOUSE">Row House</option>
+                            <option value="RESIDENTIAL_PLOT_LAND">Plot/Land</option>
+                            <option value="COMMERCIAL_OFFICE_SPACE">Office Space</option>
+                            <option value="SHOP_SHOWROOM">Shop</option>
+                            <option value="WAREHOUSE_GODOWN">Warehouse</option>
+                            <option value="INDUSTRIAL_LAND_FACTORY">Industrial</option>
+                            <option value="AGRICULTURAL_LAND_FARMLAND">Agricultural</option>
+                            <option value="MIXED_USE_PROPERTY">Mixed-Use</option>
+                            <option value="CO_WORKING_SPACE">Co-working</option>
+                            <option value="VACANT_LAND_NON_AGRICULTURAL">Vacant Land</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <select class="form-select form-select-sm" name="status">
+                            <option value="">All Status</option>
+                            <option value="AVAILABLE">Available</option>
+                            <option value="RENT">Rent</option>
+                            <option value="PRE_LAUNCH">Pre-launch</option>
+                            <option value="SOLD">Sold</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm" placeholder="City" name="city" list="cityList">
+                        <datalist id="cityList">
+                            <!-- Madhya Pradesh Cities -->
+                            <option value="Indore, Madhya Pradesh">
+                            <option value="Bhopal, Madhya Pradesh">
+                            <option value="Jabalpur, Madhya Pradesh">
+                            <option value="Gwalior, Madhya Pradesh">
+                            <option value="Ujjain, Madhya Pradesh">
+                            <option value="Sagar, Madhya Pradesh">
+                            <option value="Dewas, Madhya Pradesh">
+                            <option value="Satna, Madhya Pradesh">
+                            <option value="Ratlam, Madhya Pradesh">
+                            <option value="Rewa, Madhya Pradesh">
+                            <option value="Murwara, Madhya Pradesh">
+                            <option value="Singrauli, Madhya Pradesh">
+                            <option value="Burhanpur, Madhya Pradesh">
+                            <option value="Khandwa, Madhya Pradesh">
+                            <option value="Morena, Madhya Pradesh">
+                            <option value="Bhind, Madhya Pradesh">
+                            <option value="Chhindwara, Madhya Pradesh">
+                            <option value="Guna, Madhya Pradesh">
+                            <option value="Shivpuri, Madhya Pradesh">
+                            <option value="Vidisha, Madhya Pradesh">
+                        </datalist>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm" placeholder="Address" name="address">
+                    </div>
+                    <div class="col-auto">
+                        <div class="input-group input-group-sm">
+                            <input type="number" class="form-control" placeholder="Area" name="area" min="0" step="0.01">
+                            <select class="form-select" name="areaUnit">
+                                <option value="sqft">sq ft</option>
+                                <option value="sqm">sq m</option>
+                                <option value="acres">acres</option>
+                                <option value="hectares">ha</option>
+                            </select>
                         </div>
                     </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-dark btn-sm">
+                            <i class="fas fa-magnifying-glass me-1"></i>Search
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
+        </div>
 
-
-            <!-- Property List -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="mb-0">ALL Properties</h5>
+        <!-- Property List -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Property Listings</h5>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPropertyModal">
+                                <i class="fas fa-plus me-2"></i>Add New Property
+                            </button>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Property Type</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Location</th>
+                                        <th>Area</th>
+                                        <th>Agent</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(Properties p1:p){%>
                                         <tr>
-                                            <th>Property Type</th>
-                                            <th>Price</th>
-                                            <th>Status</th>
-                                            <th>Address</th>
-                                            <th>City</th>
-                                            <th>State</th>
-                                            <th>Area</th>
-                                            <th>Agent</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <%
-                                        List<Properties> p = (List<Properties>) request.getAttribute("AllProperties");
-                                        User u1 = (User) request.getAttribute("user");
-                                        %>
-                                        <% for(Properties p1:p){%>
-                                            <tr>
-                                                <td><%= p1.getPropertyType() %></td>
-                                                <td>₹ <%= p1.getPrice() %></td>
-                                                <td><span class="property-status status-<%= p1.getStatus().toString().toLowerCase() %>"><%= p1.getStatus() %></span></td>
-                                                <td><%= p1.getAddress() %></td>
-                                                <td><%= p1.getCity() %></td>
-                                                <td><%= p1.getState() %></td>
-                                                <td><%= p1.getArea()%>  <%=p1.getAreaUnit()%></td>
-                                                <td><%= p1.getUser_id().getEmail() %></td>                                            
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-sm btn-outline-primary" title="Edit">
-                                                            Edit
-                                                        </button>
-                                                        <button class="btn btn-sm btn-outline-info" title="View">
-                                                            View
-                                                        </button>
-                                                        <button class="btn btn-sm btn-outline-danger" title="Delete">
-                                                            Delete
-                                                        </button>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-home me-2 text-primary"></i>
+                                                    <%= p1.getPropertyType() %>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="fw-bold">₹ <%= p1.getPrice() %></div>
+                                            </td>
+                                            <td>
+                                                <span class="property-status status-<%= p1.getStatus().toString().toLowerCase() %>">
+                                                    <%= p1.getStatus() %>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="location-info">
+                                                    <div class="text-truncate" style="max-width: 200px;">
+                                                        <i class="fas fa-map-marker-alt me-1 text-danger"></i>
+                                                        <%= p1.getAddress() %>
                                                     </div>
-                                                </td>
-                                            </tr>
-                                        <% } %>
-                                    </tbody>
-                                </table>
-                            </div>
+                                                    <small class="text-muted">
+                                                        <%= p1.getCity() %>, <%= p1.getState() %>
+                                                    </small>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="area-info">
+                                                    <span class="fw-bold"><%= p1.getArea()%></span>
+                                                    <small class="text-muted"><%=p1.getAreaUnit()%></small>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="agent-info">
+                                                    <i class="fas fa-user-tie me-1 text-primary"></i>
+                                                    <%= p1.getUser_id().getEmail() %>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="${pageContext.request.contextPath}/agent/properties/view/<%= p1.getId() %>" 
+                                                   class="btn btn-outline-primary btn-sm">
+                                                    <i class="fas fa-eye me-1"></i>View Details
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
