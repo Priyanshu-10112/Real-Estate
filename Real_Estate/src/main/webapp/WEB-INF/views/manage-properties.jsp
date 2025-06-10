@@ -24,147 +24,15 @@
             --transition: all 0.3s ease;
             --gradient-primary: linear-gradient(135deg, #3498db, #2980b9);
             --gradient-secondary: linear-gradient(135deg, #2c3e50, #34495e);
+            --transition: all 0.3s ease;
+            --border-radius: 16px;
+            --section-spacing: 2.5rem;
         }
 
         body {
             background-color: var(--light-bg);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding-top: 0;
-        }
-
-        /* Navigation Styles */
-        .navbar {
-            background: white !important;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-            padding: 0.8rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary-color) !important;
-            transition: all 0.3s ease;
-        }
-
-        .navbar-brand:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-        }
-
-        .navbar-brand i {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-        }
-
-        .nav-link {
-            color: var(--dark-text) !important;
-            font-weight: 500;
-            padding: 0.8rem 1.2rem !important;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
-            margin: 0 0.2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background: var(--light-bg);
-            transform: translateY(-2px);
-            color: var(--primary-color) !important;
-        }
-
-        .nav-link:hover::before {
-            width: 80%;
-        }
-
-        .nav-link.active {
-            background: var(--light-bg);
-            font-weight: 600;
-            color: var(--primary-color) !important;
-        }
-
-        .nav-link.active::before {
-            width: 80%;
-        }
-
-        .nav-link i {
-            font-size: 1.1rem;
-            transition: transform 0.3s ease;
-            color: var(--primary-color);
-        }
-
-        .nav-link:hover i {
-            transform: scale(1.1);
-        }
-
-        .navbar-toggler {
-            border: none;
-            padding: 0.5rem;
-            margin-right: 1rem;
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2852, 152, 219, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        @media (max-width: 991.98px) {
-            .navbar-collapse {
-                background: white;
-                padding: 1rem;
-                border-radius: 10px;
-                margin-top: 1rem;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            }
-
-            .nav-link {
-                padding: 0.8rem 1rem !important;
-                margin: 0.2rem 0;
-            }
-
-            .nav-link::before {
-                display: none;
-            }
-        }
-
-        .container {
-            max-width: 1400px;
-            padding: 0 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .section-title {
-            color: var(--dark-text);
-            font-weight: 700;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
         }
 
         /* Enhanced Property Stats */
@@ -251,24 +119,129 @@
             color: white;
         }
 
-        .search-filters {
+        .filter-section {
             background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-color);
+        }
+
+        .filter-header {
+            display: flex;
+            align-items: center;
             margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .filter-header i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .filter-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin: 0;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-label i {
+            color: var(--primary-color);
         }
 
         .form-control, .form-select {
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            background: var(--light-bg);
         }
 
         .form-control:focus, .form-select:focus {
-            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
             border-color: var(--primary-color);
+            background: white;
+        }
+
+        .btn-search {
+            background: var(--primary-color);
+            color: var(--light-text);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-search:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-reset {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-width: 150px;
+        }
+
+        .btn-reset:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-reset i {
+            font-size: 1.1rem;
         }
 
         .card {
@@ -337,89 +310,156 @@
             filter: brightness(0) invert(1);
         }
 
-        .form-label {
-            font-weight: 500;
-            color: var(--dark-text);
-            margin-bottom: 0.5rem;
+        .page-header {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 2.5rem !important;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
         }
 
-        .input-group-text {
-            background: var(--light-bg);
-            border: 1px solid #e0e0e0;
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(52, 152, 219, 0.05) 0%, rgba(44, 62, 80, 0.05) 100%);
+            z-index: 0;
+        }
+
+        .page-header .row {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #6c757d;
+            font-weight: 500;
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 1.5rem !important;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/common/nav-agent.jsp" />
-
-    <div class="container">
+    <div class="container" style="margin-top: 100px;">
         <%
-        List<Properties> p = (List<Properties>) request.getAttribute("AllProperties");
-        User u1 = (User) request.getAttribute("user");
+        // Get properties from request/session
+        List<Properties> p = (List<Properties>)request.getAttribute("Properties");
+        if(p == null) {
+            p = (List<Properties>)session.getAttribute("Properties");
+        }
+        List<Properties> mp = (List<Properties>)request.getAttribute("MyProperties");
+        User u1 = (User)session.getAttribute("user");
         %>
-        <div class="row align-items-center mb-4 mt-5">
-            <div class="col-md-12">
-                <h1 class="section-title mb-0">Property Management</h1>
+        <div class="page-header bg-light p-4 rounded shadow-sm">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <h1 class="mb-2 text-primary">Properties</h1>
+                    <p class="text-muted mb-0">Track all property listings in one place</p>
+                </div>
             </div>
         </div>
 
         <!-- Dashboard Stats -->
         <div class="property-stats">
             <div class="stat-card">
-                <h3><i class="fas fa-home"></i><%= p != null ? p.size() : 0 %></h3>
+                <i class="fas fa-home"></i>
+                <h3><%= p != null ? p.size() : 0 %></h3>
                 <p>Total Properties</p>
             </div>
             <div class="stat-card">
-                <h3><i class="fas fa-home"></i><%= p != null ? p.size() : 0 %></h3>
+                <i class="fas fa-home"></i>
+                <h3><%= mp != null ? mp.size() : 0 %></h3>
                 <p>My Properties</p>
             </div>
             <div class="stat-card">
-                <h3><i class="fas fa-users"></i> 0</h3>
-                <p>Total Clients</p>
+                <i class="fas fa-filter"></i>
+                <h3><%= p != null ? p.size() : 0 %></h3>
+                <p>Filtered Properties</p>
             </div>
             <div class="stat-card">
-                <h3><i class="fas fa-calendar-check"></i> 0</h3>
+                <i class="fas fa-calendar-check"></i>
+                <h3> 0</h3>
                 <p>Appointments Today</p>
             </div>
         </div>
 
         <!-- Search and Filters -->
-        <div class="filter-section mb-4 search-filters">
-            <form id="propertyFilter" action="${pageContext.request.contextPath}/user/dashboard/filter" method="GET">
-                <div class="row g-2 align-items-center">
-                    <div class="col-auto">
-                        <select class="form-select form-select-sm" name="price">
+        <div class="filter-section mb-4">
+            <div class="filter-header">
+                <i class="fas fa-filter"></i>
+                <h2 class="filter-title">Search Properties</h2>
+            </div>
+            <form id="propertyFilter" action="${pageContext.request.contextPath}/agent/properties/filter" method="POST">
+                <div class="filter-grid">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-tag"></i> Price Range</label>
+                        <select class="form-select" name="price">
                             <option value="">Any Price</option>
-                            <option value="100000">Under ₹100K</option>
-                            <option value="250000">Under ₹250K</option>
-                            <option value="500000">Under ₹500K</option>
-                            <option value="1000000">Under ₹1M</option>
-                            <option value="2000000">Under ₹2M</option>
-                            <option value="5000000">Under ₹5M</option>
+                            <option value="100000">Under ₹100,000</option>
+                            <option value="250000">Under ₹250,000</option>
+                            <option value="500000">Under ₹500,000</option>
+                            <option value="1000000">Under ₹1,000,000</option>
+                            <option value="2000000">Under ₹2,000,000</option>
+                            <option value="5000000">Under ₹5,000,000</option>
                         </select>
                     </div>
-                    <div class="col-auto">
-                        <select class="form-select form-select-sm" name="propertyType">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-home"></i> Property Type</label>
+                        <select class="form-select" name="propertyType">
                             <option value="">All Types</option>
-                            <option value="APARTMENT_FLAT">Apartment</option>
-                            <option value="INDEPENDENT_HOUSE_VILLA">House/Villa</option>
-                            <option value="BUILDER_FLOOR_APARTMENT">Builder Floor</option>
-                            <option value="STUDIO_APARTMENT">Studio</option>
+                            <option value="APARTMENT_FLAT">Apartment / Flat</option>
+                            <option value="INDEPENDENT_HOUSE_VILLA">Independent House / Villa</option>
+                            <option value="BUILDER_FLOOR_APARTMENT">Builder Floor Apartment</option>
+                            <option value="STUDIO_APARTMENT">Studio Apartment</option>
                             <option value="PENTHOUSE">Penthouse</option>
-                            <option value="ROW_HOUSE_TOWNHOUSE">Row House</option>
-                            <option value="RESIDENTIAL_PLOT_LAND">Plot/Land</option>
-                            <option value="COMMERCIAL_OFFICE_SPACE">Office Space</option>
-                            <option value="SHOP_SHOWROOM">Shop</option>
-                            <option value="WAREHOUSE_GODOWN">Warehouse</option>
-                            <option value="INDUSTRIAL_LAND_FACTORY">Industrial</option>
-                            <option value="AGRICULTURAL_LAND_FARMLAND">Agricultural</option>
-                            <option value="MIXED_USE_PROPERTY">Mixed-Use</option>
-                            <option value="CO_WORKING_SPACE">Co-working</option>
-                            <option value="VACANT_LAND_NON_AGRICULTURAL">Vacant Land</option>
+                            <option value="ROW_HOUSE_TOWNHOUSE">Row House / Townhouse</option>
+                            <option value="RESIDENTIAL_PLOT_LAND">Residential Plot / Land</option>
+                            <option value="COMMERCIAL_OFFICE_SPACE">Commercial Office Space</option>
+                            <option value="SHOP_SHOWROOM">Shop / Showroom</option>
+                            <option value="WAREHOUSE_GODOWN">Warehouse / Godown</option>
+                            <option value="INDUSTRIAL_LAND_FACTORY">Industrial Land / Factory</option>
+                            <option value="AGRICULTURAL_LAND_FARMLAND">Agricultural Land / Farmland</option>
+                            <option value="MIXED_USE_PROPERTY">Mixed-Use Property</option>
+                            <option value="CO_WORKING_SPACE">Co-working Space</option>
+                            <option value="VACANT_LAND_NON_AGRICULTURAL">Vacant Land (Non-agricultural)</option>
                         </select>
                     </div>
-                    <div class="col-auto">
-                        <select class="form-select form-select-sm" name="status">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-info-circle"></i> Status</label>
+                        <select class="form-select" name="status">
                             <option value="">All Status</option>
                             <option value="AVAILABLE">Available</option>
                             <option value="RENT">Rent</option>
@@ -427,8 +467,9 @@
                             <option value="SOLD">Sold</option>
                         </select>
                     </div>
-                    <div class="col">
-                        <input type="text" class="form-control form-control-sm" placeholder="City" name="city" list="cityList">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-city"></i> City</label>
+                        <input type="text" class="form-control" placeholder="Enter City" name="city" list="cityList">
                         <datalist id="cityList">
                             <!-- Madhya Pradesh Cities -->
                             <option value="Indore, Madhya Pradesh">
@@ -453,25 +494,30 @@
                             <option value="Vidisha, Madhya Pradesh">
                         </datalist>
                     </div>
-                    <div class="col">
-                        <input type="text" class="form-control form-control-sm" placeholder="Address" name="address">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-map-marker-alt"></i> Address</label>
+                        <input type="text" class="form-control" placeholder="Enter address" name="address">
                     </div>
-                    <div class="col-auto">
-                        <div class="input-group input-group-sm">
-                            <input type="number" class="form-control" placeholder="Area" name="area" min="0" step="0.01">
-                            <select class="form-select" name="areaUnit">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-ruler-combined"></i> Area</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" placeholder="Enter area" name="area" min="0" step="0.01">
+                            <select class="form-select" name="areaUnit" style="max-width: 100px;">
                                 <option value="sqft">sq ft</option>
                                 <option value="sqm">sq m</option>
                                 <option value="acres">acres</option>
-                                <option value="hectares">ha</option>
+                                <option value="hectares">hectares</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-dark btn-sm">
-                            <i class="fas fa-magnifying-glass me-1"></i>Search
-                        </button>
-                    </div>
+                </div>
+                <div class="d-flex gap-3">
+                    <button type="submit" class="btn btn-search flex-grow-1">
+                        <i class="fas fa-search"></i> Search Properties
+                    </button>
+                    <button type="button" class="btn btn-reset" id="resetFilters">
+                        <i class="fas fa-undo"></i> Reset Filters
+                    </button>
                 </div>
             </form>
         </div>
@@ -503,50 +549,62 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% for(Properties p1:p){%>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <i class="fas fa-home me-2 text-primary"></i>
-                                                    <%= p1.getPropertyType() %>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="fw-bold">₹ <%= p1.getPrice() %></div>
-                                            </td>
-                                            <td>
-                                                <span class="property-status status-<%= p1.getStatus().toString().toLowerCase() %>">
-                                                    <%= p1.getStatus() %>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <div class="location-info">
-                                                    <div class="text-truncate" style="max-width: 200px;">
-                                                        <i class="fas fa-map-marker-alt me-1 text-danger"></i>
-                                                        <%= p1.getAddress() %>
+                                    <% if(p != null && !p.isEmpty()) { %>
+                                        <% for(Properties p1:p){%>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-home me-2 text-primary"></i>
+                                                        <%= p1.getPropertyType() %>
                                                     </div>
-                                                    <small class="text-muted">
-                                                        <%= p1.getCity() %>, <%= p1.getState() %>
-                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <div class="fw-bold">₹ <%= p1.getPrice() %></div>
+                                                </td>
+                                                <td>
+                                                    <span class="property-status status-<%= p1.getStatus().toString().toLowerCase() %>">
+                                                        <%= p1.getStatus() %>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <div class="location-info">
+                                                        <div class="text-truncate" style="max-width: 200px;">
+                                                            <i class="fas fa-map-marker-alt me-1 text-danger"></i>
+                                                            <%= p1.getAddress() %>
+                                                        </div>
+                                                        <small class="text-muted">
+                                                            <%= p1.getCity() %>, <%= p1.getState() %>
+                                                        </small>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="area-info">
+                                                        <span class="fw-bold"><%= p1.getArea()%></span>
+                                                        <small class="text-muted"><%=p1.getAreaUnit()%></small>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="agent-info">
+                                                        <i class="fas fa-user-tie me-1 text-primary"></i>
+                                                        <%= p1.getUser_id().getEmail() %>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="${pageContext.request.contextPath}/agent/properties/view/<%= p1.getId() %>" 
+                                                       class="btn btn-outline-primary btn-sm">
+                                                        <i class="fas fa-eye me-1"></i>View Details
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <% } %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="7" class="text-center py-4">
+                                                <div class="no-properties">
+                                                    <i class="fas fa-home"></i>
+                                                    <h3>No Properties Found</h3>
+                                                    <p>There are no properties available matching your criteria.</p>
                                                 </div>
-                                            </td>
-                                            <td>
-                                                <div class="area-info">
-                                                    <span class="fw-bold"><%= p1.getArea()%></span>
-                                                    <small class="text-muted"><%=p1.getAreaUnit()%></small>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="agent-info">
-                                                    <i class="fas fa-user-tie me-1 text-primary"></i>
-                                                    <%= p1.getUser_id().getEmail() %>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="${pageContext.request.contextPath}/agent/properties/view/<%= p1.getId() %>" 
-                                                   class="btn btn-outline-primary btn-sm">
-                                                    <i class="fas fa-eye me-1"></i>View Details
-                                                </a>
                                             </td>
                                         </tr>
                                     <% } %>
@@ -682,5 +740,93 @@
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Function to load all properties
+        function loadAllProperties() {
+            // Show loading state
+            $('.table tbody').html('<tr><td colspan="7" class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading properties...</td></tr>');
+            
+            $.ajax({
+                url: '${pageContext.request.contextPath}/agent/manage-properties',
+                type: 'GET',
+                success: function(response) {
+                    var tempDiv = $('<div>').html(response);
+                    var newTableContent = tempDiv.find('tbody').html();
+                    if (newTableContent) {
+                        $('.table tbody').html(newTableContent);
+                        // Update stats
+                        var propertyCount = tempDiv.find('.stat-card h3').first().text();
+                        $('.stat-card h3').first().text(propertyCount);
+                        $('.stat-card h3').eq(2).text(propertyCount);
+                    } else {
+                        $('.table tbody').html('<tr><td colspan="7" class="text-center">No properties found</td></tr>');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    $('.table tbody').html('<tr><td colspan="7" class="text-center text-danger">Error loading properties. Please try again.</td></tr>');
+                }
+            });
+        }
+
+        // Load all properties when page loads
+        loadAllProperties();
+
+        // Handle search form submission
+        $('#propertyFilter').on('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            $('.btn-search').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Searching...');
+            $('.table tbody').html('<tr><td colspan="7" class="text-center"><i class="fas fa-spinner fa-spin"></i> Searching properties...</td></tr>');
+            
+            // Get form data
+            var formData = $(this).serialize();
+            
+            // Make AJAX call
+            $.ajax({
+                url: '${pageContext.request.contextPath}/agent/properties/filter',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    var tempDiv = $('<div>').html(response);
+                    var newTableContent = tempDiv.find('tbody').html();
+                    if (newTableContent) {
+                        $('.table tbody').html(newTableContent);
+                        // Update filtered properties count
+                        var filteredCount = tempDiv.find('.stat-card h3').first().text();
+                        $('.stat-card h3').eq(2).text(filteredCount);
+                    } else {
+                        $('.table tbody').html('<tr><td colspan="7" class="text-center">No properties found matching your criteria</td></tr>');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    $('.table tbody').html('<tr><td colspan="7" class="text-center text-danger">Error searching properties. Please try again.</td></tr>');
+                },
+                complete: function() {
+                    $('.btn-search').prop('disabled', false).html('<i class="fas fa-search"></i> Search Properties');
+                }
+            });
+        });
+
+        // Handle reset filters button
+        $('#resetFilters').on('click', function() {
+            // Show loading state
+            $(this).prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Resetting...');
+            
+            // Reset all form fields
+            $('#propertyFilter')[0].reset();
+            
+            // Load all properties
+            loadAllProperties();
+            
+            // Reset button state
+            $(this).prop('disabled', false).html('<i class="fas fa-undo"></i> Reset Filters');
+        });
+    });
+    </script>
 </body>
 </html> 
