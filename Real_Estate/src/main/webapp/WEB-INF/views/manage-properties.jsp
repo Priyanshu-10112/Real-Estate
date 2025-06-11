@@ -590,7 +590,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="${pageContext.request.contextPath}/agent/properties/view/<%= p1.getId() %>" 
+                                                    <a href="${pageContext.request.contextPath}/user/property-details/<%= p1.getId() %>" 
                                                        class="btn btn-outline-primary btn-sm">
                                                         <i class="fas fa-eye me-1"></i>View Details
                                                     </a>

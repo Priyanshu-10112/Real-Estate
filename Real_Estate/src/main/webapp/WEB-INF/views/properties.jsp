@@ -1023,6 +1023,35 @@
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
     <script>
 $(document).ready(function() {
+    // Function to load all properties
+    function loadAllProperties() {
+        // Show loading state
+        $('.property-grid').html('<div class="text-center p-5"><i class="fas fa-spinner fa-spin fa-2x"></i><p class="mt-3">Loading properties...</p></div>');
+        
+        $.ajax({
+            url: '${pageContext.request.contextPath}/user/properties',
+            type: 'GET',
+            success: function(response) {
+                var tempDiv = $('<div>').html(response);
+                var newContent = tempDiv.find('.property-grid').html();
+                if (newContent) {
+                    $('.property-grid').html(newContent);
+                    // Reinitialize event handlers
+                    initializeEventHandlers();
+                } else {
+                    $('.property-grid').html('<div class="no-properties"><i class="fas fa-home"></i><h3>No Properties Found</h3><p>There are no properties available at the moment.</p></div>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                $('.property-grid').html('<div class="no-properties"><i class="fas fa-exclamation-circle"></i><h3>Error Loading Properties</h3><p>Please try refreshing the page.</p></div>');
+            }
+        });
+    }
+
+    // Load all properties when page loads
+    loadAllProperties();
+
     // Reset all button states on page load
     $('.property-actions .btn-primary').each(function() {
         $(this).prop('disabled', false).html('<i class="fas fa-eye"></i> View Details');
@@ -1068,9 +1097,6 @@ $(document).ready(function() {
             window.location.href = '${pageContext.request.contextPath}/user/property-details/' + propertyId;
         });
     }
-
-    // Initialize event handlers on page load
-    initializeEventHandlers();
 
     // Handle page refresh
     $(window).on('beforeunload', function() {
