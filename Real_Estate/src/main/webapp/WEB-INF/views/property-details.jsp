@@ -892,10 +892,20 @@
                 </a>
                 <div class="header-content">
                     <div class="header-left">
-                        <%-- Property title and price will be moved into the card --%>
+                        <h1 class="property-title"><%= property.getPropertyType() %></h1>
                     </div>
                     <div class="header-right">
-                        <%-- Property title and price will be moved into the card --%>
+                        <div class="property-price">
+                            <span class="amount">
+                                <% 
+                                    long priceValue = property.getPrice();
+                                    NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
+                                    formatter.setMaximumFractionDigits(0);
+                                    String formattedPrice = formatter.format(priceValue);
+                                %>
+                                <%= formattedPrice %>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -904,179 +914,157 @@
 
     <div class="container">
         <div class="row my-4">
-            <!-- Main Property Card -->
+            <!-- Property Highlights -->
             <div class="col-lg-8">
-                <div class="property-card">
-                    <div class="property-image">
-                        <span class="property-badge <%= property.getStatus().toString().toLowerCase() %>">
-                            <%= property.getStatus() %>
-                        </span>
-                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3" alt="<%= property.getPropertyType() %>">
+                <div class="property-details-card">
+                    <h3 class="mb-4">Property Overview</h3>
+                    <div class="highlights-grid">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-ruler-combined"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h4><%= property.getArea() %> <%= property.getAreaUnit() %></h4>
+                                <p>Total Area</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h4>Parking</h4>
+                                <p>Available</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="property-info">
-                        <div class="property-price">
-                            <% 
-                                long priceValue = property.getPrice();
-                                NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
-                                formatter.setMaximumFractionDigits(0);
-                                String formattedPrice = formatter.format(priceValue);
-                            %>
-                            <span class="rupee-symbol">₹</span><%= formattedPrice.replace("₹", "").trim() %>
-                        </div>
-                        <h3 class="property-title"><%= property.getPropertyType() %></h3>
-                        <div class="property-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <%= property.getAddress() %>, <%= property.getCity() %>
-                        </div>
+                </div>
+
+                <!-- Detailed Information -->
+                <div class="property-details-card">
+                    <h3 class="mb-4">Property Details</h3>
+                    <div class="detail-items-list">
                         
-                        <!-- Property Overview (now part of the main card info) -->
-                        <div class="property-details-card" style="box-shadow: none; border-left: none; padding-left: 0; padding-right: 0; margin-bottom: 0;">
-                            <h3 class="mb-4">Property Overview</h3>
-                            <div class="highlights-grid">
-                                <div class="highlight-item">
-                                    <div class="highlight-icon">
-                                        <i class="fas fa-ruler-combined"></i>
-                                    </div>
-                                    <div class="highlight-content">
-                                        <h4><%= property.getArea() %> <%= property.getAreaUnit() %></h4>
-                                        <p>Total Area</p>
-                                    </div>
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-home"></i>
                                 </div>
-                                <div class="highlight-item">
-                                    <div class="highlight-icon">
-                                        <i class="fas fa-car"></i>
-                                    </div>
-                                    <div class="highlight-content">
-                                        <h4>Parking</h4>
-                                        <p>Available</p>
-                                    </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Property Type</div>
+                                    <div class="detail-value"><%= property.getPropertyType() %></div>
+                                </div>
+                            </div>
+                        
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-tag"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Status</div>
+                                    <div class="detail-value"><%= property.getStatus() %></div>
+                                </div>
+                            </div>
+                        
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-ruler-combined"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Area</div>
+                                    <div class="detail-value"><%= property.getArea() %> <%= property.getAreaUnit() %></div>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Location Information -->
+                <div class="property-details-card">
+                    <h3 class="mb-4">Location Details</h3>
+                    <div class="location-details">
+                        <div class="location-main">
+                            <div class="location-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="location-content">
+                                <div class="location-label">Full Address</div>
+                                <div class="location-value"><%= property.getAddress() %></div>
+                            </div>
+                        </div>
+                        <div class="location-grid">
+                            <div class="location-item">
+                                <div class="location-icon">
+                                    <i class="fas fa-city"></i>
+                                </div>
+                                <div class="location-content">
+                                    <div class="location-label">City</div>
+                                    <div class="location-value"><%= property.getCity() %></div>
+                                </div>
+                            </div>
+                            <div class="location-item">
+                                <div class="location-icon">
+                                    <i class="fas fa-map"></i>
+                                </div>
+                                <div class="location-content">
+                                    <div class="location-label">State</div>
+                                    <div class="location-value"><%= property.getState() %></div>
+                                </div>
+                            </div>
+                            <div class="location-item">
+                                <div class="location-icon">
+                                    <i class="fas fa-mail-bulk"></i>
+                                </div>
+                                <div class="location-content">
+                                    <div class="location-label">ZIP Code</div>
+                                    <div class="location-value"><%= property.getZipCode() %></div>
+                                </div>
+                            </div>
+                            <div class="location-item">
+                                <div class="location-icon">
+                                    <i class="fas fa-globe-asia"></i>
+                                </div>
+                                <div class="location-content">
+                                    <div class="location-label">Country</div>
+                                    <div class="location-value">India</div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- Detailed Information (now part of the main card info) -->
-                        <div class="property-details-card" style="box-shadow: none; border-left: none; padding-left: 0; padding-right: 0; margin-bottom: 0;">
-                            <h3 class="mb-4">Property Details</h3>
-                            <div class="detail-items-list">
-                                <div class="detail-item">
-                                    <div class="detail-icon">
-                                        <i class="fas fa-home"></i>
-                                    </div>
-                                    <div class="detail-content">
-                                        <div class="detail-label">Property Type</div>
-                                        <div class="detail-value"><%= property.getPropertyType() %></div>
-                                    </div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="detail-icon">
-                                        <i class="fas fa-tag"></i>
-                                    </div>
-                                    <div class="detail-content">
-                                        <div class="detail-label">Status</div>
-                                        <div class="detail-value"><%= property.getStatus() %></div>
-                                    </div>
-                                </div>
-                                <div class="detail-item">
-                                    <div class="detail-icon">
-                                        <i class="fas fa-ruler-combined"></i>
-                                    </div>
-                                    <div class="detail-content">
-                                        <div class="detail-label">Area</div>
-                                        <div class="detail-value"><%= property.getArea() %> <%= property.getAreaUnit() %></div>
-                                    </div>
-                                </div>
+                <!-- Features Section -->
+                <div class="property-details-card">
+                    <h3 class="mb-4">Features & Amenities</h3>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>24/7 Security</span>
                             </div>
                         </div>
-
-                        <!-- Location Information (now part of the main card info) -->
-                        <div class="property-details-card" style="box-shadow: none; border-left: none; padding-left: 0; padding-right: 0; margin-bottom: 0;">
-                            <h3 class="mb-4">Location Details</h3>
-                            <div class="location-details" style="background: none; padding: 0;">
-                                <div class="location-main" style="box-shadow: none;">
-                                    <div class="location-icon">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </div>
-                                    <div class="location-content">
-                                        <div class="location-label">Full Address</div>
-                                        <div class="location-value"><%= property.getAddress() %></div>
-                                    </div>
-                                </div>
-                                <div class="location-grid">
-                                    <div class="location-item" style="box-shadow: none;">
-                                        <div class="location-icon">
-                                            <i class="fas fa-city"></i>
-                                        </div>
-                                        <div class="location-content">
-                                            <div class="location-label">City</div>
-                                            <div class="location-value"><%= property.getCity() %></div>
-                                        </div>
-                                    </div>
-                                    <div class="location-item" style="box-shadow: none;">
-                                        <div class="location-icon">
-                                            <i class="fas fa-map"></i>
-                                        </div>
-                                        <div class="location-content">
-                                            <div class="location-label">State</div>
-                                            <div class="location-value"><%= property.getState() %></div>
-                                        </div>
-                                    </div>
-                                    <div class="location-item" style="box-shadow: none;">
-                                        <div class="location-icon">
-                                            <i class="fas fa-mail-bulk"></i>
-                                        </div>
-                                        <div class="location-content">
-                                            <div class="detail-label">ZIP Code</div>
-                                            <div class="detail-value"><%= property.getZipCode() %></div>
-                                        </div>
-                                    </div>
-                                    <div class="location-item" style="box-shadow: none;">
-                                        <div class="location-icon">
-                                            <i class="fas fa-globe-asia"></i>
-                                        </div>
-                                        <div class="location-content">
-                                            <div class="detail-label">Country</div>
-                                            <div class="detail-value">India</div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="col-md-6">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Parking Space</span>
                             </div>
                         </div>
-
-                        <!-- Features Section (now part of the main card info) -->
-                        <div class="property-details-card" style="box-shadow: none; border-left: none; padding-left: 0; padding-right: 0; margin-bottom: 0;">
-                            <h3 class="mb-4">Features & Amenities</h3>
-                            <div class="row g-4">
-                                <div class="col-md-6">
-                                    <div class="feature-item">
-                                        <i class="fas fa-check-circle text-success me-2"></i>
-                                        <span>24/7 Security</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="feature-item">
-                                        <i class="fas fa-check-circle text-success me-2"></i>
-                                        <span>Parking Space</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="feature-item">
-                                        <i class="fas fa-check-circle text-success me-2"></i>
-                                        <span>Power Backup</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="feature-item">
-                                        <i class="fas fa-check-circle text-success me-2"></i>
-                                        <span>Lift Facility</span>
-                                    </div>
-                                </div>
+                        <div class="col-md-6">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Power Backup</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Lift Facility</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Agent Information (will remain in its column) -->
+            <!-- Agent Information -->
             <div class="col-lg-4">
                 <div class="agent-section">
                     <div class="agent-card">
@@ -1114,60 +1102,60 @@
                         </div>
                     </div>
 
-                    <!-- Property Highlights (remaining in agent column) -->
-                     <div class="property-highlights-card">
-                         <h3 class="mb-4">Property Highlights</h3>
-                         <div class="highlights-list">
-                             <div class="highlight-stat">
-                                 <div class="stat-icon">
-                                     <i class="fas fa-calendar-alt"></i>
-                                 </div>
-                                 <div class="stat-content">
-                                     <div class="stat-value">Listed</div>
-                                     <div class="stat-label">2 days ago</div>
-                                 </div>
-                             </div>
-                             <div class="highlight-stat">
-                                 <div class="stat-icon">
-                                     <i class="fas fa-eye"></i>
-                                 </div>
-                                 <div class="stat-content">
-                                     <div class="stat-value">Views</div>
-                                     <div class="stat-label">245</div>
-                                 </div>
-                             </div>
-                             <div class="highlight-stat">
-                                 <div class="stat-icon">
-                                     <i class="fas fa-heart"></i>
-                                 </div>
-                                 <div class="stat-content">
-                                     <div class="stat-value">Saved</div>
-                                     <div class="stat-label">18 times</div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
- 
-                    <!-- Quick Actions (remaining in agent column) -->
-                     <div class="quick-actions-card">
-                         <h3 class="mb-4">Quick Actions</h3>
-                         <div class="actions-list">
-                             <button class="action-button">
-                                 <i class="fas fa-heart"></i>
-                                 Mark as Favorite
-                             </button>
-                             <button class="action-button">
-                                 <i class="fas fa-print"></i>
-                                 Print Details
-                             </button>
-                             <button class="action-button">
-                                 <i class="fas fa-download"></i>
-                                 Download Brochure
-                             </button>
-                         </div>
-                     </div>
-  
-                    <!-- Placeholder for Map (remaining in agent column) -->
+                    <!-- Property Highlights -->
+                    <div class="property-highlights-card">
+                        <h3 class="mb-4">Property Highlights</h3>
+                        <div class="highlights-list">
+                            <div class="highlight-stat">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-value">Listed</div>
+                                    <div class="stat-label">2 days ago</div>
+                                </div>
+                            </div>
+                            <div class="highlight-stat">
+                                <div class="stat-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-value">Views</div>
+                                    <div class="stat-label">245</div>
+                                </div>
+                            </div>
+                            <div class="highlight-stat">
+                                <div class="stat-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <div class="stat-value">Saved</div>
+                                    <div class="stat-label">18 times</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions-card">
+                        <h3 class="mb-4">Quick Actions</h3>
+                        <div class="actions-list">
+                            <button class="action-button">
+                                <i class="fas fa-heart"></i>
+                                Mark as Favorite
+                            </button>
+                            <button class="action-button">
+                                <i class="fas fa-print"></i>
+                                Print Details
+                            </button>
+                            <button class="action-button">
+                                <i class="fas fa-download"></i>
+                                Download Brochure
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Placeholder for Map -->
                     <div class="property-details-card">
                         <h3 class="mb-4">Property Location</h3>
                         <div id="property-map" style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center; color: #6c757d;">

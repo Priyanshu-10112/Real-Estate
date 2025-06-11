@@ -2,6 +2,8 @@
 <%@ page import="com.example.Real_Estate.entity.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.Real_Estate.entity.Properties" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Locale" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -369,6 +371,242 @@
                 font-size: 1rem;
             }
         }
+
+        /* Property Grid and Cards */
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.1);
+            height: 100%;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .property-image {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .property-card:hover .property-image img {
+            transform: scale(1.05);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .property-badge.available { background: #2ecc71; }
+        .property-badge.rent { background: #f1c40f; }
+        .property-badge.sold { background: #e74c3c; }
+        .property-badge.pre-launch { background: #9b59b6; }
+
+        .property-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-height: 0;
+            margin-top: 0;
+        }
+
+        .property-price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: block;
+            background: var(--light-bg);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            word-break: break-all;
+            overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
+        }
+
+        .property-price .rupee-symbol {
+            font-size: 1.4rem;
+            font-weight: 400;
+            vertical-align: top;
+            margin-right: 0.2rem;
+        }
+
+        .property-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 0;
+            word-break: break-word;
+        }
+
+        .property-location {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            font-family: 'Inter', sans-serif;
+            word-break: break-word;
+        }
+
+        .property-location i {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .property-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .feature {
+            background: var(--light-bg);
+            padding: 1.2rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            color: var(--dark-text);
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .feature:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .feature i {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+
+        .feature:hover i {
+            color: white;
+        }
+
+        .property-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .property-actions .btn {
+            padding: 1.2rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .property-actions .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .property-actions .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .property-actions .btn-primary i {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .property-info {
+                padding: 1.5rem;
+            }
+            
+            .property-image {
+                height: 220px;
+            }
+            
+            .property-title {
+                font-size: 1.3rem;
+            }
+            
+            .property-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .property-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .property-actions .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -535,81 +773,59 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle">
-                                <thead>
-                                    <tr>
-                                        <th>Property Type</th>
-                                        <th>Price</th>
-                                        <th>Status</th>
-                                        <th>Location</th>
-                                        <th>Area</th>
-                                        <th>Agent</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% if(p != null && !p.isEmpty()) { %>
-                                        <% for(Properties p1:p){%>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <i class="fas fa-home me-2 text-primary"></i>
-                                                        <%= p1.getPropertyType() %>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="fw-bold">₹ <%= p1.getPrice() %></div>
-                                                </td>
-                                                <td>
-                                                    <span class="property-status status-<%= p1.getStatus().toString().toLowerCase() %>">
-                                                        <%= p1.getStatus() %>
+                        <div class="property-grid">
+                            <% if(p != null && !p.isEmpty()) { %>
+                                <% for(Properties p1:p){%>
+                                    <div class="property-card">
+                                        <div class="property-image">
+                                            <span class="property-badge <%= p1.getStatus().toString().toLowerCase() %>">
+                                                <%= p1.getStatus() %>
+                                            </span>
+                                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3" alt="<%= p1.getPropertyType() %>">
+                                        </div>
+                                        <div class="property-info">
+                                            <div class="property-price">
+                                                <% 
+                                                    long priceValue = p1.getPrice();
+                                                    NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
+                                                    formatter.setMaximumFractionDigits(0);
+                                                    String formattedPrice = formatter.format(priceValue);
+                                                %>
+                                                <span class="rupee-symbol">₹</span><%= formattedPrice.replace("₹", "").trim() %>
+                                            </div>
+                                            <h3 class="property-title"><%= p1.getPropertyType() %></h3>
+                                            <div class="property-location">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <%= p1.getAddress() %>, <%= p1.getCity() %>
+                                            </div>
+                                            <div class="property-features">
+                                                <% if (p1.getArea() != null && p1.getArea() > 0) { %>
+                                                    <span class="feature">
+                                                        <i class="fas fa-ruler-combined"></i>
+                                                        <%= p1.getArea() %> <%= p1.getAreaUnit() %>
                                                     </span>
-                                                </td>
-                                                <td>
-                                                    <div class="location-info">
-                                                        <div class="text-truncate" style="max-width: 200px;">
-                                                            <i class="fas fa-map-marker-alt me-1 text-danger"></i>
-                                                            <%= p1.getAddress() %>
-                                                        </div>
-                                                        <small class="text-muted">
-                                                            <%= p1.getCity() %>, <%= p1.getState() %>
-                                                        </small>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="area-info">
-                                                        <span class="fw-bold"><%= p1.getArea()%></span>
-                                                        <small class="text-muted"><%=p1.getAreaUnit()%></small>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="agent-info">
-                                                        <i class="fas fa-user-tie me-1 text-primary"></i>
-                                                        <%= p1.getUser_id().getEmail() %>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="${pageContext.request.contextPath}/user/property-details/<%= p1.getId() %>" 
-                                                       class="btn btn-outline-primary btn-sm">
-                                                        <i class="fas fa-eye me-1"></i>View Details
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        <% } %>
-                                    <% } else { %>
-                                        <tr>
-                                            <td colspan="7" class="text-center py-4">
-                                                <div class="no-properties">
-                                                    <i class="fas fa-home"></i>
-                                                    <h3>No Properties Found</h3>
-                                                    <p>There are no properties available matching your criteria.</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <% } %>
-                                </tbody>
-                            </table>
+                                                <% } %>
+                                                <span class="feature">
+                                                    <i class="fas fa-user-tie"></i>
+                                                    <%= p1.getUser_id().getEmail() %>
+                                                </span>
+                                            </div>
+                                            <div class="property-actions">
+                                                <a href="${pageContext.request.contextPath}/user/property-details/<%= p1.getId() %>" 
+                                                   class="btn btn-primary" data-property-id="<%= p1.getId() %>">
+                                                    <i class="fas fa-eye"></i> View Details
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            <% } else { %>
+                                <div class="no-properties">
+                                    <i class="fas fa-home"></i>
+                                    <h3>No Properties Found</h3>
+                                    <p>There are no properties available matching your criteria.</p>
+                                </div>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -746,27 +962,27 @@
         // Function to load all properties
         function loadAllProperties() {
             // Show loading state
-            $('.table tbody').html('<tr><td colspan="7" class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading properties...</td></tr>');
+            $('.property-grid').html('<div class="text-center p-5"><i class="fas fa-spinner fa-spin fa-2x"></i><p class="mt-3">Loading properties...</p></div>');
             
             $.ajax({
                 url: '${pageContext.request.contextPath}/agent/manage-properties',
                 type: 'GET',
                 success: function(response) {
                     var tempDiv = $('<div>').html(response);
-                    var newTableContent = tempDiv.find('tbody').html();
-                    if (newTableContent) {
-                        $('.table tbody').html(newTableContent);
+                    var newContent = tempDiv.find('.property-grid').html();
+                    if (newContent) {
+                        $('.property-grid').html(newContent);
                         // Update stats
                         var propertyCount = tempDiv.find('.stat-card h3').first().text();
                         $('.stat-card h3').first().text(propertyCount);
                         $('.stat-card h3').eq(2).text(propertyCount);
                     } else {
-                        $('.table tbody').html('<tr><td colspan="7" class="text-center">No properties found</td></tr>');
+                        $('.property-grid').html('<div class="no-properties"><i class="fas fa-home"></i><h3>No Properties Found</h3><p>There are no properties available at the moment.</p></div>');
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
-                    $('.table tbody').html('<tr><td colspan="7" class="text-center text-danger">Error loading properties. Please try again.</td></tr>');
+                    $('.property-grid').html('<div class="no-properties"><i class="fas fa-exclamation-circle"></i><h3>Error Loading Properties</h3><p>Please try refreshing the page.</p></div>');
                 }
             });
         }
@@ -780,7 +996,7 @@
             
             // Show loading state
             $('.btn-search').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Searching...');
-            $('.table tbody').html('<tr><td colspan="7" class="text-center"><i class="fas fa-spinner fa-spin"></i> Searching properties...</td></tr>');
+            $('.property-grid').html('<div class="text-center p-5"><i class="fas fa-spinner fa-spin fa-2x"></i><p class="mt-3">Searching properties...</p></div>');
             
             // Get form data
             var formData = $(this).serialize();
@@ -792,19 +1008,19 @@
                 data: formData,
                 success: function(response) {
                     var tempDiv = $('<div>').html(response);
-                    var newTableContent = tempDiv.find('tbody').html();
-                    if (newTableContent) {
-                        $('.table tbody').html(newTableContent);
+                    var newContent = tempDiv.find('.property-grid').html();
+                    if (newContent) {
+                        $('.property-grid').html(newContent);
                         // Update filtered properties count
                         var filteredCount = tempDiv.find('.stat-card h3').first().text();
                         $('.stat-card h3').eq(2).text(filteredCount);
                     } else {
-                        $('.table tbody').html('<tr><td colspan="7" class="text-center">No properties found matching your criteria</td></tr>');
+                        $('.property-grid').html('<div class="no-properties"><i class="fas fa-home"></i><h3>No Properties Found</h3><p>There are no properties matching your criteria.</p></div>');
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
-                    $('.table tbody').html('<tr><td colspan="7" class="text-center text-danger">Error searching properties. Please try again.</td></tr>');
+                    $('.property-grid').html('<div class="no-properties"><i class="fas fa-exclamation-circle"></i><h3>Error Searching Properties</h3><p>Please try again.</p></div>');
                 },
                 complete: function() {
                     $('.btn-search').prop('disabled', false).html('<i class="fas fa-search"></i> Search Properties');
@@ -825,6 +1041,17 @@
             
             // Reset button state
             $(this).prop('disabled', false).html('<i class="fas fa-undo"></i> Reset Filters');
+        });
+
+        // Handle property details click
+        $(document).on('click', '.property-actions .btn-primary', function(e) {
+            e.preventDefault();
+            var propertyId = $(this).data('property-id');
+            if (propertyId) {
+                window.location.href = '${pageContext.request.contextPath}/user/property-details/' + propertyId;
+            } else {
+                console.error('Property ID is undefined');
+            }
         });
     });
     </script>
