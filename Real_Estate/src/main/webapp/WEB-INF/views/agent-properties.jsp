@@ -843,7 +843,7 @@
     <script>
         function deleteProperty(propertyId) {
             if (confirm('Are you sure you want to delete this property?')) {
-                window.location.href = '${pageContext.request.contextPath}/agent/property/delete/' + propertyId;
+                window.location.href = '${pageContext.request.contextPath}/agent/properties/delete/' + propertyId;
             }
         }
     </script>

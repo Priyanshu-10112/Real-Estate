@@ -39,4 +39,8 @@ public class PropServiceImpl implements PropService{
 	public List<Properties> findByEmail(String email){
 		return p1.findByEmail(email);
 	}
+	
+	public void deleteById(Long id) {
+		p1.deleteById(id);
+	}
 }

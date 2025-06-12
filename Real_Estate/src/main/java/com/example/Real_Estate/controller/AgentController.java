@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.Real_Estate.ServiceImpl.PropServiceImpl;
 import com.example.Real_Estate.dto.PropertyDto;
@@ -97,5 +98,21 @@ public class AgentController {
 		model.addAttribute("user", user);
 		
 		return "manage-properties";
+	}
+
+	@RequestMapping("/properties/delete/{id}")
+	public String deleteProperty(@PathVariable Long id, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		if (user == null || user.getUr() != UserRole.AGENT) {
+			return "redirect:/login";
+		}
+
+		// Get the property to verify ownership
+		Properties property = p1.findById(id);
+		if (property != null && property.getUser_id().getEmail().equals(user.getEmail())) {
+			p1.deleteById(id);
+		}
+
+		return "redirect:/agent/agent-properties";
 	}
 }

@@ -1152,6 +1152,19 @@
                                 <i class="fas fa-download"></i>
                                 Download Brochure
                             </button>
+                            <% if (session.getAttribute("user") != null && 
+                                   ((User)session.getAttribute("user")).getUr() == UserRole.AGENT && 
+                                   ((User)session.getAttribute("user")).getEmail().equals(property.getUser_id().getEmail())) { %>
+                                <form action="${pageContext.request.contextPath}/agent/properties/delete/<%= property.getId() %>" 
+                                      method="POST" 
+                                      onsubmit="return confirm('Are you sure you want to delete this property?');"
+                                      style="margin: 0;">
+                                    <button type="submit" class="action-button text-danger">
+                                        <i class="fas fa-trash"></i>
+                                        Delete Property
+                                    </button>
+                                </form>
+                            <% } %>
                         </div>
                     </div>
 
