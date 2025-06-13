@@ -726,7 +726,7 @@
                             <% } %>
                         </div>
                         <div class="property-actions">
-                            <a href="${pageContext.request.contextPath}/agent/property/<%= property.getId() %>" class="btn btn-primary">
+                            <a href="${pageContext.request.contextPath}/user/property-details/<%= property.getId() %>" class="btn btn-primary">
                                 <i class="fas fa-eye"></i> View Details
                             </a>
                             <button class="btn btn-primary" onclick="deleteProperty('<%= property.getId() %>')">

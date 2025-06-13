@@ -1067,6 +1067,8 @@
             <!-- Agent Information -->
             <div class="col-lg-4">
                 <div class="agent-section">
+                    <% if (session.getAttribute("user") == null || 
+                          !((User)session.getAttribute("user")).getEmail().equals(property.getUser_id().getEmail())) { %>
                     <div class="agent-card">
                         <div class="agent-header">
                             <div class="agent-image">
@@ -1101,6 +1103,7 @@
                             </a>
                         </div>
                     </div>
+                    <% } %>
 
                     <!-- Property Highlights -->
                     <div class="property-highlights-card">
