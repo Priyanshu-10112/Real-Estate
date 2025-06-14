@@ -1,6 +1,12 @@
 package com.example.Real_Estate.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.Real_Estate.ServiceImpl.PropServiceImpl;
 import com.example.Real_Estate.dto.PropertyDto;
@@ -70,16 +78,42 @@ public class AgentController {
 		return "manage-properties";
 	}
 	@PostMapping("/properties/add")
-	public String addProperty(@ModelAttribute Properties p, HttpSession session) {
+	public String addProperty(@ModelAttribute Properties p, 
+							@RequestParam("propertyImage") MultipartFile file,
+							HttpSession session) {
 		User loggedInUser = (User) session.getAttribute("user");
 		
 		if (loggedInUser == null || loggedInUser.getUr() != UserRole.AGENT) {
 			return "redirect:/login";
 		}
 		
-		p.setUser_id(loggedInUser);
-		p1.add(p);
-		return "redirect:/agent/manage-properties";
+		try {
+			// Generate unique filename
+			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+			
+			// Create directory if it doesn't exist
+			String uploadDir = "src/main/webapp/images/properties/";
+			File dir = new File(uploadDir);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+			
+			// Save file
+			Path filePath = Paths.get(uploadDir + fileName);
+			Files.write(filePath, file.getBytes());
+			
+			// Set image filename in property object
+			p.setImage(fileName);
+			
+			// Save property
+			p.setUser_id(loggedInUser);
+			p1.add(p);
+			
+			return "redirect:/agent/manage-properties";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "redirect:/agent/manage-properties?error=upload";
+		}
 	}
 	@PostMapping("/properties/filter")
 	public String filter(@ModelAttribute PropertyDto propertyDto, Model model, HttpSession session, HttpServletRequest request) {

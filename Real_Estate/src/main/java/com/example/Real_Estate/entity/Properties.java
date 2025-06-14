@@ -43,20 +43,17 @@ public class Properties {
 	private Double area;
 	@Column
 	private String areaUnit;
+	@Column
+	private String image;
 	
 	
-	@Override
-	public String toString() {
-		return "Properties [id=" + id + "user_id="+user_id+", propertyType=" + propertyType
-				+ ", status=" + status + ", address=" + address + ", city=" + city + ", state=" + state + ", zipCode="
-				+ zipCode + ", country=" + country  + "price="+price+", area="+area+", areaUnit="+areaUnit+"]";
-	}
-	public Properties() {}
-	public Properties(Long id, User user_id, PropertyType propertyType, PropertyStatus status, String address, String city,
-			String state, String zipCode, String country, Long price, Double area, String areaUnit) {
+	public Properties(Long id, User user_id, Long price, PropertyType propertyType, PropertyStatus status,
+			String address, String city, String state, String zipCode, String country, Double area, String areaUnit,
+			String image) {
 		super();
 		this.id = id;
 		this.user_id = user_id;
+		this.price = price;
 		this.propertyType = propertyType;
 		this.status = status;
 		this.address = address;
@@ -64,10 +61,23 @@ public class Properties {
 		this.state = state;
 		this.zipCode = zipCode;
 		this.country = country;
-		this.price = price;
 		this.area = area;
 		this.areaUnit = areaUnit;
+		this.image = image;
 	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	@Override
+	public String toString() {
+		return "Properties [id=" + id + "user_id="+user_id+", propertyType=" + propertyType
+				+ ", status=" + status + ", address=" + address + ", city=" + city + ", state=" + state + ", zipCode="
+				+ zipCode + ", country=" + country  + "price="+price+", area="+area+", areaUnit="+areaUnit+"]";
+	}
+	public Properties() {}
 	public Long getId() {
 		return id;
 	}

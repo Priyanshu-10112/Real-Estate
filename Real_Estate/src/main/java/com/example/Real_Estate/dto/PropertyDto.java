@@ -16,12 +16,69 @@ public class PropertyDto {
     private String zipCode;
     private Double area;
     private String areaUnit;
-    
-
-    
-    
-    public PropertyDto(Long price, PropertyType propertyType, PropertyStatus status, String address, String city,
-			String state, String zipCode, Double area, String areaUnit) {
+    private String image;
+	public Long getPrice() {
+		return price;
+	}
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+	public PropertyType getPropertyType() {
+		return propertyType;
+	}
+	public void setPropertyType(PropertyType propertyType) {
+		this.propertyType = propertyType;
+	}
+	public PropertyStatus getStatus() {
+		return status;
+	}
+	public void setStatus(PropertyStatus status) {
+		this.status = status;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getZipCode() {
+		return zipCode;
+	}
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+	public Double getArea() {
+		return area;
+	}
+	public void setArea(Double area) {
+		this.area = area;
+	}
+	public String getAreaUnit() {
+		return areaUnit;
+	}
+	public void setAreaUnit(String areaUnit) {
+		this.areaUnit = areaUnit;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public PropertyDto(Long price, PropertyType propertyType, PropertyStatus status, String address, String city,
+			String state, String zipCode, Double area, String areaUnit, String image) {
 		super();
 		this.price = price;
 		this.propertyType = propertyType;
@@ -32,84 +89,9 @@ public class PropertyDto {
 		this.zipCode = zipCode;
 		this.area = area;
 		this.areaUnit = areaUnit;
+		this.image = image;
 	}
-    
-	@Override
-	public String toString() {
-		return "PropertyDto [price=" + price + ", propertyType=" + propertyType + ", status=" + status + ", address="
-				+ address + ", city=" + city + ", state=" + state + ", zipCode=" + zipCode + ", area=" + area
-				+ ", areaUnit=" + areaUnit + "]";
-	}
-
-	public Double getArea() {
-		return area;
-	}
-
-	public void setArea(Double area) {
-		this.area = area;
-	}
-
-	public String getAreaUnit() {
-		return areaUnit;
-	}
-
-	public void setAreaUnit(String areaUnit) {
-		this.areaUnit = areaUnit;
-	}
-
-	public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
-    }
-
-    public PropertyType getPropertyType() {
-        return propertyType;
-    }
-
-    public void setPropertyType(PropertyType propertyType) {
-        this.propertyType = propertyType;
-    }
-
-    public PropertyStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(PropertyStatus status) {
-        this.status = status;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
+    public PropertyDto() {
+    	super();
+    }    
 }

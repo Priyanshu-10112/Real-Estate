@@ -781,7 +781,9 @@
                                             <span class="property-badge <%= p1.getStatus().toString().toLowerCase() %>">
                                                 <%= p1.getStatus() %>
                                             </span>
-                                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3" alt="<%= p1.getPropertyType() %>">
+                                            <img src="${pageContext.request.contextPath}/images/properties/<%= p1.getImage() %>" 
+                                                 alt="<%= p1.getPropertyType() %>"
+                                                 onerror="this.src='https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3'">
                                         </div>
                                         <div class="property-info">
                                             <div class="property-price">
@@ -842,7 +844,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addPropertyForm" action="${pageContext.request.contextPath}/agent/properties/add" method="post">
+                    <form id="addPropertyForm" action="${pageContext.request.contextPath}/agent/properties/add" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <!-- Property Type -->
                             <div class="col-md-6 mb-3">
@@ -942,6 +944,11 @@
                         </select>
                     		</div>
                     	</div>
+                        <div class="mb-3">
+                            <label class="form-label">Property Image</label>
+                            <input type="file" name="propertyImage" class="form-control" accept="image/*" required>
+                            <small class="text-muted">Upload a clear image of your property (Max size: 5MB)</small>
+                        </div>
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary">Add Property</button>
