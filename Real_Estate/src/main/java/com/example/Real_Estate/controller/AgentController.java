@@ -80,7 +80,8 @@ public class AgentController {
 	@PostMapping("/properties/add")
 	public String addProperty(@ModelAttribute Properties p, 
 							@RequestParam("propertyImage") MultipartFile file,
-							HttpSession session) {
+							HttpSession session,
+							Model model) {
 		User loggedInUser = (User) session.getAttribute("user");
 		
 		if (loggedInUser == null || loggedInUser.getUr() != UserRole.AGENT) {
@@ -88,6 +89,11 @@ public class AgentController {
 		}
 		
 		try {
+			if (file.isEmpty()) {
+				model.addAttribute("error", "Please select an image file");
+				return "redirect:/agent/manage-properties?error=no_image";
+			}
+
 			// Generate unique filename
 			String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 			
@@ -107,12 +113,19 @@ public class AgentController {
 			
 			// Save property
 			p.setUser_id(loggedInUser);
-			p1.add(p);
+			Properties savedProperty = p1.add(p);
 			
-			return "redirect:/agent/manage-properties";
+			if (savedProperty != null) {
+				return "redirect:/agent/manage-properties?success=true";
+			} else {
+				return "redirect:/agent/manage-properties?error=save_failed";
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "redirect:/agent/manage-properties?error=upload";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/agent/manage-properties?error=unknown";
 		}
 	}
 	@PostMapping("/properties/filter")

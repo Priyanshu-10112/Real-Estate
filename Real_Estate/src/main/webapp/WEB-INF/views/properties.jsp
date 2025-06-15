@@ -973,7 +973,9 @@
                                 <span class="property-badge <%= p1.getStatus().toString().toLowerCase() %>">
                                     <%= p1.getStatus() %>
                                 </span>
-                                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3" alt="<%= p1.getPropertyType() %>">
+                                <img src="${pageContext.request.contextPath}/images/properties/<%= p1.getImage() %>" 
+                                     alt="<%= p1.getPropertyType() %>"
+                                     onerror="this.src='https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3'">
                             </div>
                             <div class="property-info">
                                 <div class="property-price">

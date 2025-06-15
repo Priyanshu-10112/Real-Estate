@@ -621,6 +621,39 @@
         List<Properties> mp = (List<Properties>)request.getAttribute("MyProperties");
         User u1 = (User)session.getAttribute("user");
         %>
+        
+        <!-- Alert Messages -->
+        <% if(request.getParameter("error") != null) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <% 
+                    String error = request.getParameter("error");
+                    String message = "";
+                    switch(error) {
+                        case "no_image":
+                            message = "Please select an image file";
+                            break;
+                        case "upload":
+                            message = "Error uploading image. Please try again.";
+                            break;
+                        case "save_failed":
+                            message = "Error saving property. Please try again.";
+                            break;
+                        default:
+                            message = "An error occurred. Please try again.";
+                    }
+                %>
+                <%= message %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
+        
+        <% if(request.getParameter("success") != null) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Property added successfully!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
+
         <div class="page-header bg-light p-4 rounded shadow-sm">
             <div class="row align-items-center">
                 <div class="col-12">
@@ -947,7 +980,7 @@
                         <div class="mb-3">
                             <label class="form-label">Property Image</label>
                             <input type="file" name="propertyImage" class="form-control" accept="image/*" required>
-                            <small class="text-muted">Upload a clear image of your property (Max size: 5MB)</small>
+                            <small class="text-muted">Upload a clear image of your property (Max size: 10MB)</small>
                         </div>
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -966,6 +999,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {
+        // Auto-hide success message after 5 seconds
+        setTimeout(function() {
+            $('.alert-success').fadeOut('slow', function() {
+                $(this).remove();
+            });
+        }, 5000);
+
         // Function to load all properties
         function loadAllProperties() {
             // Show loading state

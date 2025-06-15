@@ -700,7 +700,9 @@
                         <span class="property-badge <%= property.getStatus().toString().toLowerCase() %>">
                             <%= property.getStatus() %>
                         </span>
-                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3" alt="<%= property.getPropertyType() %>">
+                        <img src="${pageContext.request.contextPath}/images/properties/<%= property.getImage() %>" 
+                             alt="<%= property.getPropertyType() %>"
+                             onerror="this.src='https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3'">
                     </div>
                     <div class="property-info">
                         <div class="property-price">
@@ -717,17 +719,12 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <%= property.getAddress() %>, <%= property.getCity() %>
                         </div>
-                        <div class="property-features">
-                            <% if (property.getArea() != null && property.getArea() > 0) { %>
-                                <span class="feature">
-                                    <i class="fas fa-ruler-combined"></i>
-                                    <%= property.getArea() %> <%= property.getAreaUnit() %>
-                                </span>
-                            <% } %>
-                        </div>
                         <div class="property-actions">
                             <a href="${pageContext.request.contextPath}/user/property-details/<%= property.getId() %>" class="btn btn-primary">
                                 <i class="fas fa-eye"></i> View Details
+                            </a>
+                            <a href="${pageContext.request.contextPath}/agent/properties/edit/<%= property.getId() %>" class="btn btn-primary">
+                                <i class="fas fa-edit"></i> Edit
                             </a>
                             <button class="btn btn-primary" onclick="deleteProperty('<%= property.getId() %>')">
                                 <i class="fas fa-trash"></i> Delete
@@ -762,7 +759,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="${pageContext.request.contextPath}/agent/property/add" method="POST" enctype="multipart/form-data">
+                    <form action="${pageContext.request.contextPath}/agent/properties/add" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="propertyType" class="form-label">Property Type</label>
@@ -826,8 +823,9 @@
                             <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="image" class="form-label">Property Image</label>
-                            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                            <label class="form-label">Property Image</label>
+                            <input type="file" name="propertyImage" class="form-control" accept="image/*" required>
+                            <small class="text-muted">Upload a clear image of your property (Max size: 5MB)</small>
                         </div>
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
