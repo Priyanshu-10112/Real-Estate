@@ -39,13 +39,13 @@
         }
 
         .property-header {
-            background: var(--gradient-primary), 
-                        url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3') center/cover;
+            background: var(--gradient-primary);
             color: white;
             padding: 2rem 0;
             position: relative;
             overflow: hidden;
             box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
         }
 
         .property-header .container {
@@ -177,11 +177,10 @@
         }
 
         .property-badges {
+            margin-top: 1rem;
             display: flex;
             gap: 1rem;
-            z-index: 2;
             flex-wrap: wrap;
-            justify-content: flex-end;
         }
 
         .property-status, .property-type {
@@ -219,11 +218,8 @@
             background: white;
             border-radius: 20px;
             box-shadow: var(--card-shadow);
-            padding: 1.5rem;
-            margin-bottom: var(--section-spacing);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            padding: 2rem;
+            margin-bottom: 2rem;
         }
         
         .property-details-card::before {
@@ -465,20 +461,21 @@
             background: white;
             border-radius: 20px;
             box-shadow: var(--card-shadow);
-            padding: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
         }
 
         .actions-list {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 1rem;
         }
 
         .action-button {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            padding: 0.8rem 1rem;
+            gap: 1rem;
+            padding: 1rem;
             background: var(--light-bg);
             border: none;
             border-radius: 12px;
@@ -493,11 +490,11 @@
         .action-button:hover {
             background: var(--primary-color);
             color: white;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
 
         .action-button i {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--primary-color);
             transition: var(--transition);
         }
@@ -623,6 +620,7 @@
 
         .property-header-content {
             position: relative;
+            z-index: 2;
         }
 
         .highlights-grid {
@@ -736,8 +734,7 @@
             display: flex;
             align-items: flex-start;
             gap: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
+            box-shadow: var(--card-shadow);
         }
 
         .location-main:hover {
@@ -759,7 +756,7 @@
             align-items: center;
             gap: 1rem;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--card-shadow);
         }
 
         .location-item:hover {
@@ -876,6 +873,270 @@
                 font-size: 1.1rem;
             }
         }
+
+        /* Add new styles for image gallery */
+        .property-gallery {
+            margin-bottom: 2rem;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+        }
+
+        .thumbnail:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .property-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Update existing styles */
+        .property-header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .property-badges {
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-image {
+                height: 300px;
+            }
+
+            .thumbnail-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .thumbnail {
+                height: 100px;
+            }
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-bg);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .detail-item {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .detail-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .detail-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .detail-item:hover .detail-icon {
+            background: var(--gradient-primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .detail-content {
+            flex: 1;
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .location-details {
+            background: var(--light-bg);
+            border-radius: 15px;
+            padding: 2rem;
+        }
+
+        .location-main {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .location-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+        }
+
+        .location-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .location-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--light-bg);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .location-item:hover .location-icon {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .quick-actions-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .actions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .action-button {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--light-bg);
+            border: none;
+            border-radius: 12px;
+            color: var(--dark-text);
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+        }
+
+        .action-button:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .action-button i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .action-button:hover i {
+            color: white;
+        }
+
+        @media (max-width: 991.98px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-image {
+                height: 300px;
+            }
+
+            .property-details-card {
+                padding: 1.5rem;
+            }
+
+            .detail-item {
+                padding: 1rem;
+            }
+
+            .location-details {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -893,6 +1154,14 @@
                 <div class="header-content">
                     <div class="header-left">
                         <h1 class="property-title"><%= property.getPropertyType() %></h1>
+                        <div class="property-badges">
+                            <span class="property-status">
+                                <i class="fas fa-tag"></i> <%= property.getStatus() %>
+                            </span>
+                            <span class="property-type">
+                                <i class="fas fa-home"></i> <%= property.getPropertyType() %>
+                            </span>
+                        </div>
                     </div>
                     <div class="header-right">
                         <div class="property-price">
@@ -913,74 +1182,55 @@
     </div>
 
     <div class="container">
-        <div class="row my-4">
-            <!-- Property Highlights -->
+        <div class="row">
+            <!-- Main Content Column -->
             <div class="col-lg-8">
-                <div class="property-details-card">
-                    <h3 class="mb-4">Property Overview</h3>
-                    <div class="highlights-grid">
-                        <div class="highlight-item">
-                            <div class="highlight-icon">
-                                <i class="fas fa-ruler-combined"></i>
-                            </div>
-                            <div class="highlight-content">
-                                <h4><%= property.getArea() %> <%= property.getAreaUnit() %></h4>
-                                <p>Total Area</p>
-                            </div>
-                        </div>
-                        <div class="highlight-item">
-                            <div class="highlight-icon">
-                                <i class="fas fa-car"></i>
-                            </div>
-                            <div class="highlight-content">
-                                <h4>Parking</h4>
-                                <p>Available</p>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Property Gallery -->
+                <div class="property-details-card property-gallery">
+                    <img src="${pageContext.request.contextPath}/images/properties/<%= property.getImage() %>" 
+                         alt="<%= property.getPropertyType() %>" 
+                         class="main-image">
                 </div>
 
-                <!-- Detailed Information -->
+                <!-- Property Details -->
                 <div class="property-details-card">
-                    <h3 class="mb-4">Property Details</h3>
-                    <div class="detail-items-list">
-                        
-                            <div class="detail-item">
-                                <div class="detail-icon">
-                                    <i class="fas fa-home"></i>
-                                </div>
-                                <div class="detail-content">
-                                    <div class="detail-label">Property Type</div>
-                                    <div class="detail-value"><%= property.getPropertyType() %></div>
-                                </div>
+                    <h3 class="section-title">Property Details</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-home"></i>
                             </div>
-                        
-                            <div class="detail-item">
-                                <div class="detail-icon">
-                                    <i class="fas fa-tag"></i>
-                                </div>
-                                <div class="detail-content">
-                                    <div class="detail-label">Status</div>
-                                    <div class="detail-value"><%= property.getStatus() %></div>
-                                </div>
+                            <div class="detail-content">
+                                <div class="detail-label">Property Type</div>
+                                <div class="detail-value"><%= property.getPropertyType() %></div>
                             </div>
+                        </div>
                         
-                            <div class="detail-item">
-                                <div class="detail-icon">
-                                    <i class="fas fa-ruler-combined"></i>
-                                </div>
-                                <div class="detail-content">
-                                    <div class="detail-label">Area</div>
-                                    <div class="detail-value"><%= property.getArea() %> <%= property.getAreaUnit() %></div>
-                                </div>
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-tag"></i>
                             </div>
+                            <div class="detail-content">
+                                <div class="detail-label">Status</div>
+                                <div class="detail-value"><%= property.getStatus() %></div>
+                            </div>
+                        </div>
                         
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-ruler-combined"></i>
+                            </div>
+                            <div class="detail-content">
+                                <div class="detail-label">Area</div>
+                                <div class="detail-value"><%= property.getArea() %> <%= property.getAreaUnit() %></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Location Information -->
                 <div class="property-details-card">
-                    <h3 class="mb-4">Location Details</h3>
+                    <h3 class="section-title">Location Details</h3>
                     <div class="location-details">
                         <div class="location-main">
                             <div class="location-icon">
@@ -1019,165 +1269,36 @@
                                     <div class="location-value"><%= property.getZipCode() %></div>
                                 </div>
                             </div>
-                            <div class="location-item">
-                                <div class="location-icon">
-                                    <i class="fas fa-globe-asia"></i>
-                                </div>
-                                <div class="location-content">
-                                    <div class="location-label">Country</div>
-                                    <div class="location-value">India</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Features Section -->
-                <div class="property-details-card">
-                    <h3 class="mb-4">Features & Amenities</h3>
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>24/7 Security</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Parking Space</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Power Backup</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Lift Facility</span>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Agent Information -->
+            <!-- Sidebar Column -->
             <div class="col-lg-4">
-                <div class="agent-section">
-                    <% if (session.getAttribute("user") == null || 
-                          !((User)session.getAttribute("user")).getEmail().equals(property.getUser_id().getEmail())) { %>
-                    <div class="agent-card">
-                        <div class="agent-header">
-                            <div class="agent-image">
-                                <div class="agent-initial">
-                                    <%= property.getUser_id().getFirstName().charAt(0) %>
-                                </div>
-                            </div>
-                            <div class="agent-info">
-                                <h3 class="agent-name"><%= property.getUser_id().getFirstName() %> <%= property.getUser_id().getLastName() %></h3>
-                                <p class="agent-role">Property Agent</p>
-                            </div>
-                        </div>
-                        <div class="agent-contact">
-                            <div class="contact-item">
-                                <i class="fas fa-envelope"></i>
-                                <a href="mailto:<%= property.getUser_id().getEmail() %>"><%= property.getUser_id().getEmail() %></a>
-                            </div>
-                            <div class="contact-item">
-                                <i class="fas fa-phone"></i>
-                                <a href="tel:<%= property.getUser_id().getPhoneNumber() %>"><%= property.getUser_id().getPhoneNumber() %></a>
-                            </div>
-                        </div>
-                        <div class="contact-buttons">
-                            <a href="sms:<%= property.getUser_id().getPhoneNumber() %>" class="btn btn-primary">
-                                <i class="fas fa-comment"></i> SMS
-                            </a>
-                            <a href="mailto:<%= property.getUser_id().getEmail() %>" class="btn btn-outline-primary">
-                                <i class="fas fa-envelope"></i> Email
-                            </a>
-                            <a href="#" class="btn btn-success">
-                                <i class="fas fa-calendar-alt"></i> Set Appointment
-                            </a>
-                        </div>
+                <!-- Quick Actions -->
+                <div class="quick-actions-card">
+                    <h3 class="section-title">Quick Actions</h3>
+                    <div class="actions-list">
+                        <button class="action-button">
+                            <i class="fas fa-heart"></i>
+                            Mark as Favorite
+                        </button>
+                        <button class="action-button">
+                            <i class="fas fa-print"></i>
+                            Print Details
+                        </button>
+                        <button class="action-button">
+                            <i class="fas fa-download"></i>
+                            Download Brochure
+                        </button>
                     </div>
-                    <% } %>
+                </div>
 
-                    <!-- Property Highlights -->
-                    <div class="property-highlights-card">
-                        <h3 class="mb-4">Property Highlights</h3>
-                        <div class="highlights-list">
-                            <div class="highlight-stat">
-                                <div class="stat-icon">
-                                    <i class="fas fa-calendar-alt"></i>
-                                </div>
-                                <div class="stat-content">
-                                    <div class="stat-value">Listed</div>
-                                    <div class="stat-label">2 days ago</div>
-                                </div>
-                            </div>
-                            <div class="highlight-stat">
-                                <div class="stat-icon">
-                                    <i class="fas fa-eye"></i>
-                                </div>
-                                <div class="stat-content">
-                                    <div class="stat-value">Views</div>
-                                    <div class="stat-label">245</div>
-                                </div>
-                            </div>
-                            <div class="highlight-stat">
-                                <div class="stat-icon">
-                                    <i class="fas fa-heart"></i>
-                                </div>
-                                <div class="stat-content">
-                                    <div class="stat-value">Saved</div>
-                                    <div class="stat-label">18 times</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quick Actions -->
-                    <div class="quick-actions-card">
-                        <h3 class="mb-4">Quick Actions</h3>
-                        <div class="actions-list">
-                            <button class="action-button">
-                                <i class="fas fa-heart"></i>
-                                Mark as Favorite
-                            </button>
-                            <button class="action-button">
-                                <i class="fas fa-print"></i>
-                                Print Details
-                            </button>
-                            <button class="action-button">
-                                <i class="fas fa-download"></i>
-                                Download Brochure
-                            </button>
-                            <% if (session.getAttribute("user") != null && 
-                                   ((User)session.getAttribute("user")).getUr() == UserRole.AGENT && 
-                                   ((User)session.getAttribute("user")).getEmail().equals(property.getUser_id().getEmail())) { %>
-                                <form action="${pageContext.request.contextPath}/agent/properties/delete/<%= property.getId() %>" 
-                                      method="POST" 
-                                      onsubmit="return confirm('Are you sure you want to delete this property?');"
-                                      style="margin: 0;">
-                                    <button type="submit" class="action-button text-danger">
-                                        <i class="fas fa-trash"></i>
-                                        Delete Property
-                                    </button>
-                                </form>
-                            <% } %>
-                        </div>
-                    </div>
-
-                    <!-- Placeholder for Map -->
-                    <div class="property-details-card">
-                        <h3 class="mb-4">Property Location</h3>
-                        <div id="property-map" style="height: 300px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center; color: #6c757d;">
-                            Map will be embedded here.
-                        </div>
-                    </div>
+                <!-- Property Location Map -->
+                <div class="property-details-card">
+                    <h3 class="section-title">Property Location</h3>
+                    <div id="property-map" style="height: 300px; background-color: #e9ecef; border-radius: 12px;"></div>
                 </div>
             </div>
         </div>
@@ -1202,19 +1323,13 @@
 
     <script>
         // Initialize the map
-        var map = L.map('property-map').setView([51.505, -0.09], 13); // Placeholder coordinates and zoom level
+        var map = L.map('property-map').setView([51.505, -0.09], 13);
 
         // Add a tile layer (OpenStreetMap)
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
-
-        // TODO: Replace placeholder coordinates (51.505, -0.09) with actual property coordinates.
-        // You can add a marker using:
-        // L.marker([propertyLatitude, propertyLongitude]).addTo(map)
-        //     .bindPopup('<b>Property Location</b>').openPopup();
-
     </script>
 </body>
 </html> 
