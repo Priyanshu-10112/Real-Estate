@@ -30,15 +30,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/about">
-                        <i class="fas fa-info-circle"></i>
-                        <span>About</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/contact">
-                        <i class="fas fa-envelope"></i>
-                        <span>Contact</span>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/agent/appointments">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Appointments</span>
                     </a>
                 </li>
                 <li class="nav-item">

@@ -1295,6 +1295,48 @@
                     </div>
                 </div>
 
+                <!-- Agent Details -->
+                <% 
+                    User loggedInUser = (User) session.getAttribute("user");
+                    if (loggedInUser == null || !loggedInUser.getEmail().equals(property.getUser_id().getEmail())) { 
+                %>
+                <div class="property-details-card">
+                    <h3 class="section-title">Agent Details</h3>
+                    <div class="agent-section">
+                        <div class="agent-card">
+                            <div class="agent-header">
+                                <div class="agent-image">
+                                    <div class="agent-initial">
+                                        <%= property.getUser_id() != null ? property.getUser_id().getFirstName().charAt(0) : 'A' %>
+                                    </div>
+                                </div>
+                                <h4 class="agent-name">
+                                    <%= property.getUser_id() != null ? property.getUser_id().getFirstName() + " " + property.getUser_id().getLastName() : "Agent Name" %>
+                                </h4>
+                                <p class="agent-role">Real Estate Agent</p>
+                            </div>
+                            <div class="agent-contact">
+                                <% if (property.getUser_id() != null) { %>
+                                    <div class="contact-item">
+                                        <i class="fas fa-phone"></i>
+                                        <span><%= property.getUser_id().getPhoneNumber() %></span>
+                                    </div>
+                                    <div class="contact-item">
+                                        <i class="fas fa-envelope"></i>
+                                        <span><%= property.getUser_id().getEmail() %></span>
+                                    </div>
+                                <% } %>
+                            </div>
+                            <div class="contact-buttons">
+                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#appointmentModal">
+                                    <i class="fas fa-calendar-check me-2"></i> Set Appointment
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+
                 <!-- Property Location Map -->
                 <div class="property-details-card">
                     <h3 class="section-title">Property Location</h3>
@@ -1303,6 +1345,40 @@
             </div>
         </div>
     </div>
+
+    <!-- Appointment Modal -->
+    <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="appointmentModalLabel">Schedule Viewing Appointment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="appointmentForm">
+                        <input type="hidden" id="propertyId" name="propertyId" value="<%= property.getId() %>">
+                        <div class="mb-3">
+                            <label for="appointmentDate" class="form-label">Preferred Date</label>
+                            <input type="date" class="form-control" id="appointmentDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentTime" class="form-label">Preferred Time</label>
+                            <input type="time" class="form-control" id="appointmentTime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentMessage" class="form-label">Message (Optional)</label>
+                            <textarea class="form-control" id="appointmentMessage" rows="3" placeholder="Add any specific requirements or questions..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submitAppointment">Schedule Appointment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <% } else { %>
     <div class="container">
         <div class="alert alert-danger">
@@ -1313,6 +1389,9 @@
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     
+    <!-- Update script imports -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
 
@@ -1322,14 +1401,67 @@
         crossorigin=""></script>
 
     <script>
-        // Initialize the map
-        var map = L.map('property-map').setView([51.505, -0.09], 13);
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set minimum date to today
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById('appointmentDate').min = today;
 
-        // Add a tile layer (OpenStreetMap)
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+        // Initialize Bootstrap modal
+        var appointmentModal = new bootstrap.Modal(document.getElementById('appointmentModal'));
+
+        // Handle appointment submission
+        document.getElementById('submitAppointment').addEventListener('click', function() {
+            var propertyId = document.getElementById('propertyId').value;
+            if (!propertyId) {
+                alert('Property ID is missing. Please try again.');
+                return;
+            }
+
+            var appointmentData = {
+                property: {
+                    id: propertyId
+                },
+                appointmentDate: document.getElementById('appointmentDate').value + 'T' + 
+                               document.getElementById('appointmentTime').value,
+                message: document.getElementById('appointmentMessage').value,
+                status: 'PENDING'
+            };
+
+            console.log('Submitting appointment:', appointmentData);
+
+            fetch('${pageContext.request.contextPath}/api/appointments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(appointmentData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(text || 'Failed to create appointment');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                appointmentModal.hide();
+                alert('Appointment scheduled successfully! The agent will review your request and get back to you soon.');
+                document.getElementById('appointmentForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(error.message || 'Error scheduling appointment. Please try again later.');
+            });
+        });
+
+        // Form validation
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('submitAppointment').click();
+        });
+    });
     </script>
 </body>
 </html> 
