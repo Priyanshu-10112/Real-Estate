@@ -8,6 +8,7 @@
     <title>My Appointments - Real Estate</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/newcss.css">
     <style>
         :root {
             --primary-color: #3498db;
@@ -24,24 +25,28 @@
             --gradient-success: linear-gradient(135deg, #2ecc71, #27ae60);
             --gradient-warning: linear-gradient(135deg, #f1c40f, #f39c12);
             --gradient-danger: linear-gradient(135deg, #e74c3c, #c0392b);
+            --transition: all 0.3s ease;
+            --border-radius: 16px;
+            --section-spacing: 2.5rem;
         }
 
         body {
             background-color: var(--light-bg);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            padding-top: 0px;
+            padding-top: 0;
         }
 
         .page-header {
             background: var(--gradient-primary);
             color: white;
             padding: 40px 0;
+            margin-top: 80px;
             margin-bottom: 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
             box-shadow: var(--card-shadow);
+            border-radius: 0 0 20px 20px;
         }
 
         .page-header::before {
@@ -71,37 +76,8 @@
 
         .container {
             padding: 0 30px;
-        }
-
-        /* Navigation Styles */
-        .navbar {
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 1rem 0;
-        }
-
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .nav-link {
-            color: var(--dark-text);
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            transition: var(--button-transition);
-            border-radius: 8px;
-        }
-
-        .nav-link:hover {
-            color: var(--primary-color);
-            background: var(--light-bg);
-        }
-
-        .nav-link.active {
-            color: var(--primary-color);
-            background: var(--light-bg);
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .user-dropdown {
@@ -158,60 +134,32 @@
             position: relative;
             width: 100%;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0;
         }
 
         .header-content {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            justify-content: center;
+            align-items: center;
             gap: 2rem;
-            margin-top: 1rem;
+            margin-top: 0;
         }
 
         .header-left {
             flex: 1;
             min-width: 0;
+            text-align: center;
         }
 
         .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-
-        .back-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            color: white;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .back-button i {
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .back-button:hover i {
-            transform: translateX(-3px);
+            display: none;
         }
 
         @media (max-width: 991.98px) {
             .header-content {
                 flex-direction: column;
                 gap: 1.5rem;
+                padding: 0 1rem;
             }
 
             .page-title {
@@ -221,7 +169,9 @@
 
         @media (max-width: 768px) {
             .page-header {
-                padding: 2rem 0;
+                padding: 30px 0;
+                margin-top: 70px;
+                margin-bottom: 30px;
             }
 
             .page-title {
@@ -343,6 +293,8 @@
             margin-bottom: 20px;
             overflow: hidden;
             height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .appointment-card:hover {
@@ -357,51 +309,59 @@
         }
 
         .appointment-status {
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
             font-weight: 600;
-            display: inline-block;
-            margin-bottom: 15px;
-            transition: var(--button-transition);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .status-pending {
-            background-color: var(--warning-color);
+            background: linear-gradient(135deg, #f1c40f, #f39c12);
             color: #fff;
         }
 
         .status-pending:hover {
-            background-color: #e2b607;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(241, 196, 15, 0.3);
+            box-shadow: 0 4px 12px rgba(241, 196, 15, 0.3);
         }
 
         .status-confirmed {
-            background-color: var(--success-color);
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
             color: #fff;
         }
 
         .status-confirmed:hover {
-            background-color: #27ae60;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(46, 204, 113, 0.3);
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
         }
 
         .status-rejected {
-            background-color: var(--danger-color);
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
             color: #fff;
         }
 
         .status-rejected:hover {
-            background-color: #c0392b;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+
+        .appointment-status i {
+            font-size: 1rem;
         }
 
         .appointment-details {
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         .appointment-title {
@@ -427,63 +387,70 @@
 
         .appointment-actions {
             display: flex;
-            gap: 12px;
-            margin-top: 20px;
             flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            flex-shrink: 0;
         }
 
         .appointment-actions .btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: var(--button-transition);
-            display: inline-flex;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
             align-items: center;
-            gap: 8px;
-            border: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .appointment-actions .btn i {
+            justify-content: center;
+            gap: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             font-size: 0.9rem;
+            flex: 1;
+            min-width: 120px;
+            max-width: 200px;
         }
 
         .appointment-actions .btn-primary {
-            background-color: var(--primary-color);
+            background: var(--primary-color);
             color: white;
+            border: none;
         }
 
         .appointment-actions .btn-primary:hover {
-            background-color: #2980b9;
+            background: #2980b9;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
 
         .appointment-actions .btn-success {
-            background-color: var(--success-color);
+            background: var(--success-color);
             color: white;
+            border: none;
         }
 
         .appointment-actions .btn-success:hover {
-            background-color: #27ae60;
+            background: #27ae60;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(46, 204, 113, 0.3);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
         }
 
         .appointment-actions .btn-danger {
-            background-color: var(--danger-color);
+            background: var(--danger-color);
             color: white;
+            border: none;
         }
 
         .appointment-actions .btn-danger:hover {
-            background-color: #c0392b;
+            background: #c0392b;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
         }
 
-        .appointment-actions .btn:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .appointment-actions .btn i {
+            font-size: 1.1rem;
         }
 
         .section-divider {
@@ -549,6 +516,64 @@
             margin-bottom: 30px;
             font-weight: 600;
         }
+
+        /* Remove any absolute positioned elements */
+        .header-actions,
+        .user-dropdown,
+        .dropdown-menu {
+            position: static;
+        }
+
+        .property-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .property-actions .btn {
+            padding: 1.2rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .property-actions .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .property-actions .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .property-actions .btn-primary i {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .property-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .property-actions .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -557,9 +582,6 @@
     <div class="page-header">
         <div class="container">
             <div class="header-wrapper">
-                <a href="javascript:history.back()" class="back-button">
-                    <i class="fas fa-arrow-left"></i> Back
-                </a>
                 <div class="header-content">
                     <div class="header-left">
                         <h1 class="page-title">My Appointments</h1>
@@ -611,9 +633,6 @@
                             <h5 class="appointment-title">${appointment.property.propertyType}</h5>
                             
                             <div class="property-details">
-                                <div class="property-price">
-                                    $${appointment.property.price}
-                                </div>
                                 <div class="appointment-info">
                                     <i class="fas fa-map-marker-alt"></i>
                                     <span>${appointment.property.address}, ${appointment.property.city}</span>
@@ -659,38 +678,44 @@
 
                             <c:choose>
                                 <c:when test="${appointment.status == 'PENDING'}">
-                                    <span class="appointment-status status-pending">Pending</span>
+                                    <span class="appointment-status status-pending">
+                                        <i class="fas fa-clock"></i> Pending
+                                    </span>
                                 </c:when>
                                 <c:when test="${appointment.status == 'CONFIRMED'}">
-                                    <span class="appointment-status status-confirmed">Confirmed</span>
+                                    <span class="appointment-status status-confirmed">
+                                        <i class="fas fa-check-circle"></i> Confirmed
+                                    </span>
                                 </c:when>
                                 <c:when test="${appointment.status == 'REJECTED'}">
-                                    <span class="appointment-status status-rejected">Rejected</span>
+                                    <span class="appointment-status status-rejected">
+                                        <i class="fas fa-times-circle"></i> Rejected
+                                    </span>
                                 </c:when>
                             </c:choose>
 
                             <div class="appointment-actions">
                                 <c:if test="${appointment.status == 'PENDING'}">
                                     <c:if test="${sessionScope.user.ur == 'AGENT'}">
-                                        <button class="btn btn-success btn-sm" 
+                                        <button class="btn btn-success" 
                                                 onclick="approveAppointment('${appointment.id}')">
                                             <i class="fas fa-check"></i> Approve
                                         </button>
-                                        <button class="btn btn-danger btn-sm" 
+                                        <button class="btn btn-danger" 
                                                 onclick="rejectAppointment('${appointment.id}')">
                                             <i class="fas fa-times"></i> Reject
                                         </button>
                                     </c:if>
                                     <c:if test="${sessionScope.user.ur == 'USER'}">
-                                        <button class="btn btn-danger btn-sm" 
+                                        <button class="btn btn-danger" 
                                                 onclick="cancelAppointment('${appointment.id}')">
                                             <i class="fas fa-times"></i> Cancel
                                         </button>
                                     </c:if>
                                 </c:if>
-                                <a href="${pageContext.request.contextPath}/property/${appointment.property.id}" 
-                                   class="btn btn-primary btn-sm">
-                                    <i class="fas fa-eye"></i> View Property
+                                <a href="${pageContext.request.contextPath}/user/property-details/${appointment.property.id}" 
+                                   class="btn btn-primary">
+                                    <i class="fas fa-eye"></i> View Details
                                 </a>
                             </div>
                         </div>
@@ -704,7 +729,7 @@
                         <i class="fas fa-calendar-times"></i>
                         <h3>No Appointments Found</h3>
                         <p>You haven't scheduled any property viewings yet. Start exploring available properties and schedule your first viewing.</p>
-                        <a href="${pageContext.request.contextPath}/properties" class="btn">
+                        <a href="${pageContext.request.contextPath}/agent/manage-properties" class="btn">
                             <i class="fas fa-search"></i> Browse Properties
                         </a>
                     </div>
@@ -812,7 +837,7 @@
 
         function createAppointmentCard(appointment) {
             const cancelButton = appointment.status === 'PENDING' 
-                ? `<button class="btn btn-danger btn-sm" onclick="cancelAppointment('${appointment.id}')">
+                ? `<button class="btn btn-danger" onclick="cancelAppointment('${appointment.id}')">
                     <i class="fas fa-times"></i> Cancel
                    </button>`
                 : '';
@@ -839,9 +864,6 @@
                             <h5 class="appointment-title">${appointment.property.propertyType}</h5>
                             
                             <div class="property-details">
-                                <div class="property-price">
-                                    $${appointment.property.price}
-                                </div>
                                 <div class="appointment-info">
                                     <i class="fas fa-map-marker-alt"></i>
                                     <span>${appointment.property.address}, ${appointment.property.city}</span>
@@ -886,9 +908,9 @@
 
                             <div class="appointment-actions">
                                 ${cancelButton}
-                                <a href="${pageContext.request.contextPath}/property/${appointment.property.id}" 
-                                   class="btn btn-primary btn-sm">
-                                    <i class="fas fa-eye"></i> View Property
+                                <a href="${pageContext.request.contextPath}/user/property-details/${appointment.property.id}" 
+                                   class="btn btn-primary">
+                                    <i class="fas fa-eye"></i> View Details
                                 </a>
                             </div>
                         </div>

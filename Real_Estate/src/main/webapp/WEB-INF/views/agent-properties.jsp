@@ -739,10 +739,10 @@
                 <i class="fas fa-home"></i>
                 <h3>No Properties Found</h3>
                 <p>You haven't added any properties yet. Start by adding your first property listing.</p>
-                <button class="btn add-property-btn" data-bs-toggle="modal" data-bs-target="#addPropertyModal">
+                <a href="${pageContext.request.contextPath}/agent/manage-properties?action=add" class="btn add-property-btn">
                     <i class="fas fa-plus"></i>
                     Add New Property
-                </button>
+                </a>
             </div>
         <% } %>
     </div>
@@ -844,6 +844,15 @@
                 window.location.href = '${pageContext.request.contextPath}/agent/properties/delete/' + propertyId;
             }
         }
+
+        // Check if we should open the add property modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('action') === 'add') {
+                const addPropertyModal = new bootstrap.Modal(document.getElementById('addPropertyModal'));
+                addPropertyModal.show();
+            }
+        });
     </script>
 </body>
 </html> 
