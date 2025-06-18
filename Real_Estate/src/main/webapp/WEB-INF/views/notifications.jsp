@@ -36,13 +36,14 @@
             background-color: var(--light-bg);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding-top: 80px;
+            margin: 0;
         }
 
         .notifications-header {
             background: var(--gradient-primary);
             color: white;
-            padding: 2rem 0;
-            margin-bottom: 2rem;
+            padding: 3rem 0;
+            margin-bottom: 3rem;
             box-shadow: var(--card-shadow);
         }
 
@@ -51,7 +52,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 2rem;
         }
 
         .header-title {
@@ -89,26 +90,36 @@
         }
 
         .container {
-            max-width: 1140px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
+        }
+
+        .row {
+            margin: 0;
+        }
+
+        .col-12 {
+            padding: 0;
         }
 
         .notifications-container {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .notification-card {
             background: white;
             border-radius: 20px;
             box-shadow: var(--card-shadow);
-            padding: 2rem;
+            padding: 2.5rem;
             transition: var(--transition);
             border-left: 5px solid var(--primary-color);
             position: relative;
             overflow: hidden;
+            margin: 0;
         }
 
         .notification-card::before {
@@ -301,6 +312,20 @@
             color: white;
         }
 
+        .btn-outline-danger {
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn-outline-danger:hover {
+            background: var(--gradient-danger);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+            border-color: transparent;
+        }
+
         .empty-state {
             text-align: center;
             padding: 4rem 2rem;
@@ -338,14 +363,14 @@
             background: white;
             border-radius: 20px;
             box-shadow: var(--card-shadow);
-            padding: 1.5rem;
+            padding: 2rem;
             margin-bottom: 2rem;
         }
 
         .filter-row {
             display: flex;
-            gap: 1rem;
-            align-items: center;
+            gap: 1.5rem;
+            align-items: end;
             flex-wrap: wrap;
         }
 
@@ -353,38 +378,45 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            flex: 1;
+            min-width: 200px;
         }
 
         .filter-label {
             font-weight: 600;
             color: var(--dark-text);
             font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
 
         .filter-select {
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1rem;
             border: 2px solid var(--light-bg);
-            border-radius: 10px;
+            border-radius: 12px;
             background: white;
             color: var(--dark-text);
             font-weight: 500;
             transition: var(--transition);
+            font-size: 0.95rem;
         }
 
         .filter-select:focus {
             outline: none;
             border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
 
         .filter-button {
-            padding: 0.5rem 1.5rem;
+            padding: 0.75rem 1.5rem;
             background: var(--gradient-primary);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            font-size: 0.95rem;
+            white-space: nowrap;
         }
 
         .filter-button:hover {
@@ -405,17 +437,33 @@
             .header-content {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 1.5rem;
             }
 
             .notification-stats {
                 width: 100%;
-                justify-content: center;
+                justify-content: flex-start;
+            }
+            
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            
+            .filter-group {
+                min-width: auto;
             }
         }
 
         @media (max-width: 768px) {
             .header-title {
                 font-size: 2rem;
+            }
+            
+            .notifications-header {
+                padding: 2rem 0;
+                margin-bottom: 2rem;
             }
 
             .notification-card {
@@ -438,9 +486,39 @@
                 align-self: flex-start;
             }
 
-            .filter-row {
+            .filter-section {
+                padding: 1.5rem;
+            }
+            
+            .container {
+                padding: 0 0.75rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header-title {
+                font-size: 1.8rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1rem;
+            }
+            
+            .notification-stats {
                 flex-direction: column;
-                align-items: stretch;
+                gap: 0.5rem;
+            }
+            
+            .stat-item {
+                justify-content: center;
+            }
+            
+            .notification-card {
+                padding: 1rem;
+            }
+            
+            .filter-section {
+                padding: 1rem;
             }
         }
 
@@ -491,159 +569,175 @@
     </div>
 
     <div class="container">
-        <!-- Filter Section -->
-        <div class="filter-section">
-            <div class="filter-row">
-                <div class="filter-group">
-                    <label class="filter-label">Filter by Status</label>
-                    <select class="filter-select" id="statusFilter">
-                        <option value="">All Status</option>
-                        <option value="PENDING">Pending</option>
-                        <option value="CONFIRMED">Confirmed</option>
-                        <option value="REJECTED">Rejected</option>
-                        <option value="COMPLETED">Completed</option>
-                    </select>
+        <div class="row">
+            <div class="col-12">
+                <!-- Filter Section -->
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label class="filter-label">Filter by Status</label>
+                            <select class="filter-select" id="statusFilter">
+                                <option value="">All Status</option>
+                                <option value="PENDING">Pending</option>
+                                <option value="CONFIRMED">Confirmed</option>
+                                <option value="REJECTED">Rejected</option>
+                                <option value="COMPLETED">Completed</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Sort by</label>
+                            <select class="filter-select" id="sortFilter">
+                                <option value="date-desc">Date (Newest First)</option>
+                                <option value="date-asc">Date (Oldest First)</option>
+                                <option value="status">Status</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">&nbsp;</label>
+                            <button class="filter-button" onclick="applyFilters()">
+                                <i class="fas fa-filter"></i> Apply Filters
+                            </button>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">&nbsp;</label>
+                            <button class="filter-button" onclick="testEndpoint()" style="background: #e74c3c;">
+                                <i class="fas fa-bug"></i> Test Endpoint
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="filter-group">
-                    <label class="filter-label">Sort by</label>
-                    <select class="filter-select" id="sortFilter">
-                        <option value="date-desc">Date (Newest First)</option>
-                        <option value="date-asc">Date (Oldest First)</option>
-                        <option value="status">Status</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label class="filter-label">&nbsp;</label>
-                    <button class="filter-button" onclick="applyFilters()">
-                        <i class="fas fa-filter"></i> Apply Filters
-                    </button>
+
+                <!-- Notifications Container -->
+                <div class="notifications-container" id="notificationsContainer">
+                    <% 
+                    List<Appointment> notifications = (List<Appointment>) request.getAttribute("notifications");
+                    if (notifications != null && !notifications.isEmpty()) {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy 'at' hh:mm a");
+                        for (Appointment notification : notifications) {
+                    %>
+                        <div class="notification-card" data-status="<%= notification.getStatus() %>" data-date="<%= notification.getAppointmentDate() %>">
+                            <div class="notification-header">
+                                <h3 class="notification-title">
+                                    Appointment Request for 
+                                    <a href="${pageContext.request.contextPath}/property-details?id=<%= notification.getProperty().getId() %>" 
+                                       class="property-link">
+                                        <%= notification.getProperty().getPropertyType() %>
+                                    </a>
+                                </h3>
+                                <span class="notification-status status-<%= notification.getStatus().toString().toLowerCase() %>">
+                                    <%= notification.getStatus() %>
+                                </span>
+                            </div>
+                            
+                            <div class="notification-content">
+                                <div class="notification-details">
+                                    <div class="detail-row">
+                                        <div class="detail-icon">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </div>
+                                        <div class="detail-content">
+                                            <div class="detail-label">Appointment Date</div>
+                                            <div class="detail-value">
+                                                <%= notification.getAppointmentDate().format(formatter) %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="detail-row">
+                                        <div class="detail-icon">
+                                            <i class="fas fa-user-tie"></i>
+                                        </div>
+                                        <div class="detail-content">
+                                            <div class="detail-label">Agent</div>
+                                            <div class="detail-value">
+                                                <%= notification.getProperty().getUser_id().getFirstName() %> 
+                                                <%= notification.getProperty().getUser_id().getLastName() %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="detail-row">
+                                        <div class="detail-icon">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                        <div class="detail-content">
+                                            <div class="detail-label">Property Location</div>
+                                            <div class="detail-value">
+                                                <%= notification.getProperty().getAddress() %>, 
+                                                <%= notification.getProperty().getCity() %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <% if (notification.getMessage() != null && !notification.getMessage().trim().isEmpty()) { %>
+                                    <div class="detail-row">
+                                        <div class="detail-icon">
+                                            <i class="fas fa-comment"></i>
+                                        </div>
+                                        <div class="detail-content">
+                                            <div class="detail-label">Your Message</div>
+                                            <div class="detail-value">
+                                                <%= notification.getMessage() %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                    
+                                    <div class="notification-date">
+                                        <i class="fas fa-clock"></i>
+                                        Requested on <%= notification.getAppointmentDate().format(DateTimeFormatter.ofPattern("MMM dd, yyyy")) %>
+                                    </div>
+                                </div>
+                                
+                                <div class="notification-actions">
+                                    <a href="${pageContext.request.contextPath}/property-details?id=<%= notification.getProperty().getId() %>" 
+                                       class="action-button btn-primary">
+                                        <i class="fas fa-eye"></i>
+                                        View Property
+                                    </a>
+                                    
+                                    <% if (notification.getStatus() == AppointmentStatus.PENDING) { %>
+                                    <button class="action-button btn-danger cancel-appointment-btn" 
+                                            data-appointment-id="<%= notification.getId() %>">
+                                        <i class="fas fa-times"></i>
+                                        Cancel Request
+                                    </button>
+                                    <% } %>
+                                    
+                                    <% if (notification.getStatus() == AppointmentStatus.CONFIRMED) { %>
+                                    <button class="action-button btn-secondary mark-read-btn" 
+                                            data-appointment-id="<%= notification.getId() %>">
+                                        <i class="fas fa-check"></i>
+                                        Mark as Read
+                                    </button>
+                                    <% } %>
+                                    
+                                    <button class="action-button btn-outline-danger delete-notification-btn" 
+                                            data-appointment-id="<%= notification.getId() %>">
+                                        <i class="fas fa-trash"></i>
+                                        Delete Notification
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <% 
+                        }
+                    } else {
+                    %>
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <i class="fas fa-bell-slash"></i>
+                            </div>
+                            <h3 class="empty-title">No Notifications Yet</h3>
+                            <p class="empty-text">You haven't made any appointment requests yet. Start exploring properties to schedule viewings!</p>
+                            <a href="${pageContext.request.contextPath}/properties" class="action-button btn-primary">
+                                <i class="fas fa-search"></i>
+                                Browse Properties
+                            </a>
+                        </div>
+                    <% } %>
                 </div>
             </div>
-        </div>
-
-        <!-- Notifications Container -->
-        <div class="notifications-container" id="notificationsContainer">
-            <% 
-            List<Appointment> notifications = (List<Appointment>) request.getAttribute("notifications");
-            if (notifications != null && !notifications.isEmpty()) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy 'at' hh:mm a");
-                for (Appointment notification : notifications) {
-            %>
-                <div class="notification-card" data-status="<%= notification.getStatus() %>" data-date="<%= notification.getAppointmentDate() %>">
-                    <div class="notification-header">
-                        <h3 class="notification-title">
-                            Appointment Request for 
-                            <a href="${pageContext.request.contextPath}/property-details?id=<%= notification.getProperty().getId() %>" 
-                               class="property-link">
-                                <%= notification.getProperty().getPropertyType() %>
-                            </a>
-                        </h3>
-                        <span class="notification-status status-<%= notification.getStatus().toString().toLowerCase() %>">
-                            <%= notification.getStatus() %>
-                        </span>
-                    </div>
-                    
-                    <div class="notification-content">
-                        <div class="notification-details">
-                            <div class="detail-row">
-                                <div class="detail-icon">
-                                    <i class="fas fa-calendar-alt"></i>
-                                </div>
-                                <div class="detail-content">
-                                    <div class="detail-label">Appointment Date</div>
-                                    <div class="detail-value">
-                                        <%= notification.getAppointmentDate().format(formatter) %>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="detail-row">
-                                <div class="detail-icon">
-                                    <i class="fas fa-user-tie"></i>
-                                </div>
-                                <div class="detail-content">
-                                    <div class="detail-label">Agent</div>
-                                    <div class="detail-value">
-                                        <%= notification.getProperty().getUser_id().getFirstName() %> 
-                                        <%= notification.getProperty().getUser_id().getLastName() %>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="detail-row">
-                                <div class="detail-icon">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </div>
-                                <div class="detail-content">
-                                    <div class="detail-label">Property Location</div>
-                                    <div class="detail-value">
-                                        <%= notification.getProperty().getAddress() %>, 
-                                        <%= notification.getProperty().getCity() %>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <% if (notification.getMessage() != null && !notification.getMessage().trim().isEmpty()) { %>
-                            <div class="detail-row">
-                                <div class="detail-icon">
-                                    <i class="fas fa-comment"></i>
-                                </div>
-                                <div class="detail-content">
-                                    <div class="detail-label">Your Message</div>
-                                    <div class="detail-value">
-                                        <%= notification.getMessage() %>
-                                    </div>
-                                </div>
-                            </div>
-                            <% } %>
-                            
-                            <div class="notification-date">
-                                <i class="fas fa-clock"></i>
-                                Requested on <%= notification.getAppointmentDate().format(DateTimeFormatter.ofPattern("MMM dd, yyyy")) %>
-                            </div>
-                        </div>
-                        
-                        <div class="notification-actions">
-                            <a href="${pageContext.request.contextPath}/property-details?id=<%= notification.getProperty().getId() %>" 
-                               class="action-button btn-primary">
-                                <i class="fas fa-eye"></i>
-                                View Property
-                            </a>
-                            
-                            <% if (notification.getStatus() == AppointmentStatus.PENDING) { %>
-                            <button class="action-button btn-danger cancel-appointment-btn" 
-                                    data-appointment-id="<%= notification.getId() %>">
-                                <i class="fas fa-times"></i>
-                                Cancel Request
-                            </button>
-                            <% } %>
-                            
-                            <% if (notification.getStatus() == AppointmentStatus.CONFIRMED) { %>
-                            <button class="action-button btn-secondary mark-read-btn" 
-                                    data-appointment-id="<%= notification.getId() %>">
-                                <i class="fas fa-check"></i>
-                                Mark as Read
-                            </button>
-                            <% } %>
-                        </div>
-                    </div>
-                </div>
-            <% 
-                }
-            } else {
-            %>
-                <div class="empty-state">
-                    <div class="empty-icon">
-                        <i class="fas fa-bell-slash"></i>
-                    </div>
-                    <h3 class="empty-title">No Notifications Yet</h3>
-                    <p class="empty-text">You haven't made any appointment requests yet. Start exploring properties to schedule viewings!</p>
-                    <a href="${pageContext.request.contextPath}/properties" class="action-button btn-primary">
-                        <i class="fas fa-search"></i>
-                        Browse Properties
-                    </a>
-                </div>
-            <% } %>
         </div>
     </div>
 
@@ -741,6 +835,100 @@
             showSuccessNotification('Notification marked as read!');
         }
         
+        function deleteNotification(appointmentId) {
+            console.log('Attempting to delete notification with ID:', appointmentId);
+            
+            if (!appointmentId || appointmentId === 'null' || appointmentId === '') {
+                showErrorNotification('Invalid notification ID');
+                return;
+            }
+            
+            if (confirm('Are you sure you want to delete this notification? This action cannot be undone.')) {
+                const url = '${pageContext.request.contextPath}/api/appointments/' + appointmentId + '/delete';
+                console.log('Making request to:', url);
+                
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    console.log('Response headers:', response.headers);
+                    
+                    if (!response.ok) {
+                        if (response.status === 404) {
+                            throw new Error('Notification not found or access denied');
+                        }
+                        return response.text().then(text => {
+                            console.log('Error response text:', text);
+                            throw new Error(text || 'Failed to delete notification');
+                        });
+                    }
+                    return response.text().then(text => {
+                        console.log('Success response text:', text);
+                        if (text.includes('Page Not Found')) {
+                            throw new Error('Endpoint not found. Please check server configuration.');
+                        }
+                        try {
+                            return JSON.parse(text);
+                        } catch (e) {
+                            console.log('Response is not JSON, treating as success');
+                            return { message: 'Success' };
+                        }
+                    });
+                })
+                .then(data => {
+                    console.log('Success data:', data);
+                    showSuccessNotification('Notification deleted successfully!');
+                    
+                    // Find the notification card by appointment ID
+                    const button = document.querySelector('[data-appointment-id="' + appointmentId + '"]');
+                    if (button) {
+                        const notificationCard = button.closest('.notification-card');
+                        if (notificationCard) {
+                            notificationCard.style.opacity = '0';
+                            notificationCard.style.transform = 'translateX(100%)';
+                            setTimeout(() => {
+                                notificationCard.remove();
+                                // Check if no notifications left
+                                const remainingCards = document.querySelectorAll('.notification-card');
+                                if (remainingCards.length === 0) {
+                                    location.reload(); // Reload to show empty state
+                                }
+                            }, 300);
+                        } else {
+                            console.log('Notification card not found, reloading page');
+                            location.reload();
+                        }
+                    } else {
+                        console.log('Delete button not found, reloading page');
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error in deleteNotification:', error);
+                    showErrorNotification(error.message || 'Failed to delete notification. Please try again.');
+                });
+            }
+        }
+        
+        // Test function to verify endpoint accessibility
+        function testEndpoint() {
+            fetch(`${pageContext.request.contextPath}/api/appointments/test`)
+            .then(response => response.text())
+            .then(data => {
+                console.log('Test endpoint response:', data);
+                alert('Test endpoint working: ' + data);
+            })
+            .catch(error => {
+                console.error('Test endpoint error:', error);
+                alert('Test endpoint failed: ' + error.message);
+            });
+        }
+        
         function showSuccessNotification(message) {
             const successAlert = document.getElementById('successAlert');
             const successMessage = document.getElementById('successMessage');
@@ -766,18 +954,45 @@
             // You can implement auto-refresh here if needed
         }, 30000);
         
+        // Debug function to show all appointment IDs
+        function debugAppointmentIds() {
+            const buttons = document.querySelectorAll('[data-appointment-id]');
+            console.log('Found', buttons.length, 'buttons with appointment IDs:');
+            buttons.forEach((button, index) => {
+                const id = button.getAttribute('data-appointment-id');
+                const type = button.className.includes('delete') ? 'delete' : 
+                           button.className.includes('cancel') ? 'cancel' : 
+                           button.className.includes('mark') ? 'mark' : 'unknown';
+                console.log(index + 1 + '. ' + type + ' button - ID: "' + id + '" (type: ' + typeof id + ')');
+            });
+        }
+        
+        // Run debug on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            debugAppointmentIds();
+        });
+        
         // Add event listeners for buttons
         document.addEventListener('click', function(e) {
             if (e.target.closest('.cancel-appointment-btn')) {
                 const button = e.target.closest('.cancel-appointment-btn');
                 const appointmentId = button.getAttribute('data-appointment-id');
+                console.log('Cancel appointment ID:', appointmentId);
                 cancelAppointment(appointmentId);
             }
             
             if (e.target.closest('.mark-read-btn')) {
                 const button = e.target.closest('.mark-read-btn');
                 const appointmentId = button.getAttribute('data-appointment-id');
+                console.log('Mark read appointment ID:', appointmentId);
                 markAsRead(appointmentId);
+            }
+            
+            if (e.target.closest('.delete-notification-btn')) {
+                const button = e.target.closest('.delete-notification-btn');
+                const appointmentId = button.getAttribute('data-appointment-id');
+                console.log('Delete notification appointment ID:', appointmentId);
+                deleteNotification(appointmentId);
             }
         });
     </script>

@@ -81,4 +81,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<Appointment> getAppointmentsByUserAndDateRange(User user, LocalDateTime startDate, LocalDateTime endDate) {
         return appointmentRepository.findByUserAndAppointmentDateBetween(user, startDate, endDate);
     }
+
+    @Override
+    @Transactional
+    public void deleteAppointment(Long id) {
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+        appointmentRepository.delete(appointment);
+    }
 } 

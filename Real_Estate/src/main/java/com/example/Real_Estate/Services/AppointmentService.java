@@ -16,4 +16,5 @@ public interface AppointmentService {
     Appointment updateAppointmentStatus(Long id, AppointmentStatus status);
     List<Appointment> getAppointmentsByUserAndStatus(User user, AppointmentStatus status);
     List<Appointment> getAppointmentsByUserAndDateRange(User user, LocalDateTime startDate, LocalDateTime endDate);
+    void deleteAppointment(Long id);
 } 

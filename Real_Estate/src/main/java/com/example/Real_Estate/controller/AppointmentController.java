@@ -142,4 +142,37 @@ public class AppointmentController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PostMapping("/api/appointments/{id}/delete")
+    @ResponseBody
+    public ResponseEntity<?> deleteAppointment(@PathVariable Long id, HttpSession session) {
+        try {
+            User loggedInUser = (User) session.getAttribute("user");
+            if (loggedInUser == null) {
+                return ResponseEntity.status(401).body("User not logged in");
+            }
+            
+            // Verify the appointment belongs to the logged-in user
+            Appointment appointment = appointmentService.getAppointmentsByUser(loggedInUser)
+                .stream()
+                .filter(a -> a.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+                
+            if (appointment == null) {
+                return ResponseEntity.status(404).body("Appointment not found or access denied");
+            }
+            
+            appointmentService.deleteAppointment(id);
+            return ResponseEntity.ok("{\"message\": \"Appointment deleted successfully\"}");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() + "\"}");
+        }
+    }
+
+    @GetMapping("/api/appointments/test")
+    @ResponseBody
+    public ResponseEntity<?> testEndpoint() {
+        return ResponseEntity.ok("{\"message\": \"Test endpoint working\"}");
+    }
 }
