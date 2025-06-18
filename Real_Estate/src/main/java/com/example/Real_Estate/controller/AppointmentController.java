@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AppointmentController {
@@ -121,6 +122,22 @@ public class AppointmentController {
         try {
             Appointment appointment = appointmentService.rejectAppointment(id);
             return ResponseEntity.ok(appointment);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/api/appointments/pending-count")
+    @ResponseBody
+    public ResponseEntity<?> getPendingAppointmentCount(HttpSession session) {
+        try {
+            User loggedInUser = (User) session.getAttribute("user");
+            if (loggedInUser == null) {
+                return ResponseEntity.status(401).body("User not logged in");
+            }
+            
+            List<Appointment> pendingAppointments = appointmentService.getAppointmentsByUserAndStatus(loggedInUser, AppointmentStatus.PENDING);
+            return ResponseEntity.ok(Map.of("count", pendingAppointments.size()));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

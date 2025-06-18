@@ -39,6 +39,7 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/notifications">
                         <i class="fas fa-bell"></i>
                         <span>Notifications</span>
+                        <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -141,6 +142,30 @@
     .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
         transform: rotate(-45deg);
         bottom: 0;
+    }
+    .notification-badge {
+        background: #e74c3c;
+        color: white;
+        border-radius: 50%;
+        padding: 0.2rem 0.5rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+        min-width: 18px;
+        text-align: center;
+        display: inline-block;
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
     }
     @media (max-width: 991.98px) {
         .navbar-collapse {

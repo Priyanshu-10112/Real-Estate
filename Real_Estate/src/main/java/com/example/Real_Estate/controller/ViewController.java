@@ -13,14 +13,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.Real_Estate.ServiceImpl.UServiceImpl;
 import com.example.Real_Estate.entity.User;
 import com.example.Real_Estate.entity.UserRole;
+import com.example.Real_Estate.Services.AppointmentService;
+import com.example.Real_Estate.entity.Appointment;
+import com.example.Real_Estate.entity.Properties;
+import com.example.Real_Estate.repository.PropertiesRepository;
 
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class ViewController {
 	@Autowired
 	private UServiceImpl u1;
 	
+	@Autowired
+	private AppointmentService appointmentService;
+	
+	@Autowired
+	private PropertiesRepository propertiesRepository;
 	
 	// @Autowired
 	// private PropServiceImpl p1;
@@ -80,5 +90,37 @@ public class ViewController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		return "login";
+	}
+	
+	@RequestMapping("/notifications")
+	public String notifications(HttpSession session, Model model) {
+		User loggedInUser = (User) session.getAttribute("user");
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		
+		// Get user's appointments as notifications
+		List<Appointment> notifications = appointmentService.getAppointmentsByUser(loggedInUser);
+		model.addAttribute("notifications", notifications);
+		model.addAttribute("user", loggedInUser);
+		return "notifications";
+	}
+	
+	@RequestMapping("/property-details")
+	public String propertyDetails(@RequestParam Long id, Model model, HttpSession session) {
+		User loggedInUser = (User) session.getAttribute("user");
+		if (loggedInUser == null) {
+			return "redirect:/login";
+		}
+		
+		// Get property details by ID
+		Properties property = propertiesRepository.findById(id).orElse(null);
+		if (property == null) {
+			return "redirect:/properties";
+		}
+		
+		model.addAttribute("prop", property);
+		model.addAttribute("user", loggedInUser);
+		return "property-details";
 	}
 }
