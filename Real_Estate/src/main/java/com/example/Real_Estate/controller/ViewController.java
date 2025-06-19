@@ -98,9 +98,8 @@ public class ViewController {
 		if (loggedInUser == null) {
 			return "redirect:/login";
 		}
-		
-		// Get user's appointments as notifications
-		List<Appointment> notifications = appointmentService.getAppointmentsByUser(loggedInUser);
+		// Get user's active (non-dismissed) notifications
+		List<Appointment> notifications = appointmentService.getActiveNotificationsByUser(loggedInUser);
 		model.addAttribute("notifications", notifications);
 		model.addAttribute("user", loggedInUser);
 		return "notifications";
@@ -122,5 +121,16 @@ public class ViewController {
 		model.addAttribute("prop", property);
 		model.addAttribute("user", loggedInUser);
 		return "property-details";
+	}
+	
+	@GetMapping("/agent/appointments")
+	public String agentAppointments(Model model, HttpSession session) {
+		User loggedInUser = (User) session.getAttribute("user");
+		if (loggedInUser == null || loggedInUser.getUr() != UserRole.AGENT) {
+			return "redirect:/login";
+		}
+		List<Appointment> appointments = appointmentService.getAppointmentsByAgent(loggedInUser);
+		model.addAttribute("appointments", appointments);
+		return "appointments";
 	}
 }

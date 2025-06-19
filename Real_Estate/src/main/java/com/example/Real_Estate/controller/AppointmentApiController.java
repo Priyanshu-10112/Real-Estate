@@ -9,8 +9,6 @@ import com.example.Real_Estate.repository.PropertiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpSession;
@@ -18,9 +16,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-@Controller
-public class AppointmentController {
-
+@RestController
+public class AppointmentApiController {
     @Autowired
     private AppointmentService appointmentService;
 
@@ -28,43 +25,23 @@ public class AppointmentController {
     private PropertiesRepository propertiesRepository;
 
     @PostMapping("/api/appointments")
-    @ResponseBody
     public Appointment createAppointment(@RequestBody Appointment appointment, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("user");
         if (loggedInUser == null) {
             throw new RuntimeException("User not logged in");
         }
-
         if (appointment.getProperty() == null || appointment.getProperty().getId() == null) {
             throw new RuntimeException("Property ID is required");
         }
-
-        // Fetch the property from database
         Properties property = propertiesRepository.findById(appointment.getProperty().getId())
             .orElseThrow(() -> new RuntimeException("Property not found with ID: " + appointment.getProperty().getId()));
-
-        // Set the fetched property and user
         appointment.setProperty(property);
         appointment.setUser(loggedInUser);
         appointment.setStatus(AppointmentStatus.PENDING);
-
         return appointmentService.createAppointment(appointment);
     }
 
-    @GetMapping("/agent/appointments")
-    public String viewAppointments(Model model, HttpSession session) {
-        User loggedInUser = (User) session.getAttribute("user");
-        if (loggedInUser == null) {
-            return "redirect:/login";
-        }
-
-        List<Appointment> appointments = appointmentService.getAppointmentsByAgent(loggedInUser);
-        model.addAttribute("appointments", appointments);
-        return "appointments";
-    }
-
     @PostMapping("/api/appointments/{id}/cancel")
-    @ResponseBody
     public String cancelAppointment(@PathVariable Long id) {
         try {
             appointmentService.cancelAppointment(id);
@@ -75,7 +52,6 @@ public class AppointmentController {
     }
 
     @PostMapping("/api/appointments/{id}/status")
-    @ResponseBody
     public String updateAppointmentStatus(
             @PathVariable Long id,
             @RequestParam AppointmentStatus status) {
@@ -88,25 +64,21 @@ public class AppointmentController {
     }
 
     @GetMapping("/api/appointments/filter")
-    @ResponseBody
     public List<Appointment> filterAppointments(
             @RequestParam(required = false) AppointmentStatus status,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
             HttpSession session) {
         User loggedInUser = (User) session.getAttribute("user");
-        
         if (status != null) {
             return appointmentService.getAppointmentsByUserAndStatus(loggedInUser, status);
         } else if (startDate != null && endDate != null) {
             return appointmentService.getAppointmentsByUserAndDateRange(loggedInUser, startDate, endDate);
         }
-        
         return appointmentService.getAppointmentsByUser(loggedInUser);
     }
 
     @PostMapping("/api/appointments/{id}/approve")
-    @ResponseBody
     public ResponseEntity<?> approveAppointment(@PathVariable Long id) {
         try {
             Appointment appointment = appointmentService.approveAppointment(id);
@@ -117,7 +89,6 @@ public class AppointmentController {
     }
 
     @PostMapping("/api/appointments/{id}/reject")
-    @ResponseBody
     public ResponseEntity<?> rejectAppointment(@PathVariable Long id) {
         try {
             Appointment appointment = appointmentService.rejectAppointment(id);
@@ -128,14 +99,12 @@ public class AppointmentController {
     }
 
     @GetMapping("/api/appointments/pending-count")
-    @ResponseBody
     public ResponseEntity<?> getPendingAppointmentCount(HttpSession session) {
         try {
             User loggedInUser = (User) session.getAttribute("user");
             if (loggedInUser == null) {
                 return ResponseEntity.status(401).body("User not logged in");
             }
-            
             List<Appointment> pendingAppointments = appointmentService.getAppointmentsByUserAndStatus(loggedInUser, AppointmentStatus.PENDING);
             return ResponseEntity.ok(Map.of("count", pendingAppointments.size()));
         } catch (Exception e) {
@@ -171,8 +140,21 @@ public class AppointmentController {
     }
 
     @GetMapping("/api/appointments/test")
-    @ResponseBody
     public ResponseEntity<?> testEndpoint() {
-        return ResponseEntity.ok("{\"message\": \"Test endpoint working\"}");
+        return ResponseEntity.ok(Map.of("message", "Test endpoint working"));
     }
-}
+
+    @PatchMapping("/api/notifications/{id}/dismiss")
+    public ResponseEntity<?> dismissNotification(@PathVariable Long id, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("user");
+        if (loggedInUser == null) {
+            return ResponseEntity.status(401).body("User not logged in");
+        }
+        try {
+            appointmentService.dismissNotification(id, loggedInUser);
+            return ResponseEntity.ok(Map.of("message", "Notification dismissed"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+} 

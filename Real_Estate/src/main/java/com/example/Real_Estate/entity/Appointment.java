@@ -28,6 +28,9 @@ public class Appointment {
     @Column(nullable = false)
     private AppointmentStatus status = AppointmentStatus.PENDING;
 
+    @Column(nullable = false)
+    private Boolean notificationDismissed = false;
+
     // Getters and Setters
     public Long getId() {
         return id;
@@ -75,5 +78,13 @@ public class Appointment {
 
     public void setStatus(AppointmentStatus status) {
         this.status = status;
+    }
+
+    public Boolean isNotificationDismissed() {
+        return notificationDismissed;
+    }
+
+    public void setNotificationDismissed(Boolean notificationDismissed) {
+        this.notificationDismissed = notificationDismissed;
     }
 } 

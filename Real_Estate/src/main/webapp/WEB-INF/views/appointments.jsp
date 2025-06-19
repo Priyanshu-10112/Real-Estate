@@ -713,6 +713,12 @@
                                         </button>
                                     </c:if>
                                 </c:if>
+                                <c:if test="${appointment.status != 'PENDING'}">
+                                    <button class="btn btn-danger" 
+                                            onclick="deleteAppointment('${appointment.id}')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </c:if>
                                 <a href="${pageContext.request.contextPath}/user/property-details/${appointment.property.id}" 
                                    class="btn btn-primary">
                                     <i class="fas fa-eye"></i> View Details
@@ -786,6 +792,30 @@
             }
         }
 
+        function deleteAppointment(appointmentId) {
+            if (confirm('Are you sure you want to delete this appointment? This action cannot be undone.')) {
+                $.ajax({
+                    url: '/api/appointments/' + appointmentId + '/delete',
+                    type: 'DELETE',
+                    success: function(response) {
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        let errorMsg = 'Failed to delete appointment. Please try again.';
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            errorMsg = xhr.responseJSON.error;
+                        } else if (xhr.responseText) {
+                            try {
+                                const resp = JSON.parse(xhr.responseText);
+                                if (resp.error) errorMsg = resp.error;
+                            } catch (e) {}
+                        }
+                        alert(errorMsg);
+                    }
+                });
+            }
+        }
+
         // Filter functionality
         $('#statusFilter, #dateFilter').change(function() {
             filterAppointments();
@@ -841,19 +871,21 @@
                     <i class="fas fa-times"></i> Cancel
                    </button>`
                 : '';
-
+            const deleteButton = (appointment.status !== 'PENDING')
+                ? `<button class="btn btn-danger" onclick="deleteAppointment('${appointment.id}')">
+                    <i class="fas fa-trash"></i> Delete
+                   </button>`
+                : '';
             const formattedDate = new Date(appointment.appointmentDate).toLocaleDateString('en-US', {
                 month: 'short',
                 day: 'numeric',
                 year: 'numeric'
             });
-
             const formattedTime = new Date(appointment.appointmentDate).toLocaleTimeString('en-US', {
                 hour: 'numeric',
                 minute: 'numeric',
                 hour12: true
             });
-
             return `
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="appointment-card">
@@ -908,6 +940,7 @@
 
                             <div class="appointment-actions">
                                 ${cancelButton}
+                                ${deleteButton}
                                 <a href="${pageContext.request.contextPath}/user/property-details/${appointment.property.id}" 
                                    class="btn btn-primary">
                                     <i class="fas fa-eye"></i> View Details

@@ -696,14 +696,6 @@
                                         View Property
                                     </a>
                                     
-                                    <% if (notification.getStatus() == AppointmentStatus.PENDING) { %>
-                                    <button class="action-button btn-danger cancel-appointment-btn" 
-                                            data-appointment-id="<%= notification.getId() %>">
-                                        <i class="fas fa-times"></i>
-                                        Cancel Request
-                                    </button>
-                                    <% } %>
-                                    
                                     <% if (notification.getStatus() == AppointmentStatus.CONFIRMED) { %>
                                     <button class="action-button btn-secondary mark-read-btn" 
                                             data-appointment-id="<%= notification.getId() %>">
@@ -715,7 +707,7 @@
                                     <button class="action-button btn-outline-danger delete-notification-btn" 
                                             data-appointment-id="<%= notification.getId() %>">
                                         <i class="fas fa-trash"></i>
-                                        Delete Notification
+                                        cancel Appointment
                                     </button>
                                 </div>
                             </div>
@@ -805,32 +797,6 @@
             });
         }
         
-        function cancelAppointment(appointmentId) {
-            if (confirm('Are you sure you want to cancel this appointment request?')) {
-                fetch(`${pageContext.request.contextPath}/api/appointments/${appointmentId}/cancel`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.text())
-                .then(result => {
-                    if (result === 'success') {
-                        showSuccessNotification('Appointment cancelled successfully!');
-                        setTimeout(() => {
-                            location.reload();
-                        }, 1500);
-                    } else {
-                        showErrorNotification('Failed to cancel appointment. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showErrorNotification('An error occurred. Please try again.');
-                });
-            }
-        }
-        
         function markAsRead(appointmentId) {
             showSuccessNotification('Notification marked as read!');
         }
@@ -843,7 +809,7 @@
                 return;
             }
             
-            if (confirm('Are you sure you want to delete this notification? This action cannot be undone.')) {
+            if (confirm('Are you sure you want to cancel this appointment? This action cannot be undone.')) {
                 const url = '${pageContext.request.contextPath}/api/appointments/' + appointmentId + '/delete';
                 console.log('Making request to:', url);
                 
@@ -882,7 +848,7 @@
                 })
                 .then(data => {
                     console.log('Success data:', data);
-                    showSuccessNotification('Notification deleted successfully!');
+                    showSuccessNotification('Notification Cancelled successfully!');
                     
                     // Find the notification card by appointment ID
                     const button = document.querySelector('[data-appointment-id="' + appointmentId + '"]');

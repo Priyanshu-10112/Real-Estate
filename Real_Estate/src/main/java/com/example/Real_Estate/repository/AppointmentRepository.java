@@ -19,4 +19,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     
     @Query("SELECT a FROM Appointment a JOIN a.property p WHERE p.user_id = :agent")
     List<Appointment> findByPropertyUser(@Param("agent") User agent);
+
+    List<Appointment> findByUserAndNotificationDismissedFalse(User user);
 } 
