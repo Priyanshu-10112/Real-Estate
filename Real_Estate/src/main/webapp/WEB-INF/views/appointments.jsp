@@ -796,7 +796,7 @@
             if (confirm('Are you sure you want to delete this appointment? This action cannot be undone.')) {
                 $.ajax({
                     url: '/api/appointments/' + appointmentId + '/delete',
-                    type: 'DELETE',
+                    type: 'POST',
                     success: function(response) {
                         location.reload();
                     },

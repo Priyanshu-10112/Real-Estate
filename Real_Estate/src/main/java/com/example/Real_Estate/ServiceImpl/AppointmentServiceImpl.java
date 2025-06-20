@@ -84,13 +84,28 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     @Transactional
-    public void deleteAppointment(Long id) {
+    public void deleteAppointment(Long id, User user) {
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
         if (appointment.getStatus() == AppointmentStatus.PENDING) {
             throw new RuntimeException("Cannot delete a pending appointment");
         }
+        // Allow if user is the appointment user
+        boolean isUser = appointment.getUser().getId().equals(user.getId());
+        // Allow if user is agent and owns the property
+        boolean isAgent = user.getUr() != null && user.getUr().name().equals("AGENT");
+        boolean isAgentOwner = isAgent && appointment.getProperty().getUser_id().getId().equals(user.getId());
+        if (!isUser && !isAgentOwner) {
+            throw new RuntimeException("Access denied: You do not have permission to delete this appointment");
+        }
         appointmentRepository.delete(appointment);
+    }
+
+    // Keep old method for compatibility
+    @Override
+    @Transactional
+    public void deleteAppointment(Long id) {
+        throw new UnsupportedOperationException("Use deleteAppointment(Long id, User user) instead");
     }
 
     @Override

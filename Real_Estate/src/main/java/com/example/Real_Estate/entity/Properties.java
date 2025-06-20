@@ -38,8 +38,6 @@ public class Properties {
 	@Column
 	private String zipCode;
 	@Column
-	private String country;
-	@Column
 	private Double area;
 	@Column
 	private String areaUnit;
@@ -48,7 +46,7 @@ public class Properties {
 	
 	
 	public Properties(Long id, User user_id, Long price, PropertyType propertyType, PropertyStatus status,
-			String address, String city, String state, String zipCode, String country, Double area, String areaUnit,
+			String address, String city, String state, String zipCode, Double area, String areaUnit,
 			String image) {
 		super();
 		this.id = id;
@@ -60,7 +58,6 @@ public class Properties {
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
-		this.country = country;
 		this.area = area;
 		this.areaUnit = areaUnit;
 		this.image = image;
@@ -75,7 +72,7 @@ public class Properties {
 	public String toString() {
 		return "Properties [id=" + id + "user_id="+user_id+", propertyType=" + propertyType
 				+ ", status=" + status + ", address=" + address + ", city=" + city + ", state=" + state + ", zipCode="
-				+ zipCode + ", country=" + country  + "price="+price+", area="+area+", areaUnit="+areaUnit+"]";
+				+ zipCode + ", price="+price+", area="+area+", areaUnit="+areaUnit+"]";
 	}
 	public Properties() {}
 	public Long getId() {
@@ -132,12 +129,6 @@ public class Properties {
 	}
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
-	}
-	public String getCountry() {
-		return country;
-	}
-	public void setCountry(String country) {
-		this.country = country;
 	}
 	
 	public Double getArea() {

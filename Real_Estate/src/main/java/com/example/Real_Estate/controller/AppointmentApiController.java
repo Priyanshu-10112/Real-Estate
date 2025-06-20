@@ -120,19 +120,38 @@ public class AppointmentApiController {
             if (loggedInUser == null) {
                 return ResponseEntity.status(401).body("User not logged in");
             }
-            
-            // Verify the appointment belongs to the logged-in user
-            Appointment appointment = appointmentService.getAppointmentsByUser(loggedInUser)
-                .stream()
-                .filter(a -> a.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-                
-            if (appointment == null) {
+
+            Appointment appointment = null;
+            boolean canDelete = false;
+
+            // Check if user is AGENT
+            if (loggedInUser.getUr() != null && loggedInUser.getUr().name().equals("AGENT")) {
+                // Get all appointments for agent's properties
+                List<Appointment> agentAppointments = appointmentService.getAppointmentsByAgent(loggedInUser);
+                appointment = agentAppointments.stream()
+                        .filter(a -> a.getId().equals(id))
+                        .findFirst()
+                        .orElse(null);
+                if (appointment != null) {
+                    canDelete = true;
+                }
+            } else {
+                // Default: user can delete their own appointment
+                List<Appointment> userAppointments = appointmentService.getAppointmentsByUser(loggedInUser);
+                appointment = userAppointments.stream()
+                        .filter(a -> a.getId().equals(id))
+                        .findFirst()
+                        .orElse(null);
+                if (appointment != null) {
+                    canDelete = true;
+                }
+            }
+
+            if (!canDelete || appointment == null) {
                 return ResponseEntity.status(404).body("Appointment not found or access denied");
             }
-            
-            appointmentService.deleteAppointment(id);
+
+            appointmentService.deleteAppointment(id, loggedInUser);
             return ResponseEntity.ok("{\"message\": \"Appointment deleted successfully\"}");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() + "\"}");

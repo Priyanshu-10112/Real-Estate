@@ -598,12 +598,6 @@
                                 <i class="fas fa-filter"></i> Apply Filters
                             </button>
                         </div>
-                        <div class="filter-group">
-                            <label class="filter-label">&nbsp;</label>
-                            <button class="filter-button" onclick="testEndpoint()" style="background: #e74c3c;">
-                                <i class="fas fa-bug"></i> Test Endpoint
-                            </button>
-                        </div>
                     </div>
                 </div>
 
@@ -879,20 +873,6 @@
                     showErrorNotification(error.message || 'Failed to delete notification. Please try again.');
                 });
             }
-        }
-        
-        // Test function to verify endpoint accessibility
-        function testEndpoint() {
-            fetch(`${pageContext.request.contextPath}/api/appointments/test`)
-            .then(response => response.text())
-            .then(data => {
-                console.log('Test endpoint response:', data);
-                alert('Test endpoint working: ' + data);
-            })
-            .catch(error => {
-                console.error('Test endpoint error:', error);
-                alert('Test endpoint failed: ' + error.message);
-            });
         }
         
         function showSuccessNotification(message) {

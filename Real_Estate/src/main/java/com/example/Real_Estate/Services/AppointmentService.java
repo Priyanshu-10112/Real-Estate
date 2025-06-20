@@ -16,7 +16,9 @@ public interface AppointmentService {
     Appointment updateAppointmentStatus(Long id, AppointmentStatus status);
     List<Appointment> getAppointmentsByUserAndStatus(User user, AppointmentStatus status);
     List<Appointment> getAppointmentsByUserAndDateRange(User user, LocalDateTime startDate, LocalDateTime endDate);
-    void deleteAppointment(Long id);
+    void deleteAppointment(Long id, User user);
     List<Appointment> getActiveNotificationsByUser(User user);
     Appointment dismissNotification(Long id, User user);
+    // Deprecated: use the above method
+    void deleteAppointment(Long id);
 } 
