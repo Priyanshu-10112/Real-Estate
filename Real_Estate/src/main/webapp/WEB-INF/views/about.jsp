@@ -187,22 +187,7 @@
     <%
     User user = (User) session.getAttribute("user");
     if (user == null) {
-        response.sendRedirect(request.getContextPath() + "/login");
-        return;
-    }
-    
-    String userType = user.getUr().name().toLowerCase();
-    if (userType.equals("user")) {
 %>
-    <jsp:include page="/WEB-INF/views/common/nav-user.jsp" />
-<%
-    } else if (userType.equals("agent")) {
-%>
-    <jsp:include page="/WEB-INF/views/common/nav-agent.jsp" />
-<%
-    }else{
-%>
-
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="${pageContext.request.contextPath}/">
@@ -250,7 +235,18 @@
         </div>
     </nav>
     <%
+    } else {
+        String userType = user.getUr().name().toLowerCase();
+        if (userType.equals("user")) {
+    %>
+    <jsp:include page="/WEB-INF/views/common/nav-user.jsp" />
+    <%
+        } else if (userType.equals("agent")) {
+    %>
+    <jsp:include page="/WEB-INF/views/common/nav-agent.jsp" />
+    <%
         }
+    }
     %>
 
     <section class="about-hero">

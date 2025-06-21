@@ -225,6 +225,8 @@
             position: relative;
             height: 200px;
             overflow: hidden;
+            padding: 0;
+            margin: 0;
         }
         .property-image img {
             width: 100%;
@@ -234,26 +236,6 @@
         }
         .property-card:hover .property-image img {
             transform: scale(1.1);
-        }
-        .property-price {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background: rgba(52, 152, 219, 0.95);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-            line-height: 1.2;
-        }
-        .property-card:hover .property-price {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
         .property-info {
             padding: 1.2rem;
@@ -561,7 +543,7 @@
                         Explore Properties
                     </a>
                     <a href="${pageContext.request.contextPath}/contact" class="hero-button hero-button-secondary">
-                        <i class="fas fa-phone-alt"></i>
+                        <i class="fas fa-envelope"></i>
                         Contact Us
                     </a>
                 </div>
@@ -632,7 +614,6 @@
                     <div class="property-card">
                         <div class="property-image">
                             <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3" alt="Modern Villa">
-                            <div class="property-price">₹2.5 Cr</div>
                         </div>
                         <div class="property-info">
                             <h3>Luxury Villa with Infinity Pool</h3>
@@ -652,7 +633,6 @@
                     <div class="property-card">
                         <div class="property-image">
                             <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3" alt="Luxury Apartment">
-                            <div class="property-price">₹1.85 Cr</div>
                         </div>
                         <div class="property-info">
                             <h3>Skyline Penthouse</h3>
@@ -672,7 +652,6 @@
                     <div class="property-card">
                         <div class="property-image">
                             <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3" alt="Waterfront Estate">
-                            <div class="property-price">₹3.5 Cr</div>
                         </div>
                         <div class="property-info">
                             <h3>Seaside Mansion</h3>
