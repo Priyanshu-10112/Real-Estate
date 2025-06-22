@@ -539,144 +539,210 @@
                 flex-direction: column;
             }
         }
+
+        /* Responsive improvements and interactive card hover */
+        @media (max-width: 991.98px) {
+            .row.g-4 > [class^='col-'] {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .quick-actions {
+                grid-template-columns: 1fr !important;
+            }
+            .welcome-section, .notification-section, .market-insights {
+                margin-bottom: 1.5rem;
+            }
+        }
+        .action-card, .market-insights, .notification-section, .stat-card {
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .action-card:hover, .market-insights:hover, .notification-section:hover, .stat-card:hover {
+            box-shadow: 0 8px 32px rgba(52,152,219,0.18) !important;
+            transform: translateY(-4px) scale(1.02);
+            z-index: 2;
+        }
+        .btn[style*='background:#3498db'] {
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+        .btn[style*='background:#3498db']:hover {
+            background: #2980b9 !important;
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 8px 24px rgba(41,128,185,0.18);
+        }
+
+        .dashboard-tile {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(52,152,219,0.08);
+            padding: 2rem 1.5rem;
+            margin-bottom: 0;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .dashboard-tile:hover {
+            box-shadow: 0 8px 32px rgba(52,152,219,0.16);
+            transform: translateY(-4px) scale(1.01);
+            z-index: 2;
+        }
+
+        .dashboard-tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2.5rem;
+        }
+        @media (max-width: 767.98px) {
+            .dashboard-tiles-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
     <jsp:include page="/WEB-INF/views/common/nav-user.jsp" />
 
-    <div class="dashboard-container">
+    <div class="dashboard-container" style="padding-top: 2.5rem; padding-bottom: 2.5rem;">
         <div class="container">
-            <!-- Welcome Section -->
-            <div class="welcome-section">
-                <div class="welcome-content">
-                    <h1 class="welcome-title">Welcome back, ${user.firstName}!</h1>
-                    <p class="welcome-subtitle">Here's what's happening with your real estate journey today.</p>
-                    <div class="welcome-stats">
-                        <div class="stat-card">
-                            <div class="stat-value">500+</div>
-                            <div class="stat-label">Properties Available</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value">20+</div>
-                            <div class="stat-label">Cities Covered</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value">4.8</div>
-                            <div class="stat-label">Average Rating</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="quick-actions">
+            <!-- Quick Links at the top -->
+            <div class="quick-actions mb-5" style="gap:2.5rem;">
                 <a href="${pageContext.request.contextPath}/user/properties" class="action-card">
-                    <div class="action-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
+                    <div class="action-icon" style="background:#eaf4fb;"><i class="fas fa-search"></i></div>
                     <h3 class="action-title">Browse Properties</h3>
                     <p class="action-description">Explore our extensive collection of properties</p>
                 </a>
                 <a href="${pageContext.request.contextPath}/profile" class="action-card">
-                    <div class="action-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
+                    <div class="action-icon" style="background:#eaf4fb;"><i class="fas fa-user"></i></div>
                     <h3 class="action-title">Profile</h3>
                     <p class="action-description">Manage your account preferences</p>
                 </a>
+                <a href="${pageContext.request.contextPath}/notifications" class="action-card">
+                    <div class="action-icon" style="background:#eaf4fb;"><i class="fas fa-bell"></i></div>
+                    <h3 class="action-title">Notifications</h3>
+                    <p class="action-description">Check your latest notifications</p>
+                </a>
             </div>
 
-            <!-- Interactive Section -->
-            <div class="interactive-section">
-                <div class="chart-container">
-                    <div class="chart-header">
-                        <h3 class="chart-title">Property Market Analysis</h3>
-                        <div class="chart-legend">
-                            <div class="legend-item">
-                                <div class="legend-color" style="background: var(--primary-color);"></div>
-                                <span>Listings</span>
+            <div class="d-flex flex-column gap-5">
+                <div class="welcome-section" style="padding:3rem 2rem;">
+                    <div class="welcome-content">
+                        <h1 class="welcome-title">Welcome back, ${user.firstName}!</h1>
+                        <p class="welcome-subtitle">Here's what's happening with your real estate journey today.</p>
+                        <div class="welcome-stats">
+                            <div class="stat-card">
+                                <div class="stat-value">500+</div>
+                                <div class="stat-label">Properties Available</div>
                             </div>
-                            <div class="legend-item">
-                                <div class="legend-color" style="background: var(--success-color);"></div>
-                                <span>Sales</span>
+                            <div class="stat-card">
+                                <div class="stat-value">20+</div>
+                                <div class="stat-label">Cities Covered</div>
                             </div>
-                            <div class="legend-item">
-                                <div class="legend-color" style="background: var(--warning-color);"></div>
-                                <span>Price Trend</span>
+                            <div class="stat-card">
+                                <div class="stat-value">4.8</div>
+                                <div class="stat-label">Average Rating</div>
                             </div>
                         </div>
-                    </div>
-                    <div style="position: relative; height: 300px;">
-                        <canvas id="marketTrendsChart"></canvas>
                     </div>
                 </div>
-                <div class="quick-stats">
-                    <div class="stat-box">
-                        <div class="stat-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="stat-title">Market Growth</div>
-                        <div class="stat-value">+15.3%</div>
+                <div class="notification-section" style="min-height: 260px; padding:2rem 1.5rem;">
+                    <div class="notification-header">
+                        <span class="notification-title"><i class="fas fa-history"></i> Recent Activities</span>
                     </div>
-                    <div class="stat-box">
-                        <div class="stat-icon">
-                            <i class="fas fa-clock"></i>
+                    <div class="notification-list">
+                        <div class="notification-item">
+                            <div class="notification-icon"><i class="fas fa-home"></i></div>
+                            <div class="notification-content">
+                                <div class="notification-text">You viewed <b>Luxury Villa in Bandra</b></div>
+                                <div class="notification-time">2 hours ago</div>
+                            </div>
                         </div>
-                        <div class="stat-title">Avg. Response Time</div>
-                        <div class="stat-value">2.5h</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
+                        <div class="notification-item">
+                            <div class="notification-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="notification-content">
+                                <div class="notification-text">You sent an inquiry for <b>Skyline Penthouse</b></div>
+                                <div class="notification-time">Yesterday</div>
+                            </div>
                         </div>
-                        <div class="stat-title">Active Buyers</div>
-                        <div class="stat-value">1.2k</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-icon">
-                            <i class="fas fa-home"></i>
+                        <div class="notification-item">
+                            <div class="notification-icon"><i class="fas fa-calendar-check"></i></div>
+                            <div class="notification-content">
+                                <div class="notification-text">Appointment scheduled for <b>Seaside Mansion</b></div>
+                                <div class="notification-time">3 days ago</div>
+                            </div>
                         </div>
-                        <div class="stat-title">New Listings</div>
-                        <div class="stat-value">45</div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Market Insights -->
-            <div class="market-insights">
-                <div class="section-header">
-                    <h2 class="section-title">Market Insights</h2>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="insight-card">
-                            <h3 class="insight-title">Average Property Price</h3>
-                            <div class="insight-value">₹45.2L</div>
-                            <div class="insight-trend trend-up">
-                                <i class="fas fa-arrow-up"></i>
-                                <span>12% from last month</span>
+                <div class="dashboard-tiles-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5rem; margin-top: 2.5rem;">
+                    <!-- Your Saved Properties -->
+                    <div class="dashboard-tile market-insights" style="min-height: 160px;">
+                        <h3 class="section-title" style="font-size:1.2rem; color:#3498db; margin-bottom:1rem;">Your Saved Properties</h3>
+                        <div style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+                            <a href="${pageContext.request.contextPath}/user/property-details/1" style="background:#f8fafc; border-radius:12px; box-shadow:0 2px 8px rgba(52,152,219,0.07); padding:0.7rem 1rem; display:flex; align-items:center; gap:0.7rem; text-decoration:none;">
+                                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=80&q=80" alt="Saved Property" style="width:48px; height:48px; border-radius:8px;">
+                                <div>
+                                    <div style="font-weight:600; color:#2563eb;">Skyline Penthouse</div>
+                                    <div style="font-size:0.95rem; color:#555;">Bangalore</div>
+                                </div>
+                            </a>
+                            <a href="${pageContext.request.contextPath}/user/property-details/2" style="background:#f8fafc; border-radius:12px; box-shadow:0 2px 8px rgba(52,152,219,0.07); padding:0.7rem 1rem; display:flex; align-items:center; gap:0.7rem; text-decoration:none;">
+                                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=80&q=80" alt="Saved Property" style="width:48px; height:48px; border-radius:8px;">
+                                <div>
+                                    <div style="font-weight:600; color:#2563eb;">Seaside Mansion</div>
+                                    <div style="font-size:0.95rem; color:#555;">Mumbai</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Top Rated Agents -->
+                    <div class="dashboard-tile market-insights" style="min-height: 180px;">
+                        <h3 class="section-title" style="font-size:1.2rem; color:#3498db; margin-bottom:1.5rem;">Top Rated Agents</h3>
+                        <div style="display:flex; gap:1.5rem; flex-wrap:wrap; justify-content: flex-start;">
+                            <div style="display:flex; align-items:center; gap:0.7rem;">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Agent" style="width:48px; height:48px; border-radius:50%; border:2px solid #3498db;">
+                                <div>
+                                    <div style="font-weight:600; color:#2563eb;">Amit Sharma</div>
+                                    <div style="font-size:0.95rem; color:#f1c40f;"><i class="fas fa-star"></i> 4.9</div>
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:0.7rem;">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Agent" style="width:48px; height:48px; border-radius:50%; border:2px solid #3498db;">
+                                <div>
+                                    <div style="font-weight:600; color:#2563eb;">Priya Verma</div>
+                                    <div style="font-size:0.95rem; color:#f1c40f;"><i class="fas fa-star"></i> 4.8</div>
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:0.7rem;">
+                                <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Agent" style="width:48px; height:48px; border-radius:50%; border:2px solid #3498db;">
+                                <div>
+                                    <div style="font-weight:600; color:#2563eb;">Rahul Singh</div>
+                                    <div style="font-size:0.95rem; color:#f1c40f;"><i class="fas fa-star"></i> 4.7</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="insight-card">
-                            <h3 class="insight-title">Properties Listed</h3>
-                            <div class="insight-value">1,234</div>
-                            <div class="insight-trend trend-up">
-                                <i class="fas fa-arrow-up"></i>
-                                <span>8% from last month</span>
-                            </div>
-                        </div>
+
+                    <!-- Upcoming Events -->
+                    <div class="dashboard-tile market-insights" style="min-height: 140px;">
+                        <h3 class="section-title" style="font-size:1.2rem; color:#3498db; margin-bottom:1rem;">Upcoming Events</h3>
+                        <ul style="padding-left:1.2rem; color:#333; font-size:1rem; margin-bottom:0;">
+                            <li>Virtual Property Expo – 25th July</li>
+                            <li>Live Q&A with Top Agents – 1st August</li>
+                            <li>Investment Webinar – 10th August</li>
+                        </ul>
                     </div>
-                    <div class="col-md-4">
-                        <div class="insight-card">
-                            <h3 class="insight-title">Average Days on Market</h3>
-                            <div class="insight-value">45</div>
-                            <div class="insight-trend trend-down">
-                                <i class="fas fa-arrow-down"></i>
-                                <span>5% from last month</span>
-                            </div>
-                        </div>
+
+                    <!-- Real Estate Tip -->
+                    <div class="dashboard-tile market-insights" style="min-height: 120px;">
+                        <h3 class="section-title" style="font-size:1.2rem; color:#3498db; margin-bottom:1rem;">Real Estate Tip</h3>
+                        <p style="color:#333; font-size:1rem;">Always verify property documents and legal clearances before making a purchase. Consult with a trusted real estate advisor for a smooth transaction.</p>
+                    </div>
+
+                    <!-- Market Insight -->
+                    <div class="dashboard-tile market-insights" style="min-height: 120px;">
+                        <h3 class="section-title" style="font-size:1.2rem; color:#3498db; margin-bottom:1rem;">Market Insight</h3>
+                        <p style="color:#333; font-size:1rem;">Property prices in top Indian cities have seen a 12% rise in the last year. Stay updated for the best investment opportunities!</p>
                     </div>
                 </div>
             </div>
