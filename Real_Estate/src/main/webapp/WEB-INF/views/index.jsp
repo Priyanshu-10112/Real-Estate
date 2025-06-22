@@ -101,11 +101,12 @@
             }
         }
         .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3') center/cover;
+            background: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=4000&q=100') center/cover;
             min-height: 80vh;
             display: flex;
             align-items: center;
             position: relative;
+            margin-top: 80px;
         }
         .hero-content {
             text-align: center;
@@ -232,7 +233,8 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            display: block;
+            image-rendering: auto;
         }
         .property-card:hover .property-image img {
             transform: scale(1.1);
@@ -534,32 +536,13 @@
 
     <section class="hero-section">
         <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Discover Your Perfect Home in India's Finest Locations</h1>
-                <p class="hero-subtitle">Experience luxury living with our exclusive collection of premium properties</p>
-                <div class="hero-buttons">
-                    <a href="${pageContext.request.contextPath}/login" class="hero-button hero-button-primary">
-                        <i class="fas fa-building"></i>
-                        Explore Properties
+            <div class="hero-content" style="background: rgba(44, 62, 80, 0.65); border-radius: 18px; padding: 2.5rem 2rem; max-width: 700px; margin: 0 auto; box-shadow: 0 8px 32px rgba(44,62,80,0.15);">
+                <h1 class="hero-title" style="font-size: 3.2rem; font-weight: 800; color: #fff; letter-spacing: 1px; text-shadow: 0 4px 24px rgba(0,0,0,0.4); margin-bottom: 1.2rem;">Live Your Luxury Dream<br>Find Your Perfect Home</h1>
+                <p class="hero-subtitle" style="font-size: 1.5rem; color: #f1c40f; font-weight: 600; margin-bottom: 2.2rem; text-shadow: 0 2px 8px rgba(0,0,0,0.3);">India's Most Exclusive Properties, Handpicked For You</p>
+                <div class="hero-buttons" style="display: flex; justify-content: center;">
+                    <a href="${pageContext.request.contextPath}/login" class="btn" style="background: #3498db; color: #fff; font-weight: 700; font-size: 1.2rem; padding: 0.9rem 2.2rem; border-radius: 30px; box-shadow: 0 4px 16px rgba(52,152,219,0.15); transition: background 0.3s; text-transform: uppercase; letter-spacing: 1px;">
+                        <i class="fas fa-home me-2"></i>Browse Properties
                     </a>
-                    <a href="${pageContext.request.contextPath}/contact" class="hero-button hero-button-secondary">
-                        <i class="fas fa-envelope"></i>
-                        Contact Us
-                    </a>
-                </div>
-                <div class="hero-highlights">
-                    <div class="highlight-item">
-                        <div class="highlight-number">500+</div>
-                        <div class="highlight-label">Premium Properties</div>
-                    </div>
-                    <div class="highlight-item">
-                        <div class="highlight-number">15+</div>
-                        <div class="highlight-label">Cities</div>
-                    </div>
-                    <div class="highlight-item">
-                        <div class="highlight-number">1000+</div>
-                        <div class="highlight-label">Happy Clients</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -613,7 +596,7 @@
                 <div class="col-md-4">
                     <div class="property-card">
                         <div class="property-image">
-                            <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3" alt="Modern Villa">
+                            <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80" alt="Modern Villa">
                         </div>
                         <div class="property-info">
                             <h3>Luxury Villa with Infinity Pool</h3>
@@ -632,7 +615,7 @@
                 <div class="col-md-4">
                     <div class="property-card">
                         <div class="property-image">
-                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3" alt="Luxury Apartment">
+                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Luxury Apartment">
                         </div>
                         <div class="property-info">
                             <h3>Skyline Penthouse</h3>
@@ -651,7 +634,7 @@
                 <div class="col-md-4">
                     <div class="property-card">
                         <div class="property-image">
-                            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3" alt="Waterfront Estate">
+                            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80" alt="Waterfront Estate">
                         </div>
                         <div class="property-info">
                             <h3>Seaside Mansion</h3>

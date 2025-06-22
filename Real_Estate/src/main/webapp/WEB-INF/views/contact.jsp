@@ -110,13 +110,13 @@
         }
         .contact-hero {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3') center/cover;
-            min-height: 40vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             text-align: center;
             color: white;
             padding: 8rem 0 4rem 0;
-            margin-top: 0;
+            margin-top: 80px;
         }
         .contact-hero h1 {
             font-size: 3.5rem;
@@ -267,9 +267,9 @@
     %>
 
     <section class="contact-hero">
-        <div class="container">
-            <h1>Contact Us</h1>
-            <p>Get in touch with our team for any inquiries</p>
+        <div class="container" style="text-align: center;">
+            <h1 style="font-size: 3.5rem; font-weight: 700; color: #fff; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Contact Us</h1>
+            <p style="font-size: 1.5rem; color: #f1c40f; font-weight: 600; margin-bottom: 2.2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Get in touch with our team for any inquiries</p>
         </div>
     </section>
 
