@@ -219,6 +219,28 @@
                 font-size: 1.3rem;
             }
         }
+        .chatbot-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color, #2563eb);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            z-index: 1000;
+        }
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            background: #1e40af;
+        }
     </style>
 </head>
 <body>
@@ -271,19 +293,30 @@
                 </div>
             </div>
         </div>
+        <%
+        // Prepare property type chart data for the pie chart
+        List propertyTypeDist = (List) request.getAttribute("propertyTypeDist");
+        StringBuilder propertyTypeLabels = new StringBuilder();
+        StringBuilder propertyTypeCounts = new StringBuilder();
+        if (propertyTypeDist != null) {
+            for (int i = 0; i < propertyTypeDist.size(); i++) {
+                Object[] row = (Object[]) propertyTypeDist.get(i);
+                if (i > 0) {
+                    propertyTypeLabels.append(", ");
+                    propertyTypeCounts.append(", ");
+                }
+                propertyTypeLabels.append("\"" + (row[0] != null ? row[0].toString().replace("_", " ") : "Unknown") + "\"");
+                propertyTypeCounts.append(row[1]);
+            }
+        }
+    %>
 
-        <!-- Graphs Row (Centered) -->
+        <!-- Pie Chart Row (Centered) -->
         <div class="row justify-content-center mb-5">
-            <div class="col-md-6 mb-4 mb-md-0">
-                <div class="chart-card h-100">
+            <div class="col-lg-6 col-md-8">
+                <div class="chart-card h-100 shadow p-4 bg-white rounded">
                     <h6 class="mb-3"><i class="fas fa-chart-pie text-primary"></i> Property Types Listed</h6>
-                    <canvas id="propertyTypeChart" height="180"></canvas>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="chart-card h-100">
-                    <h6 class="mb-3"><i class="fas fa-globe-asia text-success"></i> Region-wise Distribution</h6>
-                    <canvas id="regionChart" height="180"></canvas>
+                    <canvas id="propertyTypeChart" height="200"></canvas>
                 </div>
             </div>
         </div>
@@ -291,89 +324,37 @@
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
+    <!-- Chatbot Button -->
+    <div class="chatbot-button" id="chatbotButton">
+        <i class="fas fa-comments"></i>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const ctxAgent = document.getElementById('agentPerformanceChart').getContext('2d');
-            new Chart(ctxAgent, {
-                type: 'line',
+            var propertyTypeLabels = JSON.parse('<%= propertyTypeLabels.length() > 0 ? "[" + propertyTypeLabels.toString() + "]" : "[]" %>');
+            var propertyTypeCounts = JSON.parse('<%= propertyTypeCounts.length() > 0 ? "[" + propertyTypeCounts.toString() + "]" : "[]" %>');
+
+            const propertyTypeChart = new Chart(document.getElementById('propertyTypeChart'), {
+                type: 'pie',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    labels: propertyTypeLabels,
                     datasets: [{
-                        label: 'Listings Added',
-                        data: [5, 7, 6, 8, 9, 7],
-                        borderColor: 'rgb(37, 99, 235)',
-                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }, {
-                        label: 'Properties Sold',
-                        data: [2, 3, 2, 4, 3, 5],
-                        borderColor: 'rgb(16, 185, 129)',
-                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                        tension: 0.4,
-                        fill: true
+                        data: propertyTypeCounts,
+                        backgroundColor: [
+                            '#2563eb', '#10b981', '#38bdf8', '#64748b', '#ffe066', '#ff6f61', '#6f42c1', '#fd7e14', '#20c997', '#adb5bd'
+                        ],
                     }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                usePointStyle: true,
-                                padding: 20
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                display: true,
-                                drawBorder: false
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false
-                            }
-                        }
-                    }
-                }
+                options: { plugins: { legend: { position: 'bottom' } } }
             });
-        });
 
-        // Dummy data for charts
-        const propertyTypeChart = new Chart(document.getElementById('propertyTypeChart'), {
-            type: 'pie',
-            data: {
-                labels: ['Apartment', 'Villa', 'Plot', 'Commercial'],
-                datasets: [{
-                    data: [12, 7, 5, 3],
-                    backgroundColor: ['#2563eb', '#10b981', '#38bdf8', '#64748b'],
-                }]
-            },
-            options: { plugins: { legend: { position: 'bottom' } } }
-        });
-        const regionChart = new Chart(document.getElementById('regionChart'), {
-            type: 'bar',
-            data: {
-                labels: ['North', 'South', 'East', 'West'],
-                datasets: [{
-                    label: 'Properties',
-                    data: [8, 6, 9, 4],
-                    backgroundColor: '#2563eb',
-                    borderRadius: 8,
-                }]
-            },
-            options: {
-                plugins: { legend: { display: false } },
-                scales: { y: { beginAtZero: true } }
-            }
+            // Chatbot Button Click Handler
+            document.getElementById('chatbotButton').addEventListener('click', function() {
+                alert('Chatbot feature coming soon!');
+            });
         });
     </script>
 </body>

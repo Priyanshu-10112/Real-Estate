@@ -69,6 +69,11 @@ public class AgentController {
 		model.addAttribute("appointments", appointments);
 		List<Appointment> notifications = appointmentService.getActiveNotificationsByUser(user);
 		model.addAttribute("notifications", notifications);
+		// Add property type and city distribution for charts
+		List<Object[]> propertyTypeDist = p1.countByPropertyTypeForAgent(user.getEmail());
+		List<Object[]> cityDist = p1.countByCityForAgent(user.getEmail());
+		model.addAttribute("propertyTypeDist", propertyTypeDist);
+		model.addAttribute("cityDist", cityDist);
 		return "agent";
 	}
 	@RequestMapping("/manage-properties")

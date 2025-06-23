@@ -33,4 +33,10 @@ public interface PropRepo extends JpaRepository<Properties,Long>{
 
     @Query("SELECT p FROM Properties p WHERE p.user_id.email = :email")
     List<Properties> findByEmail(@Param("email") String email);
+
+    @Query("SELECT p.propertyType, COUNT(p) FROM Properties p WHERE p.user_id.email = :email GROUP BY p.propertyType")
+    List<Object[]> countByPropertyTypeForAgent(@Param("email") String email);
+
+    @Query("SELECT p.city, COUNT(p) FROM Properties p WHERE p.user_id.email = :email GROUP BY p.city")
+    List<Object[]> countByCityForAgent(@Param("email") String email);
 }

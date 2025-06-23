@@ -43,4 +43,12 @@ public class PropServiceImpl implements PropService{
 	public void deleteById(Long id) {
 		p1.deleteById(id);
 	}
+
+	public List<Object[]> countByPropertyTypeForAgent(String email) {
+		return p1.countByPropertyTypeForAgent(email);
+	}
+
+	public List<Object[]> countByCityForAgent(String email) {
+		return p1.countByCityForAgent(email);
+	}
 }
