@@ -26,6 +26,8 @@ import com.example.Real_Estate.dto.PropertyDto;
 import com.example.Real_Estate.entity.Properties;
 import com.example.Real_Estate.entity.User;
 import com.example.Real_Estate.entity.UserRole;
+import com.example.Real_Estate.entity.Appointment;
+import com.example.Real_Estate.Services.AppointmentService;
 
 import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.servlet.http.HttpServletRequest;
@@ -38,6 +40,8 @@ public class AgentController {
 	// private UServiceImpl u1;
 	@Autowired
 	private PropServiceImpl p1;
+	@Autowired
+	private AppointmentService appointmentService;
 	@GetMapping("/agent-properties")
 	public String agentMyProperties(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("user");
@@ -57,9 +61,14 @@ public class AgentController {
 			return "redirect:/login";
 		}
 		
-		List<Properties> properties = p1.findAllProperties();
+		List<Properties> properties = p1.findByEmail(user.getEmail());
 		model.addAttribute("AllProperties", properties);
 		model.addAttribute("user", user);
+		// Add appointments and notifications for dynamic dashboard
+		List<Appointment> appointments = appointmentService.getAppointmentsByAgent(user);
+		model.addAttribute("appointments", appointments);
+		List<Appointment> notifications = appointmentService.getActiveNotificationsByUser(user);
+		model.addAttribute("notifications", notifications);
 		return "agent";
 	}
 	@RequestMapping("/manage-properties")
