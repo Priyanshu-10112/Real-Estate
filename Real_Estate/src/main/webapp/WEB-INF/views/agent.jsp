@@ -25,244 +25,8 @@
             --shadow-hover: 0 8px 32px rgba(37,99,235,0.15);
         }
         body { background: var(--grey-bg); }
-        .dashboard-main { display: flex; gap: 2rem; }
-        .dashboard-left {
-            flex: 0 0 320px;
-            min-width: 260px;
-            max-width: 350px;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        .dashboard-right { flex: 1; min-width: 0; }
-        .profile-summary {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 2rem 1.5rem 1.5rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .profile-summary .profile-image {
-            width: 90px; height: 90px; border-radius: 50%; object-fit: cover;
-            border: 4px solid var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        .profile-summary h4 { margin: 0.5rem 0 0.2rem 0; font-weight: 700; font-size: 1.3rem; }
-        .profile-summary .contact-info { color: #64748b; font-size: 1rem; margin-bottom: 0.2rem; }
-        .profile-summary .contact-info i { margin-right: 0.5em; color: var(--primary-color); }
-        .side-nav {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 1.2rem 0.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        .side-nav a {
-            color: #2563eb;
-            font-weight: 500;
-            padding: 0.7em 1.2em;
-            border-radius: 10px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.7em;
-            transition: background 0.2s, color 0.2s;
-        }
-        .side-nav a:hover, .side-nav a.active {
-            background: var(--primary-color);
-            color: #fff;
-        }
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        .quick-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.2rem;
-        }
-        .stat-cards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-        }
-        .stat-card {
-            background: linear-gradient(135deg, #fff 0%, #f4f8fb 100%);
-            border-radius: 22px;
-            box-shadow: 0 2px 12px rgba(37,99,235,0.07);
-            padding: 1.5rem 1rem 1.2rem 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
-            min-height: 120px;
-        }
-        .stat-card:hover {
-            box-shadow: 0 6px 24px rgba(37,99,235,0.13);
-            background: #e9f3fa;
-            transform: translateY(-4px) scale(1.03);
-        }
-        .stat-icon {
-            font-size: 2.2rem;
-            border-radius: 12px;
-            padding: 0.6em;
-            margin-bottom: 0.3em;
-        }
-        .stat-title {
-            font-size: 1.08rem;
-            color: #64748b;
-            font-weight: 700;
-        }
-        .stat-value {
-            font-size: 1.7rem;
-            font-weight: 800;
-            color: #2563eb;
-        }
-        .stat-stars {
-            color: #fbbf24;
-            font-size: 1.3rem;
-        }
-        .cta-row {
-            display: flex;
-            gap: 1.2rem;
-            margin-bottom: 1.2rem;
-        }
-        .cta-btn {
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            padding: 0.8em 1.5em;
-            font-weight: 600;
-            font-size: 1.05rem;
-            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
-            transition: background 0.2s, transform 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.7em;
-        }
-        .cta-btn:hover {
-            background: var(--secondary-color);
-            transform: translateY(-2px) scale(1.04);
-        }
-        .card-section {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 1.5rem 1.2rem;
-            margin-bottom: 1.5rem;
-        }
-        .activities-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 0.5rem;
-        }
-        .activities-table th, .activities-table td {
-            padding: 0.7em 0.6em;
-            text-align: left;
-        }
-        .activities-table th {
-            color: #64748b;
-            font-size: 1.02rem;
-            font-weight: 600;
-            border-bottom: 2px solid #e5e7eb;
-        }
-        .activities-table tr {
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .activities-table td {
-            font-size: 0.98rem;
-        }
-        .chart-section {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        .chart-card {
-            background: linear-gradient(135deg, #f0f6ff 0%, #e9f3fa 100%);
-            border-radius: 28px;
-            box-shadow: 0 4px 24px rgba(37,99,235,0.13), 0 1.5px 6px rgba(16,185,129,0.07);
-            border: 1.5px solid #e0e7ef;
-            padding: 1.8rem 1.5rem 2rem 1.5rem;
-            margin-left: 0;
-            transition: box-shadow 0.22s, transform 0.22s, background 0.22s;
-            position: relative;
-        }
-        .chart-card:hover {
-            box-shadow: 0 8px 32px rgba(37,99,235,0.18), 0 2px 8px rgba(16,185,129,0.10);
-            background: linear-gradient(135deg, #e0f2fe 0%, #f0f6ff 100%);
-            transform: translateY(-4px) scale(1.03);
-        }
-        .chart-card .chart-title {
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: #2563eb;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .chart-card .accent-bar {
-            display: inline-block;
-            width: 6px;
-            height: 28px;
-            background: linear-gradient(180deg, #2563eb 0%, #38bdf8 100%);
-            border-radius: 4px;
-            margin-right: 0.7rem;
-        }
-        .chart-card .chart-desc {
-            color: #64748b;
-            font-size: 0.98rem;
-            margin-bottom: 1.2rem;
-        }
-        .chart-area-bg {
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 1.5px 6px rgba(37,99,235,0.06);
-            padding: 1.1rem 0.5rem 0.5rem 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        @media (min-width: 992px) {
-            .chart-card {
-                margin-left: 1.5rem;
-            }
-        }
-        @media (max-width: 1200px) {
-            .dashboard-main { flex-direction: column; }
-            .dashboard-left { flex-direction: row; gap: 1.5rem; }
-            .dashboard-right { width: 100%; }
-        }
-        @media (max-width: 900px) {
-            .dashboard-main { flex-direction: column; }
-            .dashboard-left { flex-direction: column; }
-        }
-        @media (max-width: 768px) {
-            .dashboard-main { flex-direction: column; gap: 1rem; }
-            .dashboard-left { flex-direction: column; min-width: 0; max-width: 100%; }
-            .dashboard-right { width: 100%; }
-            .chart-section { flex-direction: column; gap: 1.2rem; }
-        }
-        @media (max-width: 991px) {
-            .stat-cards-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        @media (max-width: 600px) {
-            .stat-cards-grid {
-                grid-template-columns: 1fr;
-            }
-        }
         .welcome-banner {
-            margin-top: 3.5rem;
+            margin-top: 3.9rem;
             background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
             color: #fff;
             border-radius: var(--border-radius);
@@ -275,7 +39,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(37,99,235,0.18); /* subtle overlay using primary color */
+            background: rgba(37,99,235,0.18);
             backdrop-filter: blur(1.5px);
             z-index: 1;
         }
@@ -302,17 +66,12 @@
             position: relative;
             z-index: 2;
         }
-        .welcome-banner .header-emoji {
-            font-size: 2.2rem;
-            margin-right: 0.5rem;
-            vertical-align: middle;
-        }
         .welcome-banner .header-username {
-            background: linear-gradient(90deg, var(--secondary-color) 0%, var(--accent-color) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
+            background: none;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: initial;
+            background-clip: initial;
+            color: #fff;
             font-weight: 900;
             font-size: 2.6rem;
             display: inline-block;
@@ -376,114 +135,168 @@
             100% { width: 70%; }
         }
         .welcome-banner .header-btn {
-            margin-top: 1.2rem;
-            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: #fff;
-            border: none;
+            margin-top: 1.5rem;
+            background: #fff;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
             border-radius: 8px;
             padding: 0.7em 1.7em;
             font-weight: 700;
             font-size: 1.08rem;
             box-shadow: 0 2px 8px rgba(37,99,235,0.10);
-            transition: background 0.2s, transform 0.2s;
+            transition: background 0.2s, color 0.2s, border 0.2s, transform 0.2s;
             z-index: 2;
             position: relative;
         }
         .welcome-banner .header-btn:hover {
-            background: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            background: var(--primary-color);
+            color: #fff;
+            border: 2px solid var(--primary-color);
             transform: translateY(-2px) scale(1.04);
         }
-        @media (max-width: 768px) {
-            .welcome-banner {
-                padding: 1.5rem 1rem 1.2rem 1rem;
-                margin-top: 2.5rem;
-            }
-            .welcome-banner .header-title {
-                font-size: 1.5rem;
-            }
-            .welcome-banner .header-username {
-                font-size: 1.3rem;
-            }
-            .welcome-banner .header-progress {
-                width: 100px;
-            }
+        .agent-quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
         }
-        .chatbot-button {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--primary-color, #2563eb);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+        .agent-action-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 1.5rem 1.2rem;
+            box-shadow: 0 4px 6px -1px rgba(37,99,235,0.08), 0 2px 4px -1px rgba(37,99,235,0.04);
+            transition: box-shadow 0.2s, transform 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-height: 160px;
+        }
+        .agent-action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -3px rgba(37,99,235,0.13), 0 4px 6px -2px rgba(37,99,235,0.08);
+            color: var(--secondary-color);
+        }
+        .agent-action-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--grey-bg);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            z-index: 1000;
+            margin-bottom: 1rem;
+            font-size: 1.7rem;
+            color: var(--primary-color);
         }
-        .chatbot-button:hover {
-            transform: scale(1.1);
-            background: #1e40af;
+        .agent-action-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: var(--primary-color);
         }
-        .card-gradient-1 {
-            background: linear-gradient(135deg, #fdf6e3 0%, #fceabb 100%);
+        .agent-action-desc {
+            font-size: 0.97rem;
+            color: #64748b;
+            font-weight: 400;
         }
-        .card-gradient-2 {
-            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+        .chart-card {
+            background: linear-gradient(135deg, #f0f6ff 0%, #e9f3fa 100%);
+            border-radius: 28px;
+            box-shadow: 0 4px 24px rgba(37,99,235,0.13), 0 1.5px 6px rgba(16,185,129,0.07);
+            border: 1.5px solid #e0e7ef;
+            padding: 1.8rem 1.5rem 2rem 1.5rem;
+            margin-left: 0;
+            transition: box-shadow 0.22s, transform 0.22s, background 0.22s;
+            position: relative;
         }
-        .card-gradient-3 {
-            background: linear-gradient(135deg, #e6f9ec 0%, #b7f8c7 100%);
+        .chart-card:hover {
+            box-shadow: 0 8px 32px rgba(37,99,235,0.18), 0 2px 8px rgba(16,185,129,0.10);
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f6ff 100%);
+            transform: translateY(-4px) scale(1.03);
         }
-        .hover-lift {
-            transition: transform 0.2s, box-shadow 0.2s;
+        .chart-card .chart-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .hover-lift:hover {
-            transform: translateY(-6px) scale(1.03);
-            box-shadow: 0 8px 32px rgba(37,99,235,0.15);
+        .chart-card .accent-bar {
+            display: inline-block;
+            width: 6px;
+            height: 28px;
+            background: linear-gradient(180deg, #2563eb 0%, #38bdf8 100%);
+            border-radius: 4px;
+            margin-right: 0.7rem;
         }
-        /* Quick Links Card Grid */
-        .quick-links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1.2rem;
-            margin-bottom: 2rem;
+        .chart-card .chart-desc {
+            color: #64748b;
+            font-size: 0.98rem;
+            margin-bottom: 1.2rem;
         }
-        .quick-link-card {
+        .chart-area-bg {
             background: #fff;
-            border-radius: 16px;
+            border-radius: 18px;
+            box-shadow: 0 1.5px 6px rgba(37,99,235,0.06);
+            padding: 1.1rem 0.5rem 0.5rem 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .stat-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #fff 0%, #f4f8fb 100%);
+            border-radius: 22px;
             box-shadow: 0 2px 12px rgba(37,99,235,0.07);
+            padding: 1.5rem 1rem 1.2rem 1rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 1.3rem 0.5rem 1rem 0.5rem;
-            text-decoration: none;
+            text-align: center;
             transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
             min-height: 120px;
-            min-width: 0;
         }
-        .quick-link-card:hover {
+        .stat-card:hover {
             box-shadow: 0 6px 24px rgba(37,99,235,0.13);
-            background: #f0f6ff;
-            transform: translateY(-4px) scale(1.04);
+            background: #e9f3fa;
+            transform: translateY(-4px) scale(1.03);
         }
-        .quick-link-card i {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        .stat-icon {
+            font-size: 2.2rem;
+            border-radius: 12px;
+            padding: 0.6em;
+            margin-bottom: 0.3em;
         }
-        .quick-link-card .quick-link-label {
-            font-weight: 600;
-            font-size: 1.05rem;
+        .stat-title {
+            font-size: 1.08rem;
+            color: #64748b;
+            font-weight: 700;
+        }
+        .stat-value {
+            font-size: 1.7rem;
+            font-weight: 800;
             color: #2563eb;
         }
+        @media (max-width: 991px) {
+            .stat-cards-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
         @media (max-width: 600px) {
-            .quick-links-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .stat-cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .agent-quick-actions {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -494,11 +307,9 @@
     <!-- 1. Header: Welcome Banner (Full Width) -->
     <div class="container-fluid px-4 py-3">
         <div class="tile tile-full welcome-banner mb-4 animate__animated animate__fadeInDown position-relative">
-            <span class="confetti" title="Celebration!">🎉</span>
             <div class="row align-items-center position-relative" style="z-index:2;">
                 <div class="col-md-8">
                     <div class="header-title mb-1">
-                        <span class="header-emoji">👋</span>
                         Welcome back, <span class="header-username">${user.firstName}</span>!
                     </div>
                     <span class="header-title-underline"></span>
@@ -507,7 +318,7 @@
                     <div class="header-progress">
                         <div class="header-progress-bar"></div>
                     </div>
-                    <button class="header-btn" onclick="document.getElementById('statsSection').scrollIntoView({behavior: 'smooth'});">Let's get started!</button>
+                    <button class="header-btn" onclick="window.location.href='${pageContext.request.contextPath}/agent/manage-properties'">Let's get started!</button>
                 </div>
                 <div class="col-md-4 text-md-end">
                     <span class="h3 mb-0">Today</span>
@@ -516,22 +327,26 @@
         </div>
 
         <!-- Quick Links: Attractive Card Grid -->
-        <div class="quick-links-grid">
-            <a href="${pageContext.request.contextPath}/agent/dashboard" class="quick-link-card">
-                <i class="fas fa-home text-primary"></i>
-                <div class="quick-link-label">Dashboard</div>
+        <div class="agent-quick-actions">
+            <a href="${pageContext.request.contextPath}/agent/dashboard" class="agent-action-card">
+                <div class="agent-action-icon" style="background:#eaf4fb;"><i class="fas fa-home"></i></div>
+                <div class="agent-action-title">Dashboard</div>
+                <div class="agent-action-desc">Overview of your activity and stats</div>
             </a>
-            <a href="${pageContext.request.contextPath}/agent/manage-properties" class="quick-link-card">
-                <i class="fas fa-building text-success"></i>
-                <div class="quick-link-label">Manage Properties</div>
+            <a href="${pageContext.request.contextPath}/agent/manage-properties" class="agent-action-card">
+                <div class="agent-action-icon" style="background:#eaf4fb;"><i class="fas fa-building"></i></div>
+                <div class="agent-action-title">Manage Properties</div>
+                <div class="agent-action-desc">Add, edit, or remove your property listings</div>
             </a>
-            <a href="${pageContext.request.contextPath}/agent/appointments" class="quick-link-card">
-                <i class="fas fa-calendar-check text-info"></i>
-                <div class="quick-link-label">Appointments</div>
+            <a href="${pageContext.request.contextPath}/agent/appointments" class="agent-action-card">
+                <div class="agent-action-icon" style="background:#eaf4fb;"><i class="fas fa-calendar-check"></i></div>
+                <div class="agent-action-title">Appointments</div>
+                <div class="agent-action-desc">View and manage your appointments</div>
             </a>
-            <a href="${pageContext.request.contextPath}/profile" class="quick-link-card">
-                <i class="fas fa-user text-warning"></i>
-                <div class="quick-link-label">Profile</div>
+            <a href="${pageContext.request.contextPath}/profile" class="agent-action-card">
+                <div class="agent-action-icon" style="background:#eaf4fb;"><i class="fas fa-user"></i></div>
+                <div class="agent-action-title">Profile</div>
+                <div class="agent-action-desc">Update your profile and preferences</div>
             </a>
         </div>
 
