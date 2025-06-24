@@ -87,30 +87,48 @@
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1.2rem;
         }
+        .stat-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
         .stat-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 1.3rem 1.2rem;
+            background: linear-gradient(135deg, #fff 0%, #f4f8fb 100%);
+            border-radius: 22px;
+            box-shadow: 0 2px 12px rgba(37,99,235,0.07);
+            padding: 1.5rem 1rem 1.2rem 1rem;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 0.5rem;
-            transition: box-shadow 0.2s, transform 0.2s;
+            align-items: center;
+            text-align: center;
+            transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+            min-height: 120px;
         }
         .stat-card:hover {
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 6px 24px rgba(37,99,235,0.13);
+            background: #e9f3fa;
+            transform: translateY(-4px) scale(1.03);
         }
         .stat-icon {
-            font-size: 1.7rem;
-            border-radius: 10px;
-            padding: 0.5em;
-            margin-bottom: 0.2em;
+            font-size: 2.2rem;
+            border-radius: 12px;
+            padding: 0.6em;
+            margin-bottom: 0.3em;
         }
-        .stat-title { font-size: 1.05rem; color: #64748b; font-weight: 600; }
-        .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); }
-        .stat-stars { color: #fbbf24; font-size: 1.2rem; }
+        .stat-title {
+            font-size: 1.08rem;
+            color: #64748b;
+            font-weight: 700;
+        }
+        .stat-value {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: #2563eb;
+        }
+        .stat-stars {
+            color: #fbbf24;
+            font-size: 1.3rem;
+        }
         .cta-row {
             display: flex;
             gap: 1.2rem;
@@ -168,13 +186,55 @@
             flex-wrap: wrap;
         }
         .chart-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 1.2rem 1.2rem 1.5rem 1.2rem;
-            flex: 1 1 320px;
-            min-width: 260px;
-            max-width: 480px;
+            background: linear-gradient(135deg, #f0f6ff 0%, #e9f3fa 100%);
+            border-radius: 28px;
+            box-shadow: 0 4px 24px rgba(37,99,235,0.13), 0 1.5px 6px rgba(16,185,129,0.07);
+            border: 1.5px solid #e0e7ef;
+            padding: 1.8rem 1.5rem 2rem 1.5rem;
+            margin-left: 0;
+            transition: box-shadow 0.22s, transform 0.22s, background 0.22s;
+            position: relative;
+        }
+        .chart-card:hover {
+            box-shadow: 0 8px 32px rgba(37,99,235,0.18), 0 2px 8px rgba(16,185,129,0.10);
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f6ff 100%);
+            transform: translateY(-4px) scale(1.03);
+        }
+        .chart-card .chart-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .chart-card .accent-bar {
+            display: inline-block;
+            width: 6px;
+            height: 28px;
+            background: linear-gradient(180deg, #2563eb 0%, #38bdf8 100%);
+            border-radius: 4px;
+            margin-right: 0.7rem;
+        }
+        .chart-card .chart-desc {
+            color: #64748b;
+            font-size: 0.98rem;
+            margin-bottom: 1.2rem;
+        }
+        .chart-area-bg {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 1.5px 6px rgba(37,99,235,0.06);
+            padding: 1.1rem 0.5rem 0.5rem 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (min-width: 992px) {
+            .chart-card {
+                margin-left: 1.5rem;
+            }
         }
         @media (max-width: 1200px) {
             .dashboard-main { flex-direction: column; }
@@ -191,32 +251,161 @@
             .dashboard-right { width: 100%; }
             .chart-section { flex-direction: column; gap: 1.2rem; }
         }
+        @media (max-width: 991px) {
+            .stat-cards-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            .stat-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
         .welcome-banner {
-            margin-top: 3.5rem; /* Ensures it clears the nav bar */
-            background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%);
+            margin-top: 3.5rem;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
             color: #fff;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
-            padding: 2.5rem 2rem 2rem 2rem;
+            padding: 2.8rem 2.2rem 2.2rem 2.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(37,99,235,0.18); /* subtle overlay using primary color */
+            backdrop-filter: blur(1.5px);
+            z-index: 1;
+        }
+        .confetti {
+            position: absolute;
+            top: 1.2rem;
+            right: 2.2rem;
+            font-size: 2.2rem;
+            z-index: 3;
+            animation: floatConfetti 2.5s infinite alternate ease-in-out;
+        }
+        @keyframes floatConfetti {
+            0% { transform: translateY(0) rotate(-10deg); }
+            100% { transform: translateY(-18px) rotate(10deg); }
+        }
+        .welcome-banner .header-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            position: relative;
+            z-index: 2;
+        }
+        .welcome-banner .header-emoji {
+            font-size: 2.2rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .welcome-banner .header-username {
+            background: linear-gradient(90deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            font-weight: 900;
+            font-size: 2.6rem;
+            display: inline-block;
             position: relative;
         }
-        .welcome-banner h2 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            color: #fff;
+        .welcome-banner .header-title-underline {
+            display: block;
+            height: 5px;
+            width: 120px;
+            background: linear-gradient(90deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            border-radius: 3px;
+            margin-top: 0.2rem;
+            animation: underlineGrow 1.2s cubic-bezier(.68,-0.55,.27,1.55) 1;
         }
-        .welcome-banner p {
-            font-size: 1.15rem;
+        @keyframes underlineGrow {
+            0% { width: 0; opacity: 0; }
+            100% { width: 120px; opacity: 1; }
+        }
+        .welcome-banner .header-subtitle {
+            font-size: 1.18rem;
             color: #e0e7ef;
+            margin-bottom: 0.7rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+        .welcome-banner .header-tip {
+            background: rgba(255,255,255,0.13);
+            color: #fffbe0;
+            border-radius: 10px;
+            padding: 0.7em 1.2em;
+            font-size: 1.05rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.5rem;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            min-height: 2.2em;
+            transition: background 0.2s;
+            position: relative;
+            z-index: 2;
+        }
+        .welcome-banner .header-progress {
+            width: 180px;
+            height: 10px;
+            background: var(--grey-bg);
+            border-radius: 6px;
+            margin-top: 1.2rem;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+        .welcome-banner .header-progress-bar {
+            height: 100%;
+            width: 70%;
+            background: linear-gradient(90deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            border-radius: 6px;
+            animation: progressGrow 1.5s cubic-bezier(.68,-0.55,.27,1.55) 1;
+        }
+        @keyframes progressGrow {
+            0% { width: 0; }
+            100% { width: 70%; }
+        }
+        .welcome-banner .header-btn {
+            margin-top: 1.2rem;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7em 1.7em;
+            font-weight: 700;
+            font-size: 1.08rem;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.10);
+            transition: background 0.2s, transform 0.2s;
+            z-index: 2;
+            position: relative;
+        }
+        .welcome-banner .header-btn:hover {
+            background: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            transform: translateY(-2px) scale(1.04);
         }
         @media (max-width: 768px) {
             .welcome-banner {
                 padding: 1.5rem 1rem 1.2rem 1rem;
                 margin-top: 2.5rem;
             }
-            .welcome-banner h2 {
+            .welcome-banner .header-title {
+                font-size: 1.5rem;
+            }
+            .welcome-banner .header-username {
                 font-size: 1.3rem;
+            }
+            .welcome-banner .header-progress {
+                width: 100px;
             }
         }
         .chatbot-button {
@@ -241,6 +430,62 @@
             transform: scale(1.1);
             background: #1e40af;
         }
+        .card-gradient-1 {
+            background: linear-gradient(135deg, #fdf6e3 0%, #fceabb 100%);
+        }
+        .card-gradient-2 {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+        }
+        .card-gradient-3 {
+            background: linear-gradient(135deg, #e6f9ec 0%, #b7f8c7 100%);
+        }
+        .hover-lift {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .hover-lift:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(37,99,235,0.15);
+        }
+        /* Quick Links Card Grid */
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .quick-link-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(37,99,235,0.07);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.3rem 0.5rem 1rem 0.5rem;
+            text-decoration: none;
+            transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+            min-height: 120px;
+            min-width: 0;
+        }
+        .quick-link-card:hover {
+            box-shadow: 0 6px 24px rgba(37,99,235,0.13);
+            background: #f0f6ff;
+            transform: translateY(-4px) scale(1.04);
+        }
+        .quick-link-card i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .quick-link-card .quick-link-label {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #2563eb;
+        }
+        @media (max-width: 600px) {
+            .quick-links-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
@@ -248,11 +493,21 @@
 
     <!-- 1. Header: Welcome Banner (Full Width) -->
     <div class="container-fluid px-4 py-3">
-        <div class="tile tile-full welcome-banner mb-4 animate__animated animate__fadeInDown">
-            <div class="row align-items-center">
+        <div class="tile tile-full welcome-banner mb-4 animate__animated animate__fadeInDown position-relative">
+            <span class="confetti" title="Celebration!">🎉</span>
+            <div class="row align-items-center position-relative" style="z-index:2;">
                 <div class="col-md-8">
-                    <h2 class="mb-2">Welcome back, ${user.firstName}!</h2>
-                    <p class="mb-0 opacity-90">Here's your personalized overview for today.</p>
+                    <div class="header-title mb-1">
+                        <span class="header-emoji">👋</span>
+                        Welcome back, <span class="header-username">${user.firstName}</span>!
+                    </div>
+                    <span class="header-title-underline"></span>
+                    <div class="header-subtitle mb-2">Ready to close your next deal? Your dashboard is here to help you succeed every day.</div>
+                    <div class="header-tip" id="headerTip">Did you know? <b>Updating your listings regularly</b> increases your chances of getting more client inquiries!</div>
+                    <div class="header-progress">
+                        <div class="header-progress-bar"></div>
+                    </div>
+                    <button class="header-btn" onclick="document.getElementById('statsSection').scrollIntoView({behavior: 'smooth'});">Let's get started!</button>
                 </div>
                 <div class="col-md-4 text-md-end">
                     <span class="h3 mb-0">Today</span>
@@ -260,39 +515,27 @@
             </div>
         </div>
 
-        <!-- Stat Cards Row (Centered) -->
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stat-card h-100">
-                    <span class="stat-icon" style="background: #e0f2fe;"><i class="fas fa-list-alt text-primary"></i></span>
-                    <span class="stat-title">Total Properties</span>
-                    <span class="stat-value">${AllProperties != null ? AllProperties.size() : 0}</span>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stat-card h-100">
-                    <span class="stat-icon" style="background: #e0ffe0;"><i class="fas fa-bolt text-success"></i></span>
-                    <span class="stat-title">Active Listings</span>
-                    <span class="stat-value">${AllProperties != null ? AllProperties.stream().filter(p -> p.status.name() == 'AVAILABLE').count() : 0}</span>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stat-card h-100">
-                    <span class="stat-icon" style="background: #ffe0e0;"><i class="fas fa-check-circle text-danger"></i></span>
-                    <span class="stat-title">Properties Sold</span>
-                    <span class="stat-value">${AllProperties != null ? AllProperties.stream().filter(p -> p.status.name() == 'SOLD').count() : 0}</span>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <div class="stat-card h-100">
-                    <span class="stat-icon" style="background: #fffbe0;"><i class="fas fa-star text-warning"></i></span>
-                    <span class="stat-title">Customer Ratings</span>
-                    <span class="stat-value stat-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> 4.5
-                    </span>
-                </div>
-            </div>
+        <!-- Quick Links: Attractive Card Grid -->
+        <div class="quick-links-grid">
+            <a href="${pageContext.request.contextPath}/agent/dashboard" class="quick-link-card">
+                <i class="fas fa-home text-primary"></i>
+                <div class="quick-link-label">Dashboard</div>
+            </a>
+            <a href="${pageContext.request.contextPath}/agent/manage-properties" class="quick-link-card">
+                <i class="fas fa-building text-success"></i>
+                <div class="quick-link-label">Manage Properties</div>
+            </a>
+            <a href="${pageContext.request.contextPath}/agent/appointments" class="quick-link-card">
+                <i class="fas fa-calendar-check text-info"></i>
+                <div class="quick-link-label">Appointments</div>
+            </a>
+            <a href="${pageContext.request.contextPath}/profile" class="quick-link-card">
+                <i class="fas fa-user text-warning"></i>
+                <div class="quick-link-label">Profile</div>
+            </a>
         </div>
+
+        <!-- Pie Chart and Stat Cards Row -->
         <%
         // Prepare property type chart data for the pie chart
         List propertyTypeDist = (List) request.getAttribute("propertyTypeDist");
@@ -310,13 +553,43 @@
             }
         }
     %>
-
-        <!-- Pie Chart Row (Centered) -->
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-6 col-md-8">
-                <div class="chart-card h-100 shadow p-4 bg-white rounded">
-                    <h6 class="mb-3"><i class="fas fa-chart-pie text-primary"></i> Property Types Listed</h6>
-                    <canvas id="propertyTypeChart" height="200"></canvas>
+        <div id="statsSection" class="row mb-4 align-items-stretch">
+            <div class="col-12 col-lg-5 d-flex">
+                <div class="chart-card h-100 w-100" style="max-width: 480px; min-width: 260px;">
+                    <div class="chart-title mb-2">
+                        <span class="accent-bar"></span>
+                        <span><i class="fas fa-chart-pie me-2"></i>Property Types Distribution</span>
+                    </div>
+                    <div class="chart-desc mb-3">Visual breakdown of all property types currently listed by you</div>
+                    <div class="chart-area-bg">
+                        <canvas id="propertyTypeChart" height="220"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-7 d-flex flex-column justify-content-center">
+                <div class="stat-cards-grid">
+                    <div class="stat-card">
+                        <span class="stat-icon" style="background: #f0f6ff;"><i class="fas fa-list-alt text-primary"></i></span>
+                        <span class="stat-title">Total Properties</span>
+                        <span class="stat-value">${AllProperties != null ? AllProperties.size() : 0}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon" style="background: #e6f9ec;"><i class="fas fa-bolt text-success"></i></span>
+                        <span class="stat-title">Active Listings</span>
+                        <span class="stat-value">${AllProperties != null ? AllProperties.stream().filter(p -> p.status.name() == 'AVAILABLE').count() : 0}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon" style="background: #ffe0e0;"><i class="fas fa-check-circle text-danger"></i></span>
+                        <span class="stat-title">Properties Sold</span>
+                        <span class="stat-value">${AllProperties != null ? AllProperties.stream().filter(p -> p.status.name() == 'SOLD').count() : 0}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon" style="background: #fffbe0;"><i class="fas fa-star text-warning"></i></span>
+                        <span class="stat-title">Customer Ratings</span>
+                        <span class="stat-value stat-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> 4.5
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -355,6 +628,20 @@
             document.getElementById('chatbotButton').addEventListener('click', function() {
                 alert('Chatbot feature coming soon!');
             });
+
+            // Rotating tips for header
+            var tips = [
+                "Did you know? <b>Updating your listings regularly</b> increases your chances of getting more client inquiries!",
+                "Tip: <b>Respond to client inquiries quickly</b> to build trust and close deals faster!",
+                "Pro tip: <b>High-quality photos</b> make your properties stand out!",
+                "Did you know? <b>Scheduling open houses</b> can boost your property's visibility!"
+            ];
+            var tipIndex = 0;
+            var tipElem = document.getElementById('headerTip');
+            setInterval(function() {
+                tipIndex = (tipIndex + 1) % tips.length;
+                tipElem.innerHTML = tips[tipIndex];
+            }, 5000);
         });
     </script>
 </body>
