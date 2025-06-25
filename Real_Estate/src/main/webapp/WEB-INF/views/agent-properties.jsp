@@ -17,6 +17,7 @@
     List<Properties> properties = (List<Properties>) request.getAttribute("AllProperties");
     %>
     <style>
+        /* Only keep CSS for classes/IDs actually used in the HTML */
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
@@ -27,21 +28,17 @@
             --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
             --hover-shadow: 0 15px 30px rgba(0,0,0,0.15);
             --gradient-primary: linear-gradient(135deg, #3498db, #2980b9);
-            --gradient-secondary: linear-gradient(135deg, #2c3e50, #34495e);
             --transition: all 0.3s ease;
             --border-radius: 16px;
             --section-spacing: 2.5rem;
         }
-
         body {
             background-color: var(--light-bg);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding-top: 0;
         }
-        /* Enhanced Page Header */
         .page-header {
-            background: var(--gradient-primary), 
-                        url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3') center/cover;
+            background: var(--gradient-primary), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3') center/cover;
             color: white;
             padding: 3rem 0;
             margin-bottom: 3rem;
@@ -52,18 +49,6 @@
             backdrop-filter: blur(5px);
             margin-top: 80px;
         }
-
-        .page-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.1)"/></svg>');
-            opacity: 0.1;
-        }
-
         .page-header h1 {
             font-size: 3.5rem;
             font-weight: 800;
@@ -71,22 +56,18 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             letter-spacing: -0.5px;
         }
-
         .page-header p {
             font-size: 1.3rem;
             opacity: 0.9;
             max-width: 600px;
             line-height: 1.6;
         }
-
-        /* Enhanced Property Stats */
         .property-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
             margin-bottom: 4rem;
         }
-
         .stat-card {
             background: white;
             padding: 2.5rem 2rem;
@@ -98,39 +79,12 @@
             overflow: hidden;
             border: 1px solid rgba(0,0,0,0.05);
         }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--hover-shadow);
-        }
-
-        .stat-card:hover::before {
-            opacity: 1;
-        }
-
         .stat-card i {
             font-size: 3rem;
             color: var(--primary-color);
             margin-bottom: 1.5rem;
             transition: var(--transition);
         }
-
-        .stat-card:hover i {
-            transform: scale(1.1);
-        }
-
         .stat-card h3 {
             font-size: 3rem;
             color: var(--dark-text);
@@ -138,22 +92,18 @@
             font-weight: 700;
             line-height: 1;
         }
-
         .stat-card p {
             color: var(--secondary-color);
             font-size: 1.2rem;
             margin: 0;
             font-weight: 500;
         }
-
-        /* Enhanced Quick Actions */
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin-bottom: 4rem;
         }
-
         .action-card {
             background: white;
             padding: 2.5rem 2rem;
@@ -165,73 +115,30 @@
             overflow: hidden;
             border: 1px solid rgba(0,0,0,0.05);
         }
-
-        .action-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .action-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--hover-shadow);
-        }
-
-        .action-card:hover::before {
-            opacity: 1;
-        }
-
         .action-card i {
             font-size: 3rem;
             color: var(--primary-color);
             margin-bottom: 1.5rem;
             transition: var(--transition);
         }
-
-        .action-card:hover i {
-            transform: scale(1.1);
-        }
-
         .action-card h4 {
             font-size: 1.8rem;
             color: var(--dark-text);
             margin-bottom: 1rem;
             font-weight: 600;
         }
-
         .action-card p {
             color: var(--secondary-color);
             font-size: 1.1rem;
             margin-bottom: 2rem;
             line-height: 1.6;
         }
-
-        /* Enhanced Section Title */
         .section-title {
             text-align: center;
             margin-bottom: 4rem;
             position: relative;
             padding-bottom: 1.5rem;
         }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--gradient-primary);
-            border-radius: 2px;
-        }
-
         .section-title h2 {
             font-size: 3rem;
             color: var(--dark-text);
@@ -239,7 +146,6 @@
             font-weight: 700;
             letter-spacing: -0.5px;
         }
-
         .section-title p {
             color: var(--secondary-color);
             font-size: 1.3rem;
@@ -247,16 +153,12 @@
             margin: 0 auto;
             line-height: 1.6;
         }
-
-        /* Enhanced Property Grid */
         .property-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
             gap: 2.5rem;
             padding: 1rem;
         }
-
-        /* Enhanced Property Card */
         .property-card {
             background: white;
             border-radius: 20px;
@@ -269,30 +171,25 @@
             border: 1px solid rgba(0,0,0,0.05);
             height: 100%;
         }
-
         .property-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--hover-shadow);
         }
-
         .property-image {
             position: relative;
             height: 300px;
             overflow: hidden;
             flex-shrink: 0;
         }
-
         .property-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: var(--transition);
         }
-
         .property-card:hover .property-image img {
             transform: scale(1.05);
         }
-
         .property-badge {
             position: absolute;
             top: 1.5rem;
@@ -308,12 +205,10 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.2);
         }
-
         .property-badge.available { color: #2ecc71; }
         .property-badge.rent { color: #f1c40f; }
         .property-badge.sold { color: #e74c3c; }
         .property-badge.pre-launch { color: #9b59b6; }
-
         .property-info {
             padding: 2rem;
             display: flex;
@@ -322,7 +217,6 @@
             min-height: 0;
             margin-top: 0;
         }
-
         .property-price {
             font-size: 2.5rem;
             font-weight: 700;
@@ -340,14 +234,12 @@
             position: relative;
             z-index: 1;
         }
-
         .property-price .rupee-symbol {
             font-size: 1.8rem;
             font-weight: 400;
             vertical-align: top;
             margin-right: 0.2rem;
         }
-
         .property-title {
             font-size: 1.8rem;
             font-weight: 700;
@@ -361,7 +253,6 @@
             margin-top: 0;
             word-break: break-word;
         }
-
         .property-location {
             display: flex;
             align-items: center;
@@ -374,19 +265,16 @@
             font-family: 'Inter', sans-serif;
             word-break: break-word;
         }
-
         .property-location i {
             color: var(--primary-color);
             font-size: 1.5rem;
         }
-
         .property-features {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
             margin: 1.5rem 0;
         }
-
         .feature {
             background: var(--light-bg);
             padding: 1.5rem;
@@ -400,23 +288,19 @@
             font-family: 'Inter', sans-serif;
             border: 1px solid rgba(0,0,0,0.05);
         }
-
         .feature:hover {
             background: var(--primary-color);
             color: white;
             transform: translateY(-5px);
         }
-
         .feature i {
             color: var(--primary-color);
             font-size: 1.5rem;
             transition: var(--transition);
         }
-
         .feature:hover i {
             color: white;
         }
-
         .property-actions {
             display: flex;
             flex-direction: column;
@@ -426,7 +310,6 @@
             border-top: 1px solid rgba(0,0,0,0.1);
             flex-shrink: 0;
         }
-
         .property-actions .btn {
             padding: 1.2rem 2rem;
             border-radius: 15px;
@@ -443,39 +326,18 @@
             position: relative;
             overflow: hidden;
         }
-
-        .property-actions .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-            transform: translateX(-100%);
-            transition: var(--transition);
-        }
-
-        .property-actions .btn:hover::before {
-            transform: translateX(100%);
-        }
-
         .property-actions .btn-primary {
             background: var(--gradient-primary);
             color: white;
             border: none;
         }
-
         .property-actions .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
         }
-
         .property-actions .btn-primary i {
             font-size: 1.3rem;
         }
-
-        /* Enhanced Empty State */
         .empty-state {
             text-align: center;
             padding: 5rem 2rem;
@@ -484,20 +346,17 @@
             box-shadow: var(--card-shadow);
             margin: 2rem 0;
         }
-
         .empty-state i {
             font-size: 4rem;
             color: var(--primary-color);
             margin-bottom: 2rem;
         }
-
         .empty-state h3 {
             color: var(--dark-text);
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
             font-weight: 700;
         }
-
         .empty-state p {
             color: var(--secondary-color);
             font-size: 1.3rem;
@@ -505,8 +364,6 @@
             margin: 0 auto 2rem;
             line-height: 1.6;
         }
-
-        /* Enhanced Add Property Button */
         .add-property-btn {
             background: var(--gradient-primary);
             color: white;
@@ -526,99 +383,65 @@
             position: relative;
             overflow: hidden;
         }
-
-        .add-property-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-            transform: translateX(-100%);
-            transition: var(--transition);
-        }
-
-        .add-property-btn:hover::before {
-            transform: translateX(100%);
-        }
-
         .add-property-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
             color: white;
         }
-
-        /* Responsive Design */
         @media (max-width: 1200px) {
             .property-stats {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-
         @media (max-width: 992px) {
             .quick-actions {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
             .page-header h1 {
                 font-size: 3rem;
             }
         }
-
         @media (max-width: 768px) {
             .container {
                 padding: 0 1.5rem;
             }
-
             .page-header {
                 padding: 3rem 1.5rem;
                 border-radius: 15px;
             }
-
             .page-header h1 {
                 font-size: 2.5rem;
             }
-
             .property-stats,
             .quick-actions {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-
             .stat-card,
             .action-card {
                 padding: 2rem 1.5rem;
             }
-
             .stat-card h3 {
                 font-size: 2.5rem;
             }
-
             .section-title h2 {
                 font-size: 2.5rem;
             }
-
             .property-grid {
                 grid-template-columns: 1fr;
             }
-
             .property-info {
                 padding: 1.5rem;
             }
-
             .property-title {
                 font-size: 1.6rem;
             }
-
             .property-features {
                 grid-template-columns: 1fr;
             }
-
             .property-actions {
                 grid-template-columns: 1fr;
             }
-
             .property-actions .btn {
                 width: 100%;
             }

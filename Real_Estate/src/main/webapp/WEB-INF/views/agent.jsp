@@ -43,18 +43,6 @@
             backdrop-filter: blur(1.5px);
             z-index: 1;
         }
-        .confetti {
-            position: absolute;
-            top: 1.2rem;
-            right: 2.2rem;
-            font-size: 2.2rem;
-            z-index: 3;
-            animation: floatConfetti 2.5s infinite alternate ease-in-out;
-        }
-        @keyframes floatConfetti {
-            0% { transform: translateY(0) rotate(-10deg); }
-            100% { transform: translateY(-18px) rotate(10deg); }
-        }
         .welcome-banner .header-title {
             font-size: 2.5rem;
             font-weight: 900;

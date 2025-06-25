@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/newcss.css">
     <style>
+        /* Only keep CSS for classes/IDs actually used in the HTML */
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
@@ -23,28 +24,49 @@
             --light-text: #ffffff;
             --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
             --hover-shadow: 0 15px 30px rgba(0,0,0,0.15);
-            --transition: all 0.3s ease;
             --gradient-primary: linear-gradient(135deg, #3498db, #2980b9);
-            --gradient-secondary: linear-gradient(135deg, #2c3e50, #34495e);
             --transition: all 0.3s ease;
             --border-radius: 16px;
             --section-spacing: 2.5rem;
         }
-
         body {
             background-color: var(--light-bg);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding-top: 0;
         }
-
-        /* Enhanced Property Stats */
+        .page-header {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 2.5rem !important;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .page-header p {
+            font-size: 1.1rem;
+            color: #6c757d;
+            font-weight: 500;
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
         .property-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
             margin-bottom: 4rem;
         }
-
         .stat-card {
             background: white;
             padding: 2.5rem 2rem;
@@ -56,39 +78,12 @@
             overflow: hidden;
             border: 1px solid rgba(0,0,0,0.05);
         }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--hover-shadow);
-        }
-
-        .stat-card:hover::before {
-            opacity: 1;
-        }
-
         .stat-card i {
             font-size: 3rem;
             color: var(--primary-color);
             margin-bottom: 1.5rem;
             transition: var(--transition);
         }
-
-        .stat-card:hover i {
-            transform: scale(1.1);
-        }
-
         .stat-card h3 {
             font-size: 3rem;
             color: var(--dark-text);
@@ -96,31 +91,12 @@
             font-weight: 700;
             line-height: 1;
         }
-
         .stat-card p {
             color: var(--secondary-color);
             font-size: 1.2rem;
             margin: 0;
             font-weight: 500;
         }
-
-        .add-property-btn {
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            color: white;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .add-property-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            color: white;
-        }
-
         .filter-section {
             background: white;
             border-radius: 20px;
@@ -130,46 +106,23 @@
             position: relative;
             overflow: hidden;
         }
-
-        .filter-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--primary-color);
-        }
-
         .filter-header {
             display: flex;
             align-items: center;
             margin-bottom: 2rem;
             gap: 1rem;
         }
-
-        .filter-header i {
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
-
         .filter-title {
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--dark-text);
             margin: 0;
         }
-
         .filter-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
         }
-
-        .form-group {
-            margin-bottom: 0;
-        }
-
         .form-label {
             font-weight: 600;
             color: var(--dark-text);
@@ -179,11 +132,6 @@
             align-items: center;
             gap: 0.5rem;
         }
-
-        .form-label i {
-            color: var(--primary-color);
-        }
-
         .form-control, .form-select {
             border-radius: 12px;
             padding: 0.8rem 1.2rem;
@@ -192,13 +140,6 @@
             font-size: 0.95rem;
             background: var(--light-bg);
         }
-
-        .form-control:focus, .form-select:focus {
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
-            border-color: var(--primary-color);
-            background: white;
-        }
-
         .btn-search {
             background: var(--primary-color);
             color: var(--light-text);
@@ -214,13 +155,6 @@
             width: 100%;
             margin-top: 1rem;
         }
-
-        .btn-search:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-        }
-
         .btn-reset {
             background: #e74c3c;
             color: white;
@@ -235,151 +169,23 @@
             gap: 0.5rem;
             min-width: 150px;
         }
-
-        .btn-reset:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
-        }
-
-        .btn-reset i {
-            font-size: 1.1rem;
-        }
-
         .card {
             border: none;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-
         .card-header {
             background: white;
             border-bottom: 1px solid #eee;
             padding: 1.25rem;
             border-radius: 15px 15px 0 0 !important;
         }
-
-        .table {
-            margin-bottom: 0;
-        }
-
-        .table th {
-            font-weight: 600;
-            color: var(--dark-text);
-            border-top: none;
-        }
-
-        .table td {
-            vertical-align: middle;
-        }
-
-        .property-status {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .status-available { background: #e8f5e9; color: #2e7d32; }
-        .status-rent { background: #e3f2fd; color: #1565c0; }
-        .status-pre_launch { background: #fff3e0; color: #ef6c00; }
-        .status-sold { background: #fce4ec; color: #c2185b; }
-
-        .btn-group .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            margin: 0 2px;
-            font-weight: 500;
-        }
-
-        .modal-content {
-            border-radius: 15px;
-            border: none;
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            color: white;
-            border-radius: 15px 15px 0 0;
-            padding: 1.5rem;
-        }
-
-        .modal-body {
-            padding: 2rem;
-        }
-
-        .btn-close {
-            filter: brightness(0) invert(1);
-        }
-
-        .page-header {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 20px;
-            padding: 2.5rem !important;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .page-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(52, 152, 219, 0.05) 0%, rgba(44, 62, 80, 0.05) 100%);
-            z-index: 0;
-        }
-
-        .page-header .row {
-            position: relative;
-            z-index: 1;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
-
-        .page-header p {
-            font-size: 1.1rem;
-            color: #6c757d;
-            font-weight: 500;
-            margin-bottom: 0;
-            opacity: 0.9;
-        }
-
-        @media (max-width: 768px) {
-            .page-header {
-                padding: 1.5rem !important;
-            }
-            
-            .page-header h1 {
-                font-size: 2rem;
-            }
-            
-            .page-header p {
-                font-size: 1rem;
-            }
-        }
-
-        /* Property Grid and Cards */
         .property-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2rem;
             padding: 1rem;
         }
-
         .property-card {
             background: white;
             border-radius: 20px;
@@ -392,30 +198,25 @@
             border: 1px solid rgba(0,0,0,0.1);
             height: 100%;
         }
-
         .property-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--hover-shadow);
         }
-
         .property-image {
             position: relative;
             height: 280px;
             overflow: hidden;
             flex-shrink: 0;
         }
-
         .property-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: var(--transition);
         }
-
         .property-card:hover .property-image img {
             transform: scale(1.05);
         }
-
         .property-badge {
             position: absolute;
             top: 1rem;
@@ -429,12 +230,10 @@
             z-index: 2;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
         .property-badge.available { background: #2ecc71; }
         .property-badge.rent { background: #f1c40f; }
         .property-badge.sold { background: #e74c3c; }
         .property-badge.pre-launch { background: #9b59b6; }
-
         .property-info {
             padding: 1.5rem;
             display: flex;
@@ -443,7 +242,6 @@
             min-height: 0;
             margin-top: 0;
         }
-
         .property-price {
             font-size: 2.2rem;
             font-weight: 700;
@@ -461,14 +259,12 @@
             position: relative;
             z-index: 1;
         }
-
         .property-price .rupee-symbol {
             font-size: 1.4rem;
             font-weight: 400;
             vertical-align: top;
             margin-right: 0.2rem;
         }
-
         .property-title {
             font-size: 1.6rem;
             font-weight: 700;
@@ -482,7 +278,6 @@
             margin-top: 0;
             word-break: break-word;
         }
-
         .property-location {
             display: flex;
             align-items: center;
@@ -495,19 +290,16 @@
             font-family: 'Inter', sans-serif;
             word-break: break-word;
         }
-
         .property-location i {
             color: var(--primary-color);
             font-size: 1.3rem;
         }
-
         .property-features {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
             margin: 1rem 0;
         }
-
         .feature {
             background: var(--light-bg);
             padding: 1.2rem;
@@ -520,23 +312,19 @@
             transition: var(--transition);
             font-family: 'Inter', sans-serif;
         }
-
         .feature:hover {
             background: var(--primary-color);
             color: white;
             transform: translateY(-2px);
         }
-
         .feature i {
             color: var(--primary-color);
             font-size: 1.3rem;
             transition: var(--transition);
         }
-
         .feature:hover i {
             color: white;
         }
-
         .property-actions {
             display: flex;
             justify-content: center;
@@ -545,7 +333,6 @@
             border-top: 1px solid rgba(0,0,0,0.1);
             flex-shrink: 0;
         }
-
         .property-actions .btn {
             padding: 1.2rem 2rem;
             border-radius: 12px;
@@ -561,48 +348,88 @@
             width: 100%;
             max-width: 300px;
         }
-
         .property-actions .btn-primary {
             background: var(--primary-color);
             color: white;
             border: none;
         }
-
         .property-actions .btn-primary:hover {
             background: #2980b9;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
-
         .property-actions .btn-primary i {
             font-size: 1.2rem;
         }
-
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            margin: 2rem 0;
+        }
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+        .empty-state h3 {
+            color: var(--dark-text);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        .empty-state p {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+        .add-property-btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .add-property-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            color: white;
+        }
         @media (max-width: 768px) {
+            .page-header {
+                padding: 1.5rem !important;
+            }
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            .page-header p {
+                font-size: 1rem;
+            }
             .property-grid {
                 grid-template-columns: 1fr;
             }
-            
             .property-info {
                 padding: 1.5rem;
             }
-            
             .property-image {
                 height: 220px;
             }
-            
             .property-title {
                 font-size: 1.3rem;
             }
-            
             .property-features {
                 grid-template-columns: 1fr;
             }
-            
             .property-actions {
                 grid-template-columns: 1fr;
             }
-            
             .property-actions .btn {
                 width: 100%;
             }
