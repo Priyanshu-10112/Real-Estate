@@ -176,4 +176,44 @@ public class AgentController {
 
 		return "redirect:/agent/agent-properties";
 	}
+
+	@PostMapping("/properties/update")
+	public String updateProperty(@ModelAttribute Properties p,
+								 @RequestParam(value = "propertyImage", required = false) MultipartFile file,
+								 HttpSession session,
+								 Model model) {
+		User loggedInUser = (User) session.getAttribute("user");
+		System.out.println("Received property id: " + p.getId()); // Debug log
+		if (loggedInUser == null || loggedInUser.getUr() != UserRole.AGENT) {
+			return "redirect:/login";
+		}
+		try {
+			// Handle image upload if a new image is provided
+			if (file != null && !file.isEmpty()) {
+				String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+				String uploadDir = "src/main/webapp/images/properties/";
+				File dir = new File(uploadDir);
+				if (!dir.exists()) {
+					dir.mkdirs();
+				}
+				Path filePath = Paths.get(uploadDir + fileName);
+				Files.write(filePath, file.getBytes());
+				p.setImage(fileName);
+			}
+			// Set user (ownership)
+			p.setUser_id(loggedInUser);
+			Properties updated = p1.updateProperty(p.getId(), p);
+			if (updated != null) {
+				return "redirect:/agent/agent-properties?success=updated";
+			} else {
+				return "redirect:/agent/agent-properties?error=notfound";
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "redirect:/agent/agent-properties?error=upload";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/agent/agent-properties?error=unknown";
+		}
+	}
 }

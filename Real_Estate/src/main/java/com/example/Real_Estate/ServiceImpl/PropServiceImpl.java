@@ -51,4 +51,21 @@ public class PropServiceImpl implements PropService{
 	public List<Object[]> countByCityForAgent(String email) {
 		return p1.countByCityForAgent(email);
 	}
+
+	public Properties updateProperty(Long id, Properties updated) {
+		Properties existing = p1.findById(id).orElse(null);
+		if (existing == null) return null;
+		// Only update allowed fields
+		existing.setPrice(updated.getPrice());
+		existing.setPropertyType(updated.getPropertyType());
+		existing.setStatus(updated.getStatus());
+		existing.setZipCode(updated.getZipCode());
+		existing.setArea(updated.getArea());
+		existing.setAreaUnit(updated.getAreaUnit());
+		if (updated.getImage() != null && !updated.getImage().isEmpty()) {
+			existing.setImage(updated.getImage());
+		}
+		// Do NOT update address, city, state
+		return p1.save(existing);
+	}
 }

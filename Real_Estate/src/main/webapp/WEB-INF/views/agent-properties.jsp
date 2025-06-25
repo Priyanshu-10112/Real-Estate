@@ -723,12 +723,127 @@
                             <a href="${pageContext.request.contextPath}/user/property-details/<%= property.getId() %>" class="btn btn-primary">
                                 <i class="fas fa-eye"></i> View Details
                             </a>
-                            <a href="${pageContext.request.contextPath}/agent/properties/edit/<%= property.getId() %>" class="btn btn-primary">
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editPropertyModal-<%= property.getId() %>">
                                 <i class="fas fa-edit"></i> Edit
-                            </a>
+                            </button>
                             <button class="btn btn-primary" onclick="deleteProperty('<%= property.getId() %>')">
                                 <i class="fas fa-trash"></i> Delete
                             </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Edit Property Modal for this property -->
+                <div class="modal fade" id="editPropertyModal-<%= property.getId() %>" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Property</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="${pageContext.request.contextPath}/agent/properties/update" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="id" value="<%= property.getId() %>" required>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Property Type</label>
+                                            <select name="propertyType" class="form-select" required>
+                                                <option value="APARTMENT_FLAT" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("APARTMENT_FLAT") ? "selected" : "" %>>Apartment / Flat</option>
+                                                <option value="INDEPENDENT_HOUSE_VILLA" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("INDEPENDENT_HOUSE_VILLA") ? "selected" : "" %>>Independent House / Villa</option>
+                                                <option value="BUILDER_FLOOR_APARTMENT" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("BUILDER_FLOOR_APARTMENT") ? "selected" : "" %>>Builder Floor Apartment</option>
+                                                <option value="STUDIO_APARTMENT" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("STUDIO_APARTMENT") ? "selected" : "" %>>Studio Apartment</option>
+                                                <option value="PENTHOUSE" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("PENTHOUSE") ? "selected" : "" %>>Penthouse</option>
+                                                <option value="ROW_HOUSE_TOWNHOUSE" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("ROW_HOUSE_TOWNHOUSE") ? "selected" : "" %>>Row House / Townhouse</option>
+                                                <option value="RESIDENTIAL_PLOT_LAND" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("RESIDENTIAL_PLOT_LAND") ? "selected" : "" %>>Residential Plot / Land</option>
+                                                <option value="COMMERCIAL_OFFICE_SPACE" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("COMMERCIAL_OFFICE_SPACE") ? "selected" : "" %>>Commercial Office Space</option>
+                                                <option value="SHOP_SHOWROOM" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("SHOP_SHOWROOM") ? "selected" : "" %>>Shop / Showroom</option>
+                                                <option value="WAREHOUSE_GODOWN" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("WAREHOUSE_GODOWN") ? "selected" : "" %>>Warehouse / Godown</option>
+                                                <option value="INDUSTRIAL_LAND_FACTORY" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("INDUSTRIAL_LAND_FACTORY") ? "selected" : "" %>>Industrial Land / Factory</option>
+                                                <option value="AGRICULTURAL_LAND_FARMLAND" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("AGRICULTURAL_LAND_FARMLAND") ? "selected" : "" %>>Agricultural Land / Farmland</option>
+                                                <option value="MIXED_USE_PROPERTY" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("MIXED_USE_PROPERTY") ? "selected" : "" %>>Mixed-Use Property</option>
+                                                <option value="CO_WORKING_SPACE" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("CO_WORKING_SPACE") ? "selected" : "" %>>Co-working Space</option>
+                                                <option value="VACANT_LAND_NON_AGRICULTURAL" <%= property.getPropertyType() != null && property.getPropertyType().toString().equals("VACANT_LAND_NON_AGRICULTURAL") ? "selected" : "" %>>Vacant Land (Non-agricultural)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Property Status</label>
+                                            <select name="status" class="form-select" required>
+                                                <option value="AVAILABLE" <%= property.getStatus() != null && property.getStatus().toString().equals("AVAILABLE") ? "selected" : "" %>>Available</option>
+                                                <option value="RENT" <%= property.getStatus() != null && property.getStatus().toString().equals("RENT") ? "selected" : "" %>>Rent</option>
+                                                <option value="PRE_LAUNCH" <%= property.getStatus() != null && property.getStatus().toString().equals("PRE_LAUNCH") ? "selected" : "" %>>Pre-launch</option>
+                                                <option value="SOLD" <%= property.getStatus() != null && property.getStatus().toString().equals("SOLD") ? "selected" : "" %>>Sold</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" name="address" class="form-control" value="<%= property.getAddress() %>" disabled>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">City</label>
+                                            <input type="text" class="form-control" name="city" value="<%= property.getCity() %>" disabled>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">State</label>
+                                            <select class="form-select" name="state" disabled>
+                                                <option value="Madhya Pradesh" <%= "Madhya Pradesh".equals(property.getState()) ? "selected" : "" %>>Madhya Pradesh</option>
+                                                <option value="Maharashtra" <%= "Maharashtra".equals(property.getState()) ? "selected" : "" %>>Maharashtra</option>
+                                                <option value="Gujarat" <%= "Gujarat".equals(property.getState()) ? "selected" : "" %>>Gujarat</option>
+                                                <option value="Rajasthan" <%= "Rajasthan".equals(property.getState()) ? "selected" : "" %>>Rajasthan</option>
+                                                <option value="Uttar Pradesh" <%= "Uttar Pradesh".equals(property.getState()) ? "selected" : "" %>>Uttar Pradesh</option>
+                                                <option value="Delhi" <%= "Delhi".equals(property.getState()) ? "selected" : "" %>>Delhi</option>
+                                                <option value="Haryana" <%= "Haryana".equals(property.getState()) ? "selected" : "" %>>Haryana</option>
+                                                <option value="Punjab" <%= "Punjab".equals(property.getState()) ? "selected" : "" %>>Punjab</option>
+                                                <option value="Himachal Pradesh" <%= "Himachal Pradesh".equals(property.getState()) ? "selected" : "" %>>Himachal Pradesh</option>
+                                                <option value="Uttarakhand" <%= "Uttarakhand".equals(property.getState()) ? "selected" : "" %>>Uttarakhand</option>
+                                                <option value="Bihar" <%= "Bihar".equals(property.getState()) ? "selected" : "" %>>Bihar</option>
+                                                <option value="Jharkhand" <%= "Jharkhand".equals(property.getState()) ? "selected" : "" %>>Jharkhand</option>
+                                                <option value="West Bengal" <%= "West Bengal".equals(property.getState()) ? "selected" : "" %>>West Bengal</option>
+                                                <option value="Odisha" <%= "Odisha".equals(property.getState()) ? "selected" : "" %>>Odisha</option>
+                                                <option value="Chhattisgarh" <%= "Chhattisgarh".equals(property.getState()) ? "selected" : "" %>>Chhattisgarh</option>
+                                                <option value="Telangana" <%= "Telangana".equals(property.getState()) ? "selected" : "" %>>Telangana</option>
+                                                <option value="Andhra Pradesh" <%= "Andhra Pradesh".equals(property.getState()) ? "selected" : "" %>>Andhra Pradesh</option>
+                                                <option value="Karnataka" <%= "Karnataka".equals(property.getState()) ? "selected" : "" %>>Karnataka</option>
+                                                <option value="Tamil Nadu" <%= "Tamil Nadu".equals(property.getState()) ? "selected" : "" %>>Tamil Nadu</option>
+                                                <option value="Kerala" <%= "Kerala".equals(property.getState()) ? "selected" : "" %>>Kerala</option>
+                                                <option value="Goa" <%= "Goa".equals(property.getState()) ? "selected" : "" %>>Goa</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Zip Code</label>
+                                            <input type="text" name="zipCode" class="form-control" value="<%= property.getZipCode() %>" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Price</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">₹</span>
+                                            <input type="text" name="price" class="form-control" value="<%= property.getPrice() %>" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Size</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="area" min="0" step="0.01" value="<%= property.getArea() %>">
+                                            <select class="form-select" name="areaUnit" style="max-width: 100px;">
+                                                <option value="sqft" <%= "sqft".equals(property.getAreaUnit()) ? "selected" : "" %>>sq ft</option>
+                                                <option value="sqm" <%= "sqm".equals(property.getAreaUnit()) ? "selected" : "" %>>sq m</option>
+                                                <option value="acres" <%= "acres".equals(property.getAreaUnit()) ? "selected" : "" %>>acres</option>
+                                                <option value="hectares" <%= "hectares".equals(property.getAreaUnit()) ? "selected" : "" %>>hectares</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Property Image</label>
+                                        <input type="file" name="propertyImage" class="form-control" accept="image/*">
+                                        <small class="text-muted">Upload a new image to replace the current one (Max size: 10MB)</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
