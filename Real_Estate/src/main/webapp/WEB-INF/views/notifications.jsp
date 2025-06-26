@@ -89,20 +89,6 @@
             font-size: 1.2rem;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .row {
-            margin: 0;
-        }
-
-        .col-12 {
-            padding: 0;
-        }
-
         .notifications-container {
             display: flex;
             flex-direction: column;
@@ -894,29 +880,6 @@
                 errorAlert.classList.remove('show');
             }, 3000);
         }
-        
-        // Auto-refresh notifications every 30 seconds
-        setInterval(() => {
-            // You can implement auto-refresh here if needed
-        }, 30000);
-        
-        // Debug function to show all appointment IDs
-        function debugAppointmentIds() {
-            const buttons = document.querySelectorAll('[data-appointment-id]');
-            console.log('Found', buttons.length, 'buttons with appointment IDs:');
-            buttons.forEach((button, index) => {
-                const id = button.getAttribute('data-appointment-id');
-                const type = button.className.includes('delete') ? 'delete' : 
-                           button.className.includes('cancel') ? 'cancel' : 
-                           button.className.includes('mark') ? 'mark' : 'unknown';
-                console.log(index + 1 + '. ' + type + ' button - ID: "' + id + '" (type: ' + typeof id + ')');
-            });
-        }
-        
-        // Run debug on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            debugAppointmentIds();
-        });
         
         // Add event listeners for buttons
         document.addEventListener('click', function(e) {
