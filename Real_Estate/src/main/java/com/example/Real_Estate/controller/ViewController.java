@@ -47,11 +47,11 @@ public class ViewController {
 	public String contact() {
 		return "contact";
 	}
-	@GetMapping("/login")
+	@RequestMapping("/login")
 	public String login(Model model) {
 		return "login";
 	}
-	@PostMapping("/log")
+	@RequestMapping("/log")
 	public String log(@RequestParam String email,
 					 @RequestParam String password,
 					 HttpSession session,

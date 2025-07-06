@@ -184,7 +184,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="${pageContext.request.contextPath}/login">
+                        <a class="nav-link active" href="${pageContext.request.contextPath}/log">
                             <i class="fas fa-sign-in-alt"></i>
                             <span>Login</span>
                         </a>
