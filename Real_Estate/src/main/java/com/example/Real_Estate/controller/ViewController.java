@@ -84,6 +84,7 @@ public class ViewController {
 	@GetMapping("/profile")
 	public String profile(HttpSession session,Model model) {
 		User u=(User)session.getAttribute("user");
+		if(u==null)return "redirect:/login";
 		model.addAttribute("ur",u.getUr().name().toLowerCase());
 		return "profile";
 	}
