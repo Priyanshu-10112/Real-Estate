@@ -42,7 +42,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/login">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/logout">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>

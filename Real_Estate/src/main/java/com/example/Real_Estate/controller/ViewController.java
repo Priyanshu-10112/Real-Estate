@@ -89,7 +89,8 @@ public class ViewController {
 	}
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
-		return "login";
+		session.invalidate();
+		return "redirect:/login";
 	}
 	
 	@RequestMapping("/notifications")
