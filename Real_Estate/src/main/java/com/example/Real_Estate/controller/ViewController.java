@@ -135,4 +135,40 @@ public class ViewController {
 		model.addAttribute("appointments", appointments);
 		return "appointments";
 	}
+	@GetMapping("/profile/change-password")
+	public String showChangePasswordPage(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
+		return "change-password";
+	}
+	@PostMapping("/profile/change-password")
+	public String changePassword(
+			@RequestParam("currentPassword") String currentPassword,
+			@RequestParam("newPassword") String newPassword,
+			@RequestParam("confirmPassword") String confirmPassword,
+			HttpSession session,
+			Model model) {
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
+		// Validate current password
+		if (!user.getPassword().equals(currentPassword)) {
+			model.addAttribute("error", "Current password is incorrect.");
+			return "change-password";
+		}
+		// Validate new password match
+		if (!newPassword.equals(confirmPassword)) {
+			model.addAttribute("error", "New passwords do not match.");
+			return "change-password";
+		}
+		// Update password
+		user.setPassword(newPassword);
+		u1.save(user); // Save updated user
+		session.setAttribute("user", user); // Update session
+		model.addAttribute("success", "Password changed successfully.");
+		return "change-password";
+	}
 }

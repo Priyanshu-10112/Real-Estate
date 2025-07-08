@@ -206,11 +206,11 @@
                 </div>
             </div>
             <div class="d-grid gap-2 mb-3">
-                <a href="${pageContext.request.contextPath}/${user.ur}/profile/edit" class="btn btn-primary">
+                <a href="${pageContext.request.contextPath}/profile/edit" class="btn btn-primary">
                     <i class="fas fa-edit"></i>
                     <span>Edit Profile</span>
                 </a>
-                <a href="${pageContext.request.contextPath}/${user.ur}/profile/change-password" class="btn btn-outline-secondary">
+                <a href="${pageContext.request.contextPath}/profile/change-password" class="btn btn-outline-secondary">
                     <i class="fas fa-key"></i>
                     <span>Change Password</span>
                 </a>

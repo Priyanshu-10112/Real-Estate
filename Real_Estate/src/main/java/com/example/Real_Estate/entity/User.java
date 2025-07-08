@@ -1,6 +1,5 @@
 package com.example.Real_Estate.entity;
 
-import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,8 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class User{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -31,9 +29,6 @@ public class User implements Serializable {
 	private String password;
 	
 	@Column(nullable = false)
-	private String confirmPassword;
-	
-	@Column(nullable = false)
 	private String phoneNumber;
 	
 	@Enumerated(EnumType.STRING)
@@ -48,14 +43,13 @@ public class User implements Serializable {
 	
 	public User() {}
 	
-	public User(Integer id, String firstName, String lastName, String email, String password, String confirmPassword, String phoneNumber, UserRole ur) {
+	public User(Integer id, String firstName, String lastName, String email, String password,String phoneNumber, UserRole ur) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.confirmPassword = confirmPassword;
 		this.phoneNumber = phoneNumber;
 		this.ur = ur;
 	}
@@ -99,15 +93,6 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-	
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
-	
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}

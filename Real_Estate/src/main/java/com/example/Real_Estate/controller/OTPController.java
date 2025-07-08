@@ -52,7 +52,6 @@ public class OTPController {
         user.setFirstName(request.get("firstName"));
         user.setLastName(request.get("lastName"));
         user.setPassword(request.get("password"));
-        user.setConfirmPassword(request.get("confirmPassword"));
         user.setPhoneNumber(request.get("phoneNumber"));
         
         // Set default role if not provided

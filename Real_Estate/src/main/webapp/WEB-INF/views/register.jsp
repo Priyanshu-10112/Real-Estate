@@ -186,10 +186,10 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="phoneNumber" class="form-label">Phone Number</label>
                         <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
@@ -235,22 +235,15 @@
         let registrationData = null;
 
         async function sendOTP() {
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-
             // Validate all required fields
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
             const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
             const phoneNumber = document.getElementById('phoneNumber').value;
             const ur = document.getElementById('ur').value;
 
-            if (!firstName || !lastName || !email || !password || !confirmPassword || !phoneNumber || !ur) {
+            if (!firstName || !lastName || !email || !password || !phoneNumber || !ur) {
                 alert('Please fill in all required fields');
                 return;
             }
@@ -260,7 +253,6 @@
                 lastName: lastName,
                 email: email,
                 password: password,
-                confirmPassword: confirmPassword,
                 phoneNumber: phoneNumber,
                 ur: ur
             };
