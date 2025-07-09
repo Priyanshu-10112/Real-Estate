@@ -227,6 +227,9 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
+                <div style="text-align: right; margin-bottom: 1rem;">
+                    <a href="${pageContext.request.contextPath}/forgot-password" style="color: #3498db; font-size: 0.97rem; text-decoration: none;">Forgot Password?</a>
+                </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
                     <label class="form-check-label" for="rememberMe">Remember me</label>

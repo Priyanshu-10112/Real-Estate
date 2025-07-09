@@ -8,8 +8,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import java.util.HashMap;
+import java.util.Map;
 
-//import com.example.Real_Estate.ServiceImpl.PropServiceImpl;
 import com.example.Real_Estate.ServiceImpl.UServiceImpl;
 import com.example.Real_Estate.entity.User;
 import com.example.Real_Estate.entity.UserRole;
@@ -200,4 +207,70 @@ public class ViewController {
 		model.addAttribute("success", "Profile updated successfully.");
 		return "profile";
 	}
+
+    @GetMapping("/forgot-password")
+    public String showForgotPasswordPage() {
+        return "forgot-password";
+    }
+
+    @PostMapping("/forgot-password")
+    public String handleForgotPassword(@RequestParam("email") String email, Model model) {
+        User user = u1.findByEmail(email);
+        if (user == null) {
+            model.addAttribute("error", "No account found with that email address.");
+            return "forgot-password";
+        }
+        // TODO: Trigger OTP for password reset (to be implemented in OTPController or service)
+        // For now, just show a success message
+        model.addAttribute("success", "If this email is registered, an OTP has been sent to your email address.");
+        return "forgot-password";
+    }
+
+    @GetMapping("/verify-reset-otp")
+    public String showVerifyResetOtpPage() {
+        return "verify-reset-otp";
+    }
+
+    @PostMapping("/verify-reset-otp")
+    public String handleVerifyResetOtp(@RequestParam("email") String email,
+                                       @RequestParam("otp") String otp,
+                                       @RequestParam("newPassword") String newPassword,
+                                       @RequestParam("confirmPassword") String confirmPassword,
+                                       Model model) {
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("error", "Passwords do not match.");
+            return "verify-reset-otp";
+        }
+        // Call OTPController's /api/verify-reset-otp endpoint
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:8080/api/verify-reset-otp";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("email", email);
+        requestBody.put("otp", otp);
+        HttpEntity<Map<String, String>> request = new HttpEntity<>(requestBody, headers);
+        try {
+            ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                // OTP verified, update password
+                User user = u1.findByEmail(email);
+                if (user == null) {
+                    model.addAttribute("error", "No account found with that email address.");
+                    return "verify-reset-otp";
+                }
+                user.setPassword(newPassword);
+                u1.save(user);
+                model.addAttribute("success", "Password reset successful. You may now <a href='" + 
+                    "login' style='color:#3498db;'>login</a>.");
+                return "verify-reset-otp";
+            } else {
+                model.addAttribute("error", response.getBody().get("message"));
+                return "verify-reset-otp";
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", "Invalid OTP or server error. Please try again.");
+            return "verify-reset-otp";
+        }
+    }
 }

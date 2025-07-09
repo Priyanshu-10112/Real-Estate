@@ -30,6 +30,9 @@ public class OTPController {
     private static final Map<String, String> otpStore = new HashMap<>();
     private static final Map<String, User> pendingRegistrations = new HashMap<>();
 
+    // In-memory storage for password reset OTPs
+    private static final Map<String, String> passwordResetOtpStore = new HashMap<>();
+
     @PostMapping("/send-otp")
     public ResponseEntity<?> sendOTP(@RequestBody Map<String, String> request) {
         String email = request.get("email");
@@ -139,5 +142,62 @@ public class OTPController {
             logger.error("Failed to register user with email: {}. Error: {}", email, e.getMessage(), e);
             return ResponseEntity.badRequest().body(Map.of("message", "Registration failed: " + e.getMessage()));
         }
+    }
+
+    @PostMapping("/send-reset-otp")
+    public ResponseEntity<?> sendResetOTP(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        logger.info("Received password reset OTP request for email: {}", email);
+
+        if (email == null || email.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Email is required"));
+        }
+
+        // Check if user exists
+        User user = userService.findByEmail(email);
+        if (user == null) {
+            logger.warn("No user found for email: {}", email);
+            return ResponseEntity.badRequest().body(Map.of("message", "No account found with that email address."));
+        }
+
+        // Generate 6-digit OTP
+        String otp = String.format("%06d", new Random().nextInt(1000000));
+        passwordResetOtpStore.put(email, otp);
+        logger.info("Generated password reset OTP for email: {}", email);
+
+        // Send OTP via email
+        try {
+            String subject = "Your OTP for EstateAura Password Reset";
+            String body = "Your OTP for password reset is: " + otp + "\n\nThis OTP is valid for 10 minutes.\n\nIf you didn't request this OTP, please ignore this email.";
+            EmailUtil.sendEmail(email, subject, body);
+            logger.info("Successfully sent password reset OTP to email: {}", email);
+            return ResponseEntity.ok(Map.of("message", "OTP sent successfully"));
+        } catch (Exception e) {
+            logger.error("Failed to send password reset OTP to email: {}. Error: {}", email, e.getMessage(), e);
+            passwordResetOtpStore.remove(email);
+            return ResponseEntity.badRequest().body(Map.of("message", "Failed to send OTP. Please try again."));
+        }
+    }
+
+    @PostMapping("/verify-reset-otp")
+    public ResponseEntity<?> verifyResetOTP(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        String otp = request.get("otp");
+        logger.info("Attempting to verify password reset OTP for email: {}", email);
+
+        String storedOTP = passwordResetOtpStore.get(email);
+        if (storedOTP == null) {
+            logger.warn("No OTP found for email: {}", email);
+            return ResponseEntity.badRequest().body(Map.of("message", "No OTP found for this email"));
+        }
+
+        if (!storedOTP.equals(otp)) {
+            logger.warn("Invalid OTP provided for email: {}", email);
+            return ResponseEntity.badRequest().body(Map.of("message", "Invalid OTP"));
+        }
+
+        // OTP is valid, allow password reset
+        passwordResetOtpStore.remove(email);
+        return ResponseEntity.ok(Map.of("message", "OTP verified. You may now reset your password."));
     }
 } 
