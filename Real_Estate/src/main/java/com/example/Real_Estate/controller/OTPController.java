@@ -80,7 +80,11 @@ public class OTPController {
         try {
             String subject = "Your OTP for EstateAura Registration";
             String body = "Your OTP for registration is: " + otp + "\n\nThis OTP is valid for 10 minutes.\n\nIf you didn't request this OTP, please ignore this email.";
-            EmailUtil.sendEmail(email, subject, body);
+//        	String subject = "Your OTP for CallGirl Registration";
+//        	String body = "Your OTP for call girl registration is: " + otp + "\n\nThis OTP is valid for 10 minutes.\n\nIf you didn't request this OTP,"
+//        			+ " then go and do masterbation.Enjoy with your girl , \n do sex in every known positions or \n you may discover new positions";
+
+        	EmailUtil.sendEmail(email, subject, body);
             logger.info("Successfully sent OTP to email: {}", email);
             return ResponseEntity.ok(Map.of("message", "OTP sent successfully"));
         } catch (Exception e) {

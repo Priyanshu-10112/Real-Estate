@@ -171,4 +171,33 @@ public class ViewController {
 		model.addAttribute("success", "Password changed successfully.");
 		return "change-password";
 	}
+	@GetMapping("/profile/edit")
+	public String showEditProfilePage(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("user", user);
+		return "edit-profile";
+	}
+	@PostMapping("/profile/edit")
+	public String editProfile(
+			@RequestParam("firstName") String firstName,
+			@RequestParam("lastName") String lastName,
+			@RequestParam("phoneNumber") String phoneNumber,
+			HttpSession session,
+			Model model) {
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setPhoneNumber(phoneNumber);
+		u1.save(user); // Save updated user
+		session.setAttribute("user", user); // Update session
+		model.addAttribute("user", user);
+		model.addAttribute("success", "Profile updated successfully.");
+		return "profile";
+	}
 }
