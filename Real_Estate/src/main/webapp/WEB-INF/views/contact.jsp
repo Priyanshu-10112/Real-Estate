@@ -16,6 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/newcss.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
         .navbar {
             background: white;
@@ -204,6 +205,20 @@
             font-size: 2rem;
             margin-bottom: 1.5rem;
         }
+        .feature-card {
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -271,89 +286,125 @@
         }}
     %>
 
-    <section class="contact-hero">
+    <section class="contact-hero" data-aos="fade-up" data-aos-duration="1200">
         <div class="container" style="text-align: center;">
+            <div style="font-size: 3rem; color: #f1c40f; margin-bottom: 1rem;"><i class="fas fa-envelope-open-text"></i></div>
             <h1 style="font-size: 3.5rem; font-weight: 700; color: #fff; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Contact Us</h1>
-            <p style="font-size: 1.5rem; color: #f1c40f; font-weight: 600; margin-bottom: 2.2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Get in touch with our team for any inquiries</p>
+            <p style="font-size: 1.5rem; color: #f1c40f; font-weight: 600; margin-bottom: 2.2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">We're here to help you with all your real estate needs</p>
+        </div>
+    </section>
+
+    <!-- Why Contact Us Section -->
+    <section class="py-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="container">
+            <div class="row text-center mb-4">
+                <div class="col-12">
+                    <h2 style="color: #2c3e50; font-weight: 700;">Why Contact Us?</h2>
+                </div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="feature-card h-100" style="background: #e3f2fd;">
+                        <i class="fas fa-bolt feature-icon" style="color: #3498db;"></i>
+                        <h3>Quick Response</h3>
+                        <p>We value your time and strive to respond to all inquiries as quickly as possible.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card h-100" style="background: #e8f5e9;">
+                        <i class="fas fa-user-tie feature-icon" style="color: #27ae60;"></i>
+                        <h3>Expert Advice</h3>
+                        <p>Our experienced team is ready to provide you with the best real estate guidance.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card h-100" style="background: #fff3e0;">
+                        <i class="fas fa-heart feature-icon" style="color: #e67e22;"></i>
+                        <h3>Personalized Support</h3>
+                        <p>We offer tailored solutions to match your unique property needs and goals.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section class="contact-section">
         <div class="container">
             <div class="row g-4">
-                <div class="col-lg-6">
-                    <div class="contact-info">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+                    <div class="contact-info" style="background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);">
                         <h2>Get in Touch</h2>
                         <p class="mb-4">We're here to help and answer any questions you might have. We look forward to hearing from you.</p>
-                        
                         <div class="contact-details">
                             <div class="contact-item">
-                                <i class="fas fa-map-marker-alt"></i>
+                                <i class="fas fa-map-marker-alt" style="color: #e74c3c;"></i>
                                 <div>
                                     <h4>Our Location</h4>
                                     <p>123 Vijay nagar, Indore, MP</p>
                                 </div>
                             </div>
-                            
                             <div class="contact-item">
-                                <i class="fas fa-phone"></i>
+                                <i class="fas fa-phone" style="color: #27ae60;"></i>
                                 <div>
                                     <h4>Phone Number</h4>
-                                    <p>+91 9826000000</p>
+                                    <p>+91 7477081440</p>
                                 </div>
                             </div>
-                            
                             <div class="contact-item">
-                                <i class="fas fa-envelope"></i>
+                                <i class="fas fa-envelope" style="color: #3498db;"></i>
                                 <div>
                                     <h4>Email Address</h4>
                                     <p>priyanshusharma0152@gmail.com</p>
                                 </div>
                             </div>
-                            
                             <div class="contact-item">
-                                <i class="fas fa-clock"></i>
+                                <i class="fas fa-clock" style="color: #f1c40f;"></i>
                                 <div>
                                     <h4>Working Hours</h4>
                                     <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
                                 </div>
                             </div>
                         </div>
+                        <!-- Social Media Row -->
+                        <div class="mt-4 text-center">
+                            <a href="https://wa.me/917477081440" class="me-3" style="color: #25d366; font-size: 2rem;"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://github.com/Priyanshu-10112" class="me-3" style="color: #333; font-size: 2rem;"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/priyanshu-sharma-13b629309/" style="color: #0a66c2; font-size: 2rem;"><i class="fab fa-linkedin"></i></a>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="col-lg-6">
-                    <div class="contact-form">
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                    <div class="contact-form" style="background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%);">
                         <h2>Send us a Message</h2>
+                        <!-- Success Message Placeholder -->
+                        <div id="contact-success" class="alert alert-success d-none" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>Your message has been sent! We'll get back to you soon.
+                        </div>
                         <form action="${pageContext.request.contextPath}/contact/submit" method="POST">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Your Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                                <label for="name">Your Name</label>
                             </div>
-                            
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
+                                <label for="email">Email Address</label>
                             </div>
-                            
-                            <div class="mb-3">
-                                <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control" id="subject" name="subject" required>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                                <label for="subject">Subject</label>
                             </div>
-                            
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Message</label>
-                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="message" name="message" placeholder="Message" style="height: 120px;" required></textarea>
+                                <label for="message">Message</label>
                             </div>
-                            
                             <button type="submit" class="btn btn-primary btn-lg w-100">
                                 <i class="fas fa-paper-plane me-2"></i>Send Message
                             </button>
                         </form>
                     </div>
                 </div>
-                <div class="col-12 mt-4">
-                    <div class="map-container">
+                <div class="col-12 mt-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="map-container" style="box-shadow: 0 8px 32px rgba(44,62,80,0.15); border: 2px solid #e3f2fd;">
                         <h2>Our Location on Map</h2>
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117763.1726642!2d75.78226230901932!3d22.72410190642036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fdc48f465641%3A0xd6f1d8687f8b918f!2sIndore%2C%20Madhya%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
@@ -374,5 +425,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+      AOS.init({ once: true });
+    </script>
 </body>
 </html> 

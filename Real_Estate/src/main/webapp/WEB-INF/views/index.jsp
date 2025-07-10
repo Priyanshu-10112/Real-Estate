@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/newcss.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
         .navbar {
             background: white;
@@ -524,7 +525,7 @@
         </div>
     </nav>
 
-    <section class="hero-section">
+    <section class="hero-section" data-aos="fade-up" data-aos-duration="1200">
         <div class="container">
             <div class="hero-content" style="background: rgba(44, 62, 80, 0.65); border-radius: 18px; padding: 2.5rem 2rem; max-width: 700px; margin: 0 auto; box-shadow: 0 8px 32px rgba(44,62,80,0.15);">
                 <h1 class="hero-title" style="font-size: 3.2rem; font-weight: 800; color: #fff; letter-spacing: 1px; text-shadow: 0 4px 24px rgba(0,0,0,0.4); margin-bottom: 1.2rem;">Live Your Luxury Dream<br>Find Your Perfect Home</h1>
@@ -538,7 +539,7 @@
         </div>
     </section>
 
-    <section class="features-section">
+    <section class="features-section" data-aos="fade-up" data-aos-duration="1200">
         <div class="container">
             <div class="section-title">
                 <h2>Why Choose Us</h2>
@@ -546,7 +547,7 @@
             </div>
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="feature-card">
+                    <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
                         <div class="feature-icon">
                             <i class="fas fa-home"></i>
                         </div>
@@ -555,7 +556,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="feature-card">
+                    <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
                         <div class="feature-icon">
                             <i class="fas fa-handshake"></i>
                         </div>
@@ -564,7 +565,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="feature-card">
+                    <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
                         <div class="feature-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
@@ -576,7 +577,7 @@
         </div>
     </section>
 
-    <section class="featured-properties">
+    <section class="featured-properties" data-aos="fade-up" data-aos-duration="1200">
         <div class="container">
             <div class="section-title">
                 <h2>Premium Properties</h2>
@@ -584,7 +585,7 @@
             </div>
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="property-card">
+                    <div class="property-card" data-aos="fade-up" data-aos-delay="100">
                         <div class="property-image">
                             <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80" alt="Modern Villa">
                         </div>
@@ -603,7 +604,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="property-card">
+                    <div class="property-card" data-aos="fade-up" data-aos-delay="200">
                         <div class="property-image">
                             <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Luxury Apartment">
                         </div>
@@ -622,7 +623,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="property-card">
+                    <div class="property-card" data-aos="fade-up" data-aos-delay="300">
                         <div class="property-image">
                             <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80" alt="Waterfront Estate">
                         </div>
@@ -644,7 +645,7 @@
         </div>
     </section>
 
-    <section class="stats-section">
+    <section class="stats-section" data-aos="fade-up" data-aos-duration="1200">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -675,7 +676,7 @@
         </div>
     </section>
 
-    <section class="testimonials-section">
+    <section class="testimonials-section" data-aos="fade-up" data-aos-duration="1200">
         <div class="container">
             <div class="section-title">
                 <h2>What Our Clients Say</h2>
@@ -683,7 +684,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="testimonial-card">
+                    <div class="testimonial-card" data-aos="flip-left" data-aos-delay="100">
                         <div class="testimonial-text">
                             "Found my dream home through EstateAura. The team was professional and made the process smooth."
                         </div>
@@ -696,7 +697,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="testimonial-card">
+                    <div class="testimonial-card" data-aos="flip-left" data-aos-delay="200">
                         <div class="testimonial-text">
                             "Excellent service and great property options. Highly recommended for luxury real estate."
                         </div>
@@ -709,7 +710,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="testimonial-card">
+                    <div class="testimonial-card" data-aos="flip-left" data-aos-delay="300">
                         <div class="testimonial-text">
                             "The team went above and beyond to help me find the perfect investment property."
                         </div>
@@ -725,7 +726,7 @@
         </div>
     </section>
 
-    <section class="cta-section">
+    <section class="cta-section" data-aos="fade-up" data-aos-duration="1200">
         <div class="container">
             <h2 class="cta-title">Start Your Journey to Luxury Living</h2>
             <p class="cta-description">Join our community of discerning homeowners and find your perfect property</p>
@@ -744,5 +745,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+      AOS.init({ once: true });
+    </script>
 </body>
 </html> 

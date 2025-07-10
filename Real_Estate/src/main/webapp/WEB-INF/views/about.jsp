@@ -17,6 +17,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/newcss.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
         .navbar {
             background: white;
@@ -255,7 +256,7 @@
     }
     %>
 
-    <section class="about-hero">
+    <section class="about-hero" data-aos="fade-up" data-aos-duration="1200">
         <div class="container" style="text-align: center;">
             <h1 style="font-size: 3.5rem; font-weight: 700; color: #fff; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">About EstateAura</h1>
             <p style="font-size: 1.5rem; color: #f1c40f; font-weight: 600; margin-bottom: 2.2rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Your Trusted Partner in Luxury Real Estate</p>
@@ -265,21 +266,91 @@
     <section class="about-section">
         <div class="container">
             <div class="row align-items-center mb-5">
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
                     <div class="about-content">
                         <h2>Our Story</h2>
                         <p>Founded in 2010, EstateAura has been at the forefront of luxury real estate, helping clients find their dream properties across the most prestigious locations. Our commitment to excellence and personalized service has made us a trusted name in the industry.</p>
                         <p>We believe that finding the perfect property is more than just a transaction – it's about creating lasting relationships and understanding our clients' unique needs and aspirations.</p>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
                     <div class="about-image">
                         <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3" alt="Luxury Estate" class="img-fluid rounded">
                     </div>
                 </div>
             </div>
 
-            <div class="row mb-5">
+            <!-- Mission & Vision Section -->
+            <div class="row mb-5" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-12 text-center mb-4">
+                    <h2>Our Mission & Vision</h2>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="feature-card h-100">
+                        <i class="fas fa-bullseye feature-icon"></i>
+                        <h3>Our Mission</h3>
+                        <p>To empower our clients to achieve their real estate dreams by providing unparalleled service, expert guidance, and a seamless experience from start to finish.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="feature-card h-100">
+                        <i class="fas fa-eye feature-icon"></i>
+                        <h3>Our Vision</h3>
+                        <p>To be the most trusted and innovative real estate partner, setting new standards in luxury living and client satisfaction across India and beyond.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What Sets Us Apart -->
+            <div class="row mb-5" data-aos="zoom-in" data-aos-delay="100">
+                <div class="col-12">
+                    <div style="background: linear-gradient(90deg, #3498db 0%, #2c3e50 100%); color: #fff; border-radius: 18px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px rgba(44,62,80,0.15); text-align: center;">
+                        <h2 style="font-weight: 700; margin-bottom: 1rem;">What Sets Us Apart</h2>
+                        <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">At EstateAura, we blend technology, market expertise, and a personal touch to deliver a real estate experience that is truly exceptional. Our commitment to integrity, innovation, and client success is at the heart of everything we do.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Values Section -->
+            <div class="row mb-5" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-12 text-center mb-4">
+                    <h2>Our Values</h2>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card h-100">
+                        <i class="fas fa-gem feature-icon"></i>
+                        <h3>Integrity</h3>
+                        <p>We uphold the highest standards of honesty and transparency in every interaction.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card h-100">
+                        <i class="fas fa-lightbulb feature-icon"></i>
+                        <h3>Innovation</h3>
+                        <p>We embrace new ideas and technologies to deliver the best results for our clients.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card h-100">
+                        <i class="fas fa-trophy feature-icon"></i>
+                        <h3>Excellence</h3>
+                        <p>We strive for excellence in every aspect of our business, from service to results.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial Section -->
+            <div class="row mb-5" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-12 text-center">
+                    <blockquote style="font-size: 1.3rem; color: #2c3e50; font-style: italic; background: #e9ecef; border-radius: 12px; padding: 2rem 1.5rem; max-width: 700px; margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                        "EstateAura made my home buying journey effortless and enjoyable. Their team truly cares about their clients!"
+                        <footer class="blockquote-footer mt-3" style="color: #888;">— Priyanshu Sharma,Indore</footer>
+                    </blockquote>
+                </div>
+            </div>
+
+            <!-- Existing Why Choose Us Section (with AOS) -->
+            <div class="row mb-5" data-aos="fade-up" data-aos-delay="100">
                 <div class="col-12 text-center">
                     <h2 class="mb-4">Why Choose Us</h2>
                 </div>
@@ -312,5 +383,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+      AOS.init({ once: true });
+    </script>
 </body>
 </html> 
