@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/newcss.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
         .navbar {
             background: white;
@@ -200,37 +201,34 @@
         </div>
     </nav>
 
-    <div class="login-container">
+    <div class="login-container" data-aos="fade-up" data-aos-duration="1200">
         <div class="login-card">
             <div class="login-header">
+                <div style="font-size: 2.5rem; color: #3498db; margin-bottom: 0.5rem;"><i class="fas fa-user-circle"></i></div>
                 <h1>Welcome Back</h1>
-                <p class="text-muted">Please login to your account</p>
+                <p class="text-muted">Sign in to your EstateAura account</p>
             </div>
-
-            <% 
-            String error = (String)request.getAttribute("error");
-            %>
-
+            <% String error = (String)request.getAttribute("error"); %>
             <% if(error != null && !error.isEmpty()) { %>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="fas fa-exclamation-circle me-2"></i><%= error %>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <% } %>
-
             <form action="${pageContext.request.contextPath}/log" method="post" onsubmit="return validateForm()">
-                <div class="form-group">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+                    <label for="email">Email address</label>
                 </div>
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                <div class="form-floating mb-3 position-relative">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    <label for="password">Password</label>
+                    <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor:pointer;" onclick="togglePassword()"><i class="fas fa-eye" id="togglePasswordIcon"></i></span>
                 </div>
                 <div style="text-align: right; margin-bottom: 1rem;">
-                    <a href="${pageContext.request.contextPath}/forgot-password" style="color: #3498db; font-size: 0.97rem; text-decoration: none;">Forgot Password?</a>
+                    <a href="${pageContext.request.contextPath}/forgot-password" style="color: #3498db; font-size: 0.97rem; text-decoration: none; font-weight: 500;">Forgot Password?</a>
                 </div>
-                <div class="form-check">
+                <div class="form-check mb-3">
                     <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
                     <label class="form-check-label" for="rememberMe">Remember me</label>
                 </div>
@@ -239,7 +237,7 @@
                 </button>
             </form>
             <div class="register-link">
-                <p>Don't have an account? <a href="${pageContext.request.contextPath}/register">Register here</a></p>
+                <p>Don't have an account? <a href="${pageContext.request.contextPath}/register" style="color:#3498db; font-weight:600;">Register here</a></p>
             </div>
         </div>
     </div>
@@ -248,5 +246,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+      AOS.init({ once: true });
+      function togglePassword() {
+        const pwd = document.getElementById('password');
+        const icon = document.getElementById('togglePasswordIcon');
+        if (pwd.type === 'password') {
+          pwd.type = 'text';
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        } else {
+          pwd.type = 'password';
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        }
+      }
+    </script>
 </body>
 </html> 

@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/newcss.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
         .navbar {
             background: white;
@@ -156,9 +157,10 @@
             </div>
         </div>
     </nav>
-    <div class="register-container">
+    <div class="register-container" data-aos="fade-up" data-aos-duration="1200">
         <div class="register-card">
             <div class="register-header">
+                <div style="font-size: 2.5rem; color: #3498db; margin-bottom: 0.5rem;"><i class="fas fa-user-plus"></i></div>
                 <h1>Create Account</h1>
                 <p class="text-muted">Join our real estate community</p>
             </div>
@@ -166,54 +168,53 @@
                 <div id="registrationStep1">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName" required>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
+                                <label for="firstName">First Name</label>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName" required>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
+                                <label for="lastName">Last Name</label>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+                        <label for="email">Email address</label>
                     </div>
-                    <div class="form-group">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                    <div class="form-floating mb-3 position-relative">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required oninput="checkStrength()">
+                        <label for="password">Password</label>
+                        <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor:pointer;" onclick="togglePassword()"><i class="fas fa-eye" id="togglePasswordIcon"></i></span>
+                        <div class="progress mt-2" style="height: 5px;">
+                            <div id="passwordStrength" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                        </div>
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="confirmPassword" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-                    </div> -->
-                    <div class="form-group">
-                        <label for="phoneNumber" class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
+                        <label for="phoneNumber">Phone Number</label>
                     </div>
-                    <div class="form-group">
-                        <label for="ur" class="form-label">I am a</label>
+                    <div class="form-floating mb-3">
                         <select class="form-select" id="ur" name="ur" required>
                             <option value="">Select Role</option>
                             <option value="USER">User</option>
                             <option value="AGENT">Agent</option>
                         </select>
+                        <label for="ur">I am a</label>
                     </div>
                     <button type="button" class="btn btn-register" onclick="sendOTP()">
                         <i class="fas fa-paper-plane me-2"></i>Send OTP
                     </button>
                 </div>
-
                 <div id="otpVerificationStep" style="display: none;">
-                    <div class="form-group">
-                        <label for="otp" class="form-label">Enter OTP</label>
-                        <input type="text" class="form-control" id="otp" name="otp" required maxlength="6" pattern="[0-9]{6}">
-                        <small class="text-muted">Please enter the 6-digit OTP sent to your email</small>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="otp" name="otp" placeholder="Enter OTP" required maxlength="6" pattern="[0-9]{6}">
+                        <label for="otp">Enter OTP</label>
                     </div>
-                    <div class="d-flex gap-2">
+                    <small class="text-muted">Please enter the 6-digit OTP sent to your email</small>
+                    <div class="d-flex gap-2 mt-3">
                         <button type="button" class="btn btn-register" onclick="verifyOTP()">
                             <i class="fas fa-check me-2"></i>Verify OTP
                         </button>
@@ -224,118 +225,148 @@
                 </div>
             </form>
             <div class="login-link">
-                <p>Already have an account? <a href="${pageContext.request.contextPath}/login">Login here</a></p>
+                <p>Already have an account? <a href="${pageContext.request.contextPath}/login" style="color:#3498db; font-weight:600;">Login here</a></p>
             </div>
         </div>
     </div>
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        let registrationData = null;
+      AOS.init({ once: true });
+      let registrationData = null;
 
-        async function sendOTP() {
-            // Validate all required fields
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const ur = document.getElementById('ur').value;
+      async function sendOTP() {
+          // Validate all required fields
+          const firstName = document.getElementById('firstName').value;
+          const lastName = document.getElementById('lastName').value;
+          const email = document.getElementById('email').value;
+          const password = document.getElementById('password').value;
+          const phoneNumber = document.getElementById('phoneNumber').value;
+          const ur = document.getElementById('ur').value;
 
-            if (!firstName || !lastName || !email || !password || !phoneNumber || !ur) {
-                alert('Please fill in all required fields');
-                return;
-            }
+          if (!firstName || !lastName || !email || !password || !phoneNumber || !ur) {
+              alert('Please fill in all required fields');
+              return;
+          }
 
-            registrationData = {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                password: password,
-                phoneNumber: phoneNumber,
-                ur: ur
-            };
+          registrationData = {
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              password: password,
+              phoneNumber: phoneNumber,
+              ur: ur
+          };
 
-            console.log('Sending registration data:', registrationData);
+          console.log('Sending registration data:', registrationData);
 
-            try {
-                const response = await fetch('${pageContext.request.contextPath}/api/send-otp', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(registrationData)
-                });
+          try {
+              const response = await fetch('${pageContext.request.contextPath}/api/send-otp', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(registrationData)
+              });
 
-                const data = await response.json();
+              const data = await response.json();
 
-                if (response.ok) {
-                    document.getElementById('registrationStep1').style.display = 'none';
-                    document.getElementById('otpVerificationStep').style.display = 'block';
-                    alert('OTP has been sent to your email!');
-                } else {
-                    alert(data.message || 'Failed to send OTP');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while sending OTP');
-            }
+              if (response.ok) {
+                  document.getElementById('registrationStep1').style.display = 'none';
+                  document.getElementById('otpVerificationStep').style.display = 'block';
+                  alert('OTP has been sent to your email!');
+              } else {
+                  alert(data.message || 'Failed to send OTP');
+              }
+          } catch (error) {
+              console.error('Error:', error);
+              alert('An error occurred while sending OTP');
+          }
+      }
+
+      async function verifyOTP() {
+          const otp = document.getElementById('otp').value;
+          console.log('Verifying OTP:', otp, 'for email:', registrationData.email);
+
+          try {
+              const response = await fetch('${pageContext.request.contextPath}/api/verify-otp', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                      email: registrationData.email,
+                      otp: otp
+                  })
+              });
+
+              const data = await response.json();
+              console.log('Verification response:', data);
+
+              if (response.ok) {
+                  alert('Registration successful!');
+                  window.location.href = '${pageContext.request.contextPath}/login';
+              } else {
+                  alert(data.message || 'Invalid OTP');
+              }
+          } catch (error) {
+              console.error('Error:', error);
+              alert('An error occurred during OTP verification');
+          }
+      }
+
+      async function resendOTP() {
+          try {
+              const response = await fetch('${pageContext.request.contextPath}/api/send-otp', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(registrationData)
+              });
+
+              const data = await response.json();
+
+              if (response.ok) {
+                  alert('New OTP has been sent to your email!');
+              } else {
+                  alert(data.message || 'Failed to resend OTP');
+              }
+          } catch (error) {
+              console.error('Error:', error);
+              alert('An error occurred while resending OTP');
+          }
+      }
+      function togglePassword() {
+        const pwd = document.getElementById('password');
+        const icon = document.getElementById('togglePasswordIcon');
+        if (pwd.type === 'password') {
+          pwd.type = 'text';
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        } else {
+          pwd.type = 'password';
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
         }
-
-        async function verifyOTP() {
-            const otp = document.getElementById('otp').value;
-            console.log('Verifying OTP:', otp, 'for email:', registrationData.email);
-
-            try {
-                const response = await fetch('${pageContext.request.contextPath}/api/verify-otp', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: registrationData.email,
-                        otp: otp
-                    })
-                });
-
-                const data = await response.json();
-                console.log('Verification response:', data);
-
-                if (response.ok) {
-                    alert('Registration successful!');
-                    window.location.href = '${pageContext.request.contextPath}/login';
-                } else {
-                    alert(data.message || 'Invalid OTP');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred during OTP verification');
-            }
-        }
-
-        async function resendOTP() {
-            try {
-                const response = await fetch('${pageContext.request.contextPath}/api/send-otp', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(registrationData)
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    alert('New OTP has been sent to your email!');
-                } else {
-                    alert(data.message || 'Failed to resend OTP');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred while resending OTP');
-            }
-        }
+      }
+      function checkStrength() {
+        const pwd = document.getElementById('password').value;
+        const bar = document.getElementById('passwordStrength');
+        let strength = 0;
+        if (pwd.length > 5) strength += 1;
+        if (pwd.match(/[A-Z]/)) strength += 1;
+        if (pwd.match(/[0-9]/)) strength += 1;
+        if (pwd.match(/[^A-Za-z0-9]/)) strength += 1;
+        bar.style.width = (strength * 25) + '%';
+        bar.className = 'progress-bar';
+        if (strength === 1) bar.classList.add('bg-danger');
+        else if (strength === 2) bar.classList.add('bg-warning');
+        else if (strength === 3) bar.classList.add('bg-info');
+        else if (strength === 4) bar.classList.add('bg-success');
+      }
     </script>
 </body>
 </html> 
