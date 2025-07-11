@@ -45,7 +45,7 @@
             color: #3498db;
         }
         .register-container {
-            min-height: 170vh;
+            min-height: 150vh;
             display: flex;
             align-items: center;
             justify-content: center;

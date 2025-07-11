@@ -27,6 +27,7 @@ import com.example.Real_Estate.repository.PropertiesRepository;
 
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import com.example.Real_Estate.ServiceImpl.PropServiceImpl;
 
 @Controller
 public class ViewController {
@@ -39,8 +40,8 @@ public class ViewController {
 	@Autowired
 	private PropertiesRepository propertiesRepository;
 	
-	// @Autowired
-	// private PropServiceImpl p1;
+	@Autowired
+	private com.example.Real_Estate.ServiceImpl.PropServiceImpl propService;
 
 	@RequestMapping("/")
 	public String index() {
@@ -93,6 +94,10 @@ public class ViewController {
 		User u=(User)session.getAttribute("user");
 		if(u==null)return "redirect:/login";
 		model.addAttribute("ur",u.getUr().name().toLowerCase());
+		if (u.getUr().name().equalsIgnoreCase("agent")) {
+			int propertyCount = propService.findByEmail(u.getEmail()).size();
+			model.addAttribute("propertyCount", propertyCount);
+		}
 		return "profile";
 	}
 	@RequestMapping("/logout")
