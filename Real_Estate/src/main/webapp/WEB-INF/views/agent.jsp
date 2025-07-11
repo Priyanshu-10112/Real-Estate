@@ -294,51 +294,84 @@
 
     <!-- 1. Header: Welcome Banner (Full Width) -->
     <div class="container-fluid px-4 py-3">
-        <div class="tile tile-full welcome-banner mb-4 animate__animated animate__fadeInDown position-relative">
+        <div class="welcome-banner mb-4 animate__animated animate__fadeInDown position-relative" style="background: linear-gradient(90deg, #3498db 0%, #2980b9 100%); color: #fff;">
             <div class="row align-items-center position-relative" style="z-index:2;">
                 <div class="col-md-8">
-                    <div class="header-title mb-1">
+                    <div class="header-title mb-1" style="font-size:2.5rem;font-weight:900;">
                         Welcome back, <span class="header-username">${user.firstName}</span>!
                     </div>
-                    <span class="header-title-underline"></span>
-                    <div class="header-subtitle mb-2">Ready to close your next deal? Your dashboard is here to help you succeed every day.</div>
-                    <div class="header-tip" id="headerTip">Did you know? <b>Updating your listings regularly</b> increases your chances of getting more client inquiries!</div>
-                    <div class="header-progress">
-                        <div class="header-progress-bar"></div>
-                    </div>
-                    <button class="header-btn" onclick="window.location.href='${pageContext.request.contextPath}/agent/manage-properties'">Let's get started!</button>
-                </div>
-                <div class="col-md-4 text-md-end">
-                    <span class="h3 mb-0">Today</span>
+                    <span class="header-title-underline" style="display:block;height:5px;width:120px;background:linear-gradient(90deg,#10b981 0%,#38bdf8 100%);border-radius:3px;margin-top:0.2rem;"></span>
+                    <div class="header-subtitle mb-2" style="font-size:1.18rem;">Ready to close your next deal? Your dashboard is here to help you succeed every day.</div>
+                    <a href="${pageContext.request.contextPath}/agent/manage-properties" class="btn btn-lg btn-light mt-3" style="color:#3498db;font-weight:700;border-radius:30px;">Add New Property</a>
                 </div>
             </div>
         </div>
 
-        <!-- Quick Links: Attractive Card Grid -->
-        <div class="agent-quick-actions">
-            <a href="${pageContext.request.contextPath}/agent/dashboard" class="agent-action-card">
-                <div class="agent-action-icon" style="background:#eaf4fb;"><i class="fas fa-home"></i></div>
-                <div class="agent-action-title">Dashboard</div>
-                <div class="agent-action-desc">Overview of your activity and stats</div>
-            </a>
-            <a href="${pageContext.request.contextPath}/agent/manage-properties" class="agent-action-card">
-                <div class="agent-action-icon" style="background:#eaf4fb;"><i class="fas fa-building"></i></div>
-                <div class="agent-action-title">Manage Properties</div>
-                <div class="agent-action-desc">Add, edit, or remove your property listings</div>
-            </a>
-            <a href="${pageContext.request.contextPath}/agent/appointments" class="agent-action-card">
-                <div class="agent-action-icon" style="background:#eaf4fb;"><i class="fas fa-calendar-check"></i></div>
-                <div class="agent-action-title">Appointments</div>
-                <div class="agent-action-desc">View and manage your appointments</div>
-            </a>
-            <a href="${pageContext.request.contextPath}/profile" class="agent-action-card">
-                <div class="agent-action-icon" style="background:#eaf4fb;"><i class="fas fa-user"></i></div>
-                <div class="agent-action-title">Profile</div>
-                <div class="agent-action-desc">Update your profile and preferences</div>
-            </a>
+        <!-- Stats Cards -->
+        <div class="row g-4 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="property-card text-center p-4">
+                    <i class="fas fa-list-alt fa-2x mb-2" style="color:#3498db;"></i>
+                    <h3 class="mb-0" style="font-size:2rem;">${AllProperties != null ? AllProperties.size() : 0}</h3>
+                    <div class="text-muted">Total Properties</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="property-card text-center p-4">
+                    <i class="fas fa-bolt fa-2x mb-2" style="color:#10b981;"></i>
+                    <h3 class="mb-0" style="font-size:2rem;">
+                        ${AllProperties != null ? AllProperties.stream().filter(p -> p.status.name() == 'AVAILABLE').count() : 0}
+                    </h3>
+                    <div class="text-muted">Active Listings</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="property-card text-center p-4">
+                    <i class="fas fa-check-circle fa-2x mb-2" style="color:#e74c3c;"></i>
+                    <h3 class="mb-0" style="font-size:2rem;">
+                        ${AllProperties != null ? AllProperties.stream().filter(p -> p.status.name() == 'SOLD').count() : 0}
+                    </h3>
+                    <div class="text-muted">Properties Sold</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="property-card text-center p-4">
+                    <i class="fas fa-star fa-2x mb-2" style="color:#f1c40f;"></i>
+                    <h3 class="mb-0" style="font-size:2rem;">4.5</h3>
+                    <div class="text-muted">Customer Ratings</div>
+                </div>
+            </div>
         </div>
 
-        <!-- Pie Chart and Stat Cards Row -->
+        <!-- Quick Actions -->
+        <div class="row g-4 mb-4">
+            <div class="col-6 col-md-3">
+                <a href="${pageContext.request.contextPath}/agent/manage-properties" class="property-card text-center p-4" style="text-decoration:none;">
+                    <i class="fas fa-building fa-2x mb-2" style="color:#3498db;"></i>
+                    <div class="fw-bold">Manage Properties</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="${pageContext.request.contextPath}/agent/appointments" class="property-card text-center p-4" style="text-decoration:none;">
+                    <i class="fas fa-calendar-check fa-2x mb-2" style="color:#10b981;"></i>
+                    <div class="fw-bold">Appointments</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="${pageContext.request.contextPath}/profile" class="property-card text-center p-4" style="text-decoration:none;">
+                    <i class="fas fa-user fa-2x mb-2" style="color:#2980b9;"></i>
+                    <div class="fw-bold">Profile</div>
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a href="${pageContext.request.contextPath}/agent/dashboard" class="property-card text-center p-4" style="text-decoration:none;">
+                    <i class="fas fa-home fa-2x mb-2" style="color:#e67e22;"></i>
+                    <div class="fw-bold">Dashboard</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Keep property type chart and listings as is, but update card/button styles for consistency -->
         <%
         // Prepare property type chart data for the pie chart
         List propertyTypeDist = (List) request.getAttribute("propertyTypeDist");

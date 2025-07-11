@@ -342,13 +342,13 @@
 <body>
     <jsp:include page="/WEB-INF/views/common/nav-agent.jsp" />
 
-    <div class="page-header">
+    <div class="page-header" style="background: linear-gradient(90deg, #3498db 0%, #2980b9 100%); color: #fff; box-shadow: 0 2px 10px rgba(52,152,219,0.08); border-radius: 0 0 30px 30px;">
         <div class="container">
             <div class="header-wrapper">
                 <div class="header-content">
                     <div class="header-left">
-                        <h1 class="page-title">My Appointments</h1>
-                        <p class="page-subtitle">Manage and track all your property viewing appointments in one place</p>
+                        <h1 class="page-title" style="font-size:2.5rem;font-weight:800;letter-spacing:-1px;">My Appointments</h1>
+                        <p class="page-subtitle" style="font-size:1.15rem;opacity:0.95;">Manage and track all your property viewing appointments in one place</p>
                     </div>
                 </div>
             </div>
@@ -357,8 +357,8 @@
 
     <div class="container">
         <!-- Filter Section -->
-        <div class="filter-section">
-            <h3>Filter Appointments</h3>
+        <div class="filter-section mb-4" style="background:#fff;box-shadow:0 2px 8px rgba(52,152,219,0.07);border-radius:18px;">
+            <h3 style="font-weight:700;color:#3498db;font-size:1.3rem;margin-bottom:20px;">Filter Appointments</h3>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -388,12 +388,12 @@
         <div class="row" id="appointmentsContainer">
             <c:forEach items="${appointments}" var="appointment">
                 <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="appointment-card">
+                    <div class="appointment-card" style="border-radius:18px;box-shadow:0 4px 16px rgba(52,152,219,0.09);">
                         <img src="${pageContext.request.contextPath}/images/properties/${appointment.property.image}" 
                              class="property-image" 
                              alt="${appointment.property.propertyType}">
                         <div class="appointment-details">
-                            <h5 class="appointment-title">${appointment.property.propertyType}</h5>
+                            <h5 class="appointment-title" style="font-size:1.25rem;font-weight:700;color:#2c3e50;">${appointment.property.propertyType}</h5>
                             
                             <div class="property-details">
                                 <div class="appointment-info">
@@ -441,17 +441,17 @@
 
                             <c:choose>
                                 <c:when test="${appointment.status == 'PENDING'}">
-                                    <span class="appointment-status status-pending">
+                                    <span class="appointment-status status-pending" style="background:linear-gradient(135deg,#f1c40f,#f39c12);color:#fff;font-weight:700;">
                                         <i class="fas fa-clock"></i> Pending
                                     </span>
                                 </c:when>
                                 <c:when test="${appointment.status == 'CONFIRMED'}">
-                                    <span class="appointment-status status-confirmed">
+                                    <span class="appointment-status status-confirmed" style="background:linear-gradient(135deg,#2ecc71,#27ae60);color:#fff;font-weight:700;">
                                         <i class="fas fa-check-circle"></i> Confirmed
                                     </span>
                                 </c:when>
                                 <c:when test="${appointment.status == 'REJECTED'}">
-                                    <span class="appointment-status status-rejected">
+                                    <span class="appointment-status status-rejected" style="background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;font-weight:700;">
                                         <i class="fas fa-times-circle"></i> Rejected
                                     </span>
                                 </c:when>
@@ -494,11 +494,11 @@
 
             <c:if test="${empty appointments}">
                 <div class="col-12">
-                    <div class="empty-state">
+                    <div class="empty-state" style="background:#fff;box-shadow:0 2px 8px rgba(52,152,219,0.07);border-radius:18px;">
                         <i class="fas fa-calendar-times"></i>
-                        <h3>No Appointments Found</h3>
-                        <p>You haven't scheduled any property viewings yet. Start exploring available properties and schedule your first viewing.</p>
-                        <a href="${pageContext.request.contextPath}/agent/manage-properties" class="btn">
+                        <h3 style="color:#2c3e50;font-weight:700;">No Appointments Found</h3>
+                        <p style="color:#2c3e50;">You haven't scheduled any property viewings yet. Start exploring available properties and schedule your first viewing.</p>
+                        <a href="${pageContext.request.contextPath}/agent/manage-properties" class="btn" style="background:linear-gradient(135deg,#3498db,#2980b9);color:#fff;font-weight:600;">
                             <i class="fas fa-search"></i> Browse Properties
                         </a>
                     </div>
@@ -507,6 +507,7 @@
         </div>
     </div>
 
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
