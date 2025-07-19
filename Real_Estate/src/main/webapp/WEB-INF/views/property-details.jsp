@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #3498db;
@@ -38,18 +39,17 @@
         }
 
         body {
-            background-color: var(--light-bg);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e3e9f7 100%);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-text);
         }
 
         .property-header {
-            background: var(--gradient-primary);
+            background: linear-gradient(120deg, #3498db 60%, #6dd5fa 100%);
             color: white;
-            padding: 2rem 0;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 2rem;
+            padding: 2.5rem 0 2rem 0;
+            border-radius: 0 0 32px 32px;
+            box-shadow: 0 10px 32px rgba(52,152,219,0.10);
         }
         .header-content {
             display: flex;
@@ -59,32 +59,21 @@
             margin-top: 1rem;
         }
         .property-title {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            line-height: 1.2;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
         }
         .property-price {
-            font-size: 2rem;
+            background: rgba(255,255,255,0.18);
+            border-radius: 18px;
+            font-size: 2.2rem;
             font-weight: 700;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            display: inline-flex;
-            align-items: baseline;
-            background: rgba(255,255,255,0.1);
-            padding: 0.6rem 1.5rem;
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
-            transition: var(--transition);
-            white-space: nowrap;
+            color: #fff;
+            padding: 0.7rem 2.2rem;
+            box-shadow: 0 2px 12px rgba(52,152,219,0.10);
+            margin-top: 0.5rem;
+            transition: background 0.2s;
         }
         .back-button {
             display: inline-flex;
@@ -121,16 +110,24 @@
             gap: 1rem;
             flex-wrap: wrap;
         }
-        .property-status, .property-type {
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            font-size: 1rem;
+        .property-badges span {
+            border-radius: 999px;
+            background: rgba(255,255,255,0.18);
+            color: #fff;
+            font-size: 1.05rem;
             font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            backdrop-filter: blur(5px);
-            background: rgba(255,255,255,0.2);
-            transition: var(--transition);
+            padding: 0.7rem 1.6rem;
+            margin-right: 0.5rem;
+            box-shadow: 0 2px 8px rgba(52,152,219,0.08);
+            transition: background 0.2s, color 0.2s;
+        }
+        .property-badges span.property-status {
+            background: linear-gradient(90deg, #e74c3c 60%, #f9d423 100%);
+            color: #fff;
+        }
+        .property-badges span.property-type {
+            background: linear-gradient(90deg, #3498db 60%, #6dd5fa 100%);
+            color: #fff;
         }
         .property-status:hover, .property-type:hover {
             background: rgba(255,255,255,0.3);
@@ -147,12 +144,17 @@
         .col-lg-8, .col-lg-4 {
             padding: 0 1rem;
         }
-        .property-details-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: var(--card-shadow);
-            padding: 2rem;
-            margin-bottom: 2rem;
+        .property-details-card, .quick-actions-card {
+            background: rgba(255,255,255,0.85);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(44,62,80,0.10);
+            padding: 2.2rem 2rem;
+            margin-bottom: 2.2rem;
+            transition: box-shadow 0.3s, background 0.3s;
+        }
+        .property-details-card:hover, .quick-actions-card:hover {
+            box-shadow: 0 16px 48px rgba(44,62,80,0.13);
+            background: rgba(255,255,255,0.97);
         }
         .detail-grid {
             display: grid;
@@ -163,15 +165,17 @@
             display: flex;
             align-items: flex-start;
             padding: 1.5rem;
-            border-radius: 12px;
-            background: var(--light-bg);
-            transition: var(--transition);
+            border-radius: 18px;
+            background: rgba(245,247,250,0.85);
+            box-shadow: 0 2px 8px rgba(44,62,80,0.06);
+            margin-bottom: 1.2rem;
+            transition: box-shadow 0.2s, background 0.2s;
             width: 100%;
             box-sizing: border-box;
         }
         .detail-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--hover-shadow);
+            background: #f0f7ff;
+            box-shadow: 0 4px 16px rgba(44,62,80,0.10);
         }
         .detail-icon {
             width: 60px;
@@ -219,11 +223,16 @@
             gap: 1.5rem;
         }
         .agent-card {
-            background: white;
+            background: rgba(255,255,255,0.92);
             border-radius: 20px;
-            box-shadow: var(--card-shadow);
-            padding: 1rem;
-            transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(52,152,219,0.08);
+            padding: 1.5rem 1rem;
+            margin-bottom: 1.2rem;
+            transition: box-shadow 0.2s, background 0.2s;
+        }
+        .agent-card:hover {
+            background: #f0f7ff;
+            box-shadow: 0 8px 32px rgba(52,152,219,0.13);
         }
         .agent-header {
             text-align: center;
@@ -239,15 +248,18 @@
             box-shadow: var(--card-shadow);
         }
         .agent-initial {
-            width: 100%;
-            height: 100%;
+            background: linear-gradient(120deg, #3498db 60%, #6dd5fa 100%);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 2.7rem;
+            font-weight: 700;
+            width: 80px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: var(--gradient-primary);
+            margin: auto;
+            box-shadow: 0 2px 8px rgba(52,152,219,0.10);
         }
         .agent-name {
             font-size: 1.3rem;
@@ -276,15 +288,15 @@
             margin-bottom: 0;
         }
         .contact-item i {
+            background: linear-gradient(90deg, #6dd5fa 0%, #3498db 100%);
+            color: #fff;
+            border-radius: 50%;
             width: 35px;
             height: 35px;
-            background: white;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary-color);
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
         .contact-buttons {
             display: flex;
@@ -298,11 +310,12 @@
             text-align: center;
         }
         .quick-actions-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: var(--card-shadow);
-            padding: 2rem;
-            margin-bottom: 2rem;
+            background: rgba(255,255,255,0.85);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(44,62,80,0.10);
+            padding: 2.2rem 2rem;
+            margin-bottom: 2.2rem;
+            transition: box-shadow 0.3s, background 0.3s;
         }
         .actions-list {
             display: flex;
@@ -314,20 +327,21 @@
             align-items: center;
             gap: 1rem;
             padding: 1rem;
-            background: var(--light-bg);
+            background: linear-gradient(90deg, #6dd5fa 0%, #3498db 100%);
+            color: #fff;
             border: none;
-            border-radius: 12px;
-            color: var(--dark-text);
-            font-weight: 500;
-            transition: var(--transition);
+            border-radius: 999px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(52,152,219,0.10);
+            transition: background 0.2s, box-shadow 0.2s, color 0.2s;
             cursor: pointer;
             width: 100%;
             text-align: left;
         }
         .action-button:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-3px);
+            background: linear-gradient(90deg, #3498db 0%, #6dd5fa 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(52,152,219,0.15);
         }
         .action-button i {
             font-size: 1.2rem;
@@ -434,11 +448,83 @@
             position: relative;
             z-index: 2;
         }
+        .main-image {
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(44,62,80,0.13);
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            max-height: 380px;
+            background: #e9ecef;
+            transition: box-shadow 0.3s;
+        }
+        .main-image:hover {
+            box-shadow: 0 16px 48px rgba(44,62,80,0.18);
+        }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.5px;
+        }
+        .detail-item, .location-item, .location-main {
+            border-radius: 18px;
+            background: rgba(245,247,250,0.85);
+            box-shadow: 0 2px 8px rgba(44,62,80,0.06);
+            margin-bottom: 1.2rem;
+            transition: box-shadow 0.2s, background 0.2s;
+        }
+        .detail-item:hover, .location-item:hover, .location-main:hover {
+            background: #f0f7ff;
+            box-shadow: 0 4px 16px rgba(44,62,80,0.10);
+        }
+        .agent-card:hover {
+            background: #f0f7ff;
+            box-shadow: 0 8px 32px rgba(52,152,219,0.13);
+        }
+        .agent-initial {
+            background: linear-gradient(120deg, #3498db 60%, #6dd5fa 100%);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 2.7rem;
+            font-weight: 700;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            box-shadow: 0 2px 8px rgba(52,152,219,0.10);
+        }
+        .contact-item i {
+            background: linear-gradient(90deg, #6dd5fa 0%, #3498db 100%);
+            color: #fff;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .modal-content {
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(44,62,80,0.13);
+        }
+        .alert {
+            border-radius: 16px;
+            font-size: 1.05rem;
+            box-shadow: 0 2px 8px rgba(231,76,60,0.08);
+        }
         @media (max-width: 991.98px) {
             .header-content {
                 flex-direction: column;
                 gap: 1.5rem;
             }
+            .property-title { font-size: 2.1rem; }
+            .property-header { padding: 2rem 0 1.5rem 0; }
+            .property-details-card, .quick-actions-card { padding: 1.2rem 0.8rem; }
             .property-title {
                 font-size: 2rem;
             }
@@ -623,16 +709,16 @@
     if (property != null) { %>
 
     <!-- Property Header -->
-    <div class="property-header">
+    <div class="property-header" style="margin-bottom:2.5rem; box-shadow: var(--card-shadow); border-radius: 0 0 24px 24px;">
         <div class="container">
-            <div class="header-wrapper">
-                <a href="javascript:history.back()" class="back-button">
+            <div class="header-wrapper" style="display:flex; flex-direction:column; gap:1.5rem;">
+                <a href="javascript:history.back()" class="back-button" style="margin-bottom:1rem; align-self:flex-start;">
                     <i class="fas fa-arrow-left"></i> Back to Properties
                 </a>
-                <div class="header-content">
-                    <div class="header-left">
-                        <h1 class="property-title"><%= property.getPropertyType() %></h1>
-                        <div class="property-badges">
+                <div class="header-content" style="align-items:center; gap:2.5rem;">
+                    <div class="header-left" style="flex:1;">
+                        <h1 class="property-title" style="margin-bottom:1rem;"> <%= property.getPropertyType() %> </h1>
+                        <div class="property-badges" style="margin-bottom:0.5rem;">
                             <span class="property-status">
                                 <i class="fas fa-tag"></i> <%= property.getStatus() %>
                             </span>
@@ -641,8 +727,8 @@
                             </span>
                         </div>
                     </div>
-                    <div class="header-right">
-                        <div class="property-price">
+                    <div class="header-right" style="min-width:220px; display:flex; align-items:center; justify-content:flex-end;">
+                        <div class="property-price" style="font-size:2.1rem;">
                             <span class="amount">
                                 <% 
                                     long priceValue = property.getPrice();
@@ -660,14 +746,15 @@
     </div>
 
     <div class="container">
-        <div class="row">
+        <div class="row" style="gap:2.5rem 0;">
             <!-- Main Content Column -->
-            <div class="col-lg-8">
+            <div class="col-lg-8" style="margin-bottom:2rem;">
                 <!-- Property Gallery -->
-                <div class="property-details-card property-gallery">
-                    <img src="${pageContext.request.contextPath}/images/properties/<%= property.getImage() %>" 
-                         alt="<%= property.getPropertyType() %>" 
-                         class="main-image">
+                <div class="property-details-card property-gallery" style="padding:0; overflow:hidden; display:flex; justify-content:center; align-items:center; height:400px; background:#f4f6fa; box-shadow: var(--card-shadow); border-radius: 20px; margin-bottom:2rem;">
+                    <img src="${pageContext.request.contextPath}/images/properties/<%= property.getImage() != null && !property.getImage().isEmpty() ? property.getImage() : "default-property.html" %>"
+                         alt="<%= property.getPropertyType() %>"
+                         class="main-image"
+                         style="max-width:100%; max-height:100%; object-fit:cover; border-radius:18px; box-shadow:0 6px 24px rgba(0,0,0,0.10); background:#e9ecef; width:auto; height:100%; display:block; margin:auto;">
                 </div>
 
                 <!-- Property Details -->
@@ -753,9 +840,9 @@
             </div>
             
             <!-- Sidebar Column -->
-            <div class="col-lg-4">
+            <div class="col-lg-4" style="margin-bottom:2rem;">
                 <!-- Quick Actions -->
-                <div class="quick-actions-card">
+                <div class="quick-actions-card" style="margin-bottom:2.2rem; box-shadow: var(--card-shadow); border-radius:20px;">
                     <h3 class="section-title">Quick Actions</h3>
                     <div class="actions-list">
                         <button class="action-button">
@@ -778,7 +865,7 @@
                     User loggedInUser = (User) session.getAttribute("user");
                     if (loggedInUser == null || !loggedInUser.getEmail().equals(property.getUser_id().getEmail())) { 
                 %>
-                <div class="property-details-card">
+                <div class="property-details-card" style="box-shadow: var(--card-shadow); border-radius:20px;">
                     <h3 class="section-title">Agent Details</h3>
                     <div class="agent-section">
                         <div class="agent-card">
