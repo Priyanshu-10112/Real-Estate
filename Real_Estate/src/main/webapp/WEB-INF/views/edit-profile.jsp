@@ -123,11 +123,13 @@
                     </a>
                 </div>
             </form>
-            <% if (request.getAttribute("error") != null) { %>
-                <script>showAlert('<%= request.getAttribute("error") %>', 'error');</script>
+            <% if (session.getAttribute("success") != null) { %>
+                <script>showAlert('<%= session.getAttribute("success") %>', 'success');</script>
+                <% session.removeAttribute("success"); %>
             <% } %>
-            <% if (request.getAttribute("success") != null) { %>
-                <script>showAlert('<%= request.getAttribute("success") %>', 'success');</script>
+            <% if (session.getAttribute("error") != null) { %>
+                <script>showAlert('<%= session.getAttribute("error") %>', 'error');</script>
+                <% session.removeAttribute("error"); %>
             <% } %>
         </div>
     </main>

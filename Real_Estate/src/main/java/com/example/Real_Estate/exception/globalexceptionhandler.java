@@ -15,10 +15,10 @@ public class globalexceptionhandler {
 	public String handleUserNotFoundException(UserNotFoundException ue){
 		return ue.getMessage();
 	}
-	@ExceptionHandler(org.springframework.web.servlet.resource.NoResourceFoundException.class)
-	public String handleaNoResourceFoundException(org.springframework.web.servlet.resource.NoResourceFoundException e) {
-		return "Page Not Found";
-	}
+//	@ExceptionHandler(org.springframework.web.servlet.resource.NoResourceFoundException.class)
+//	public String handleaNoResourceFoundException(org.springframework.web.servlet.resource.NoResourceFoundException e) {
+//		return "Page Not Found";
+//	}
 	@RestControllerAdvice
 	public class GlobalExceptionHandler {
 

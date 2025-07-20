@@ -203,14 +203,18 @@ public class ViewController {
 		if (user == null) {
 			return "redirect:/login";
 		}
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setPhoneNumber(phoneNumber);
-		u1.save(user); // Save updated user
-		session.setAttribute("user", user); // Update session
-		model.addAttribute("user", user);
-		model.addAttribute("success", "Profile updated successfully.");
-		return "profile";
+		try {
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setPhoneNumber(phoneNumber);
+			u1.save(user); // Save updated user
+			session.setAttribute("user", user); // Update session
+			session.setAttribute("success", "Profile updated successfully.");
+			return "redirect:/profile"; // Redirect to profile.jsp
+		} catch (Exception e) {
+			session.setAttribute("error", "Failed to update profile. Please try again.");
+			return "redirect:/profile/edit"; // Redirect to edit-profile.jsp
+		}
 	}
 
     @GetMapping("/forgot-password")
