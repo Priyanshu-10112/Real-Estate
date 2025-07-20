@@ -67,4 +67,20 @@ body {
     color: #721c24;
     background-color: #f8d7da;
     border-color: #f5c6cb;
+}
+
+/* SweetAlert2 custom styles */
+.swal2-popup-custom {
+    border-radius: 1.2rem !important;
+    box-shadow: 0 8px 32px rgba(60,60,60,0.18) !important;
+    font-family: 'Segoe UI', Arial, sans-serif !important;
+}
+.swal2-title-custom {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    color: #2d3748 !important;
+}
+.swal2-content-custom {
+    font-size: 1.1rem !important;
+    color: #4a5568 !important;
 } 

@@ -572,12 +572,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script>
         $(document).ready(function() {
             // Chatbot Button Click Handler
             $('#chatbotButton').click(function() {
-                // This will be implemented later
-                alert('Chatbot feature coming soon!');
+                showAlert('Chatbot feature coming soon!', 'info');
             });
         });
     </script>

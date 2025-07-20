@@ -233,6 +233,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script>
       AOS.init({ once: true });
       let registrationData = null;
@@ -247,7 +248,7 @@
           const ur = document.getElementById('ur').value;
 
           if (!firstName || !lastName || !email || !password || !phoneNumber || !ur) {
-              alert('Please fill in all required fields');
+              showAlert('Please fill in all required fields', 'warning');
               return;
           }
 
@@ -276,13 +277,13 @@
               if (response.ok) {
                   document.getElementById('registrationStep1').style.display = 'none';
                   document.getElementById('otpVerificationStep').style.display = 'block';
-                  alert('OTP has been sent to your email!');
+                  showAlert('OTP has been sent to your email!', 'success');
               } else {
-                  alert(data.message || 'Failed to send OTP');
+                  showAlert(data.message || 'Failed to send OTP', 'error');
               }
           } catch (error) {
               console.error('Error:', error);
-              alert('An error occurred while sending OTP');
+              showAlert('An error occurred while sending OTP', 'error');
           }
       }
 
@@ -306,14 +307,14 @@
               console.log('Verification response:', data);
 
               if (response.ok) {
-                  alert('Registration successful!');
+                  showAlert('Registration successful!', 'success');
                   window.location.href = '${pageContext.request.contextPath}/login';
               } else {
-                  alert(data.message || 'Invalid OTP');
+                  showAlert(data.message || 'Invalid OTP', 'error');
               }
           } catch (error) {
               console.error('Error:', error);
-              alert('An error occurred during OTP verification');
+              showAlert('An error occurred during OTP verification', 'error');
           }
       }
 
@@ -330,13 +331,13 @@
               const data = await response.json();
 
               if (response.ok) {
-                  alert('New OTP has been sent to your email!');
+                  showAlert('New OTP has been sent to your email!', 'success');
               } else {
-                  alert(data.message || 'Failed to resend OTP');
+                  showAlert(data.message || 'Failed to resend OTP', 'error');
               }
           } catch (error) {
               console.error('Error:', error);
-              alert('An error occurred while resending OTP');
+              showAlert('An error occurred while resending OTP', 'error');
           }
       }
       function togglePassword() {

@@ -123,15 +123,13 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form');
         const submitBtn = form.querySelector('button[type="submit"]');
-        let alertDiv = null;
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
-            // Remove previous alert if exists
-            if (alertDiv) alertDiv.remove();
             // Show loading indicator
             submitBtn.disabled = true;
             const originalBtnText = submitBtn.innerHTML;
@@ -146,26 +144,16 @@
                     body: JSON.stringify({ email })
                 });
                 const result = await response.json();
-                alertDiv = document.createElement('div');
-                alertDiv.className = 'alert ' + (response.ok ? 'alert-success' : 'alert-danger') + ' alert-dismissible fade show';
-                alertDiv.role = 'alert';
                 if (response.ok) {
-                    alertDiv.innerHTML = `<i class='fas fa-check-circle me-2'></i>OTP sent! Please check your email for the code.<br>If you don't see it, check your spam folder.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>`;
-                } else {
-                    alertDiv.innerHTML = `<i class='fas fa-exclamation-circle me-2'></i>${result.message || 'Failed to send OTP. Please try again.'}<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>`;
-                }
-                form.parentNode.insertBefore(alertDiv, form);
-                if(response.ok) {
+                    showAlert('OTP sent! Please check your email for the code.<br>If you don\'t see it, check your spam folder.', 'success');
                     setTimeout(function() {
                         window.location.href = '${pageContext.request.contextPath}/verify-reset-otp?email=' + encodeURIComponent(email);
                     }, 1800);
+                } else {
+                    showAlert(result.message || 'Failed to send OTP. Please try again.', 'error');
                 }
             } catch (err) {
-                alertDiv = document.createElement('div');
-                alertDiv.className = 'alert alert-danger alert-dismissible fade show';
-                alertDiv.role = 'alert';
-                alertDiv.innerHTML = `<i class='fas fa-exclamation-circle me-2'></i>Network error. Please try again.<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>`;
-                form.parentNode.insertBefore(alertDiv, form);
+                showAlert('Network error. Please try again.', 'error');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;

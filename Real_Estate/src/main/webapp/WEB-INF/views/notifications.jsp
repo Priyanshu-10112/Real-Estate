@@ -718,26 +718,13 @@
         </div>
     </div>
 
-    <!-- Success Notification -->
-    <div class="alert alert-success alert-dismissible fade" id="successAlert" role="alert" style="position: fixed; top: 100px; right: 20px; z-index: 1050; min-width: 300px;">
-        <i class="fas fa-check-circle me-2"></i>
-        <strong>Success!</strong> <span id="successMessage">Operation completed successfully!</span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    <!-- Error Notification -->
-    <div class="alert alert-danger alert-dismissible fade" id="errorAlert" role="alert" style="position: fixed; top: 100px; right: 20px; z-index: 1050; min-width: 300px;">
-        <i class="fas fa-exclamation-circle me-2"></i>
-        <strong>Error!</strong> <span id="errorMessage">An error occurred. Please try again.</span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
 
     <script>
         function applyFilters() {
@@ -867,23 +854,11 @@
         }
         
         function showSuccessNotification(message) {
-            const successAlert = document.getElementById('successAlert');
-            const successMessage = document.getElementById('successMessage');
-            successMessage.textContent = message;
-            successAlert.classList.add('show');
-            setTimeout(() => {
-                successAlert.classList.remove('show');
-            }, 3000);
+            showAlert(message, 'success');
         }
         
         function showErrorNotification(message) {
-            const errorAlert = document.getElementById('errorAlert');
-            const errorMessage = document.getElementById('errorMessage');
-            errorMessage.textContent = message;
-            errorAlert.classList.add('show');
-            setTimeout(() => {
-                errorAlert.classList.remove('show');
-            }, 3000);
+            showAlert(message, 'error');
         }
         
         // Add event listeners for buttons

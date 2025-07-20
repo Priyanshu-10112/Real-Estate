@@ -456,27 +456,23 @@
         
         <!-- Alert Messages -->
         <% if(request.getParameter("error") != null) { %>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <% 
-                    String error = request.getParameter("error");
-                    String message = "";
-                    switch(error) {
-                        case "no_image":
-                            message = "Please select an image file";
-                            break;
-                        case "upload":
-                            message = "Error uploading image. Please try again.";
-                            break;
-                        case "save_failed":
-                            message = "Error saving property. Please try again.";
-                            break;
-                        default:
-                            message = "An error occurred. Please try again.";
-                    }
-                %>
-                <%= message %>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+            <script>
+                let message = '';
+                switch('<%= request.getParameter("error") %>') {
+                    case 'no_image':
+                        message = 'Please select an image file';
+                        break;
+                    case 'upload':
+                        message = 'Error uploading image. Please try again.';
+                        break;
+                    case 'save_failed':
+                        message = 'Error saving property. Please try again.';
+                        break;
+                    default:
+                        message = 'An error occurred. Please try again.';
+                }
+                showAlert(message, 'error');
+            </script>
         <% } %>
         
         <% if(request.getParameter("success") != null) { %>
@@ -934,5 +930,6 @@
         });
     });
     </script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 </html> 

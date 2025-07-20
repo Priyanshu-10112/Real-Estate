@@ -298,6 +298,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script>
 $(document).ready(function() {
     // Function to load all properties
@@ -357,7 +358,7 @@ $(document).ready(function() {
                 initializeEventHandlers();
             },
             error: function(xhr, status, error) {
-                alert('Error occurred while searching properties. Please try again.');
+                showAlert('Error occurred while searching properties. Please try again.', 'error');
             },
             complete: function() {
                 // Reset button state
@@ -405,7 +406,7 @@ $(document).ready(function() {
                 initializeEventHandlers();
             },
             error: function(xhr, status, error) {
-                alert('Error occurred while resetting filters. Please try again.');
+                showAlert('Error occurred while resetting filters. Please try again.', 'error');
             },
             complete: function() {
                 // Reset button state

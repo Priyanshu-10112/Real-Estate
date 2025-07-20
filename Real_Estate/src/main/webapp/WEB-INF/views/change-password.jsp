@@ -125,15 +125,16 @@
                 </div>
             </form>
             <% if (request.getAttribute("error") != null) { %>
-                <div class="alert alert-danger mt-3"><%= request.getAttribute("error") %></div>
+                <script>showAlert('<%= request.getAttribute("error") %>', 'error');</script>
             <% } %>
             <% if (request.getAttribute("success") != null) { %>
-                <div class="alert alert-success mt-3"><%= request.getAttribute("success") %></div>
+                <script>showAlert('<%= request.getAttribute("success") %>', 'success');</script>
             <% } %>
         </div>
     </main>
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 </html> 

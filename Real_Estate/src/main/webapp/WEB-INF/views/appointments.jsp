@@ -520,7 +520,7 @@
                         location.reload();
                     },
                     error: function(xhr, status, error) {
-                        alert('Failed to cancel appointment. Please try again.');
+                        showAlert('Failed to cancel appointment. Please try again.', 'error');
                     }
                 });
             }
@@ -535,7 +535,7 @@
                         location.reload();
                     },
                     error: function(xhr, status, error) {
-                        alert('Failed to approve appointment. Please try again.');
+                        showAlert('Failed to approve appointment. Please try again.', 'error');
                     }
                 });
             }
@@ -550,7 +550,7 @@
                         location.reload();
                     },
                     error: function(xhr, status, error) {
-                        alert('Failed to reject appointment. Please try again.');
+                        showAlert('Failed to reject appointment. Please try again.', 'error');
                     }
                 });
             }
@@ -574,7 +574,7 @@
                                 if (resp.error) errorMsg = resp.error;
                             } catch (e) {}
                         }
-                        alert(errorMsg);
+                        showAlert(errorMsg, 'error');
                     }
                 });
             }
@@ -716,5 +716,6 @@
             `;
         }
     </script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 </html>

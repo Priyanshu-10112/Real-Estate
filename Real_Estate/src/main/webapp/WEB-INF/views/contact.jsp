@@ -376,10 +376,6 @@
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
                     <div class="contact-form" style="background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%);">
                         <h2>Send us a Message</h2>
-                        <!-- Success Message Placeholder -->
-                        <div id="contact-success" class="alert alert-success d-none" role="alert">
-                            <i class="fas fa-check-circle me-2"></i>Your message has been sent! We'll get back to you soon.
-                        </div>
                         <form action="${pageContext.request.contextPath}/contact/submit" method="POST">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
@@ -429,5 +425,6 @@
     <script>
       AOS.init({ once: true });
     </script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 </html> 

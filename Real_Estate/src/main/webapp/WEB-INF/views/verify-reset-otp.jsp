@@ -97,16 +97,10 @@
             <% String error = (String)request.getAttribute("error"); %>
             <% String success = (String)request.getAttribute("success"); %>
             <% if(error != null && !error.isEmpty()) { %>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="fas fa-exclamation-circle me-2"></i><%= error %>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <script>showAlert('<%= error %>', 'error');</script>
             <% } %>
             <% if(success != null && !success.isEmpty()) { %>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="fas fa-check-circle me-2"></i><%= success %>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <script>showAlert('<%= success %>', 'success');</script>
             <% } %>
             <form action="${pageContext.request.contextPath}/verify-reset-otp" method="post">
                 <div class="form-group">
@@ -135,6 +129,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script>
     // Prefill email from URL param and make readonly
     document.addEventListener('DOMContentLoaded', function() {

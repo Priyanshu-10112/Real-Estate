@@ -938,28 +938,6 @@
         </div>
     </div>
 
-    <!-- Success Notification -->
-    <div class="alert alert-success alert-dismissible fade" id="successAlert" role="alert" style="position: fixed; top: 100px; right: 20px; z-index: 1050; min-width: 300px;">
-        <i class="fas fa-check-circle me-2"></i>
-        <strong>Success!</strong> Appointment scheduled successfully! The agent will review your request and get back to you soon.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    <!-- Error Notification -->
-    <div class="alert alert-danger alert-dismissible fade" id="errorAlert" role="alert" style="position: fixed; top: 100px; right: 20px; z-index: 1050; min-width: 300px;">
-        <i class="fas fa-exclamation-circle me-2"></i>
-        <strong>Error!</strong> <span id="errorMessage">Failed to schedule appointment. Please try again.</span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    <% } else { %>
-    <div class="container">
-        <div class="alert alert-danger">
-            Property not found or has been removed.
-        </div>
-    </div>
-    <% } %>
-
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     
     <!-- Update script imports -->
@@ -1018,11 +996,11 @@
             })
             .then(data => {
                 appointmentModal.hide();
-                showSuccessNotification();
+                showAlert('Appointment scheduled successfully! The agent will review your request and get back to you soon.', 'success');
                 document.getElementById('appointmentForm').reset();
             })
             .catch(error => {
-                showErrorNotification(error.message || 'Error scheduling appointment. Please try again later.');
+                showAlert(error.message || 'Error scheduling appointment. Please try again later.', 'error');
             });
         });
 
@@ -1032,24 +1010,15 @@
             document.getElementById('submitAppointment').click();
         });
         
-        function showSuccessNotification() {
-            const successAlert = document.getElementById('successAlert');
-            successAlert.classList.add('show');
-            setTimeout(() => {
-                successAlert.classList.remove('show');
-            }, 5000);
-        }
-        
-        function showErrorNotification(message) {
-            const errorAlert = document.getElementById('errorAlert');
-            const errorMessage = document.getElementById('errorMessage');
-            errorMessage.textContent = message;
-            errorAlert.classList.add('show');
-            setTimeout(() => {
-                errorAlert.classList.remove('show');
-            }, 5000);
-        }
     });
     </script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
+<% } else { %>
+    <div class="container">
+        <div class="alert alert-danger">
+            Property not found or has been removed.
+        </div>
+    </div>
+<% } %>
 </body>
 </html> 

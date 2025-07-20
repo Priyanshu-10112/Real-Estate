@@ -1,15 +1,26 @@
 // Utility functions
 function showAlert(message, type = 'success') {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = `alert alert-${type}`;
-    alertDiv.textContent = message;
+    // SweetAlert2 type mapping
+    let icon = 'success';
+    if (type === 'error') icon = 'error';
+    else if (type === 'warning') icon = 'warning';
+    else if (type === 'info') icon = 'info';
     
-    const container = document.querySelector('.container');
-    container.insertBefore(alertDiv, container.firstChild);
-    
-    setTimeout(() => {
-        alertDiv.remove();
-    }, 5000);
+    Swal.fire({
+        title: type.charAt(0).toUpperCase() + type.slice(1),
+        text: message,
+        icon: icon,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        position: 'top',
+        background: '#fff',
+        customClass: {
+            popup: 'swal2-popup-custom',
+            title: 'swal2-title-custom',
+            content: 'swal2-content-custom'
+        }
+    });
 }
 
 function validatePhoneNumber(phoneNumber) {

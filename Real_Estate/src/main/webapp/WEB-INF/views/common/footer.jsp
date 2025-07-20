@@ -129,4 +129,5 @@
             <p>&copy; 2024 EstateAura. All rights reserved.</p>
         </div>
     </div>
-</footer> 
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 

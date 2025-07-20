@@ -210,10 +210,7 @@
             </div>
             <% String error = (String)request.getAttribute("error"); %>
             <% if(error != null && !error.isEmpty()) { %>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="fas fa-exclamation-circle me-2"></i><%= error %>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <script>showAlert('<%= error %>', 'error');</script>
             <% } %>
             <form action="${pageContext.request.contextPath}/log" method="post" onsubmit="return validateForm()">
                 <div class="form-floating mb-3">
@@ -247,6 +244,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script>
       AOS.init({ once: true });
       function togglePassword() {

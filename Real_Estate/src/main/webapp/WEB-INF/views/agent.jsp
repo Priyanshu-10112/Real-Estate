@@ -441,6 +441,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var propertyTypeLabels = JSON.parse('<%= propertyTypeLabels.length() > 0 ? "[" + propertyTypeLabels.toString() + "]" : "[]" %>');
@@ -462,7 +463,7 @@
 
             // Chatbot Button Click Handler
             document.getElementById('chatbotButton').addEventListener('click', function() {
-                alert('Chatbot feature coming soon!');
+                showAlert('Chatbot feature coming soon!', 'info');
             });
 
             // Rotating tips for header
