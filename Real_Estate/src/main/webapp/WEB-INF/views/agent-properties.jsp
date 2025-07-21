@@ -781,12 +781,22 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script>
-        function deleteProperty(propertyId) {
-            if (confirm('Are you sure you want to delete this property?')) {
-                window.location.href = '${pageContext.request.contextPath}/agent/properties/delete/' + propertyId;
-            }
-        }
+async function deleteProperty(propertyId) {
+    const result = await showConfirmAlert('Are you sure you want to delete this property?');
+    if (result) {
+        // existing AJAX or form submission logic for deletion
+        // Example:
+        $.ajax({
+            url: '${pageContext.request.contextPath}/agent/properties/delete/' + propertyId,
+            type: 'POST',
+            success: function(response) { location.reload(); },
+            error: function(xhr, status, error) { showAlert('Failed to delete property. Please try again.', 'error'); }
+        });
+    }
+}
 
         // Check if we should open the add property modal
         document.addEventListener('DOMContentLoaded', function() {

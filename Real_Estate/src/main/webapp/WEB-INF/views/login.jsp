@@ -208,6 +208,8 @@
                 <h1>Welcome Back</h1>
                 <p class="text-muted">Sign in to your EstateAura account</p>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="${pageContext.request.contextPath}/js/main.js"></script>
             <% String error = (String)request.getAttribute("error"); %>
             <% if(error != null && !error.isEmpty()) { %>
                 <script>showAlert('<%= error %>', 'error');</script>
@@ -244,7 +246,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script>
       AOS.init({ once: true });
       function togglePassword() {

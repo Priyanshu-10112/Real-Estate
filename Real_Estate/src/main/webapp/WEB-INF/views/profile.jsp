@@ -289,6 +289,8 @@
     </c:choose>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="${pageContext.request.contextPath}/js/main.js?v=2"></script>
     <% if (session.getAttribute("success") != null) { %>
         <script>showAlert('<%= session.getAttribute("success") %>', 'success');</script>
         <% session.removeAttribute("success"); %>
@@ -297,6 +299,5 @@
         <script>showAlert('<%= session.getAttribute("error") %>', 'error');</script>
         <% session.removeAttribute("error"); %>
     <% } %>
-    <script src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 </html> 

@@ -80,3 +80,23 @@ async function makeApiCall(url, method = 'GET', data = null) {
         throw error;
     }
 } 
+
+async function showConfirmAlert(message) {
+    const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: message,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        reverseButtons: true,
+        customClass: {
+            popup: 'swal2-popup-custom',
+            title: 'swal2-title-custom',
+            content: 'swal2-content-custom'
+        }
+    });
+    return result.isConfirmed;
+} 
+window.showAlert = showAlert;
+window.showConfirmAlert = showConfirmAlert; 

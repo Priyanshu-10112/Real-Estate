@@ -510,81 +510,8 @@
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function cancelAppointment(appointmentId) {
-            if (confirm('Are you sure you want to cancel this appointment?')) {
-                $.ajax({
-                    url: '/api/appointments/' + appointmentId + '/cancel',
-                    type: 'POST',
-                    success: function(response) {
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        showAlert('Failed to cancel appointment. Please try again.', 'error');
-                    }
-                });
-            }
-        }
-
-        function approveAppointment(appointmentId) {
-            if (confirm('Are you sure you want to approve this appointment?')) {
-                $.ajax({
-                    url: '/api/appointments/' + appointmentId + '/approve',
-                    type: 'POST',
-                    success: function(response) {
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        showAlert('Failed to approve appointment. Please try again.', 'error');
-                    }
-                });
-            }
-        }
-
-        function rejectAppointment(appointmentId) {
-            if (confirm('Are you sure you want to reject this appointment?')) {
-                $.ajax({
-                    url: '/api/appointments/' + appointmentId + '/reject',
-                    type: 'POST',
-                    success: function(response) {
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        showAlert('Failed to reject appointment. Please try again.', 'error');
-                    }
-                });
-            }
-        }
-
-        function deleteAppointment(appointmentId) {
-            if (confirm('Are you sure you want to delete this appointment? This action cannot be undone.')) {
-                $.ajax({
-                    url: '/api/appointments/' + appointmentId + '/delete',
-                    type: 'POST',
-                    success: function(response) {
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        let errorMsg = 'Failed to delete appointment. Please try again.';
-                        if (xhr.responseJSON && xhr.responseJSON.error) {
-                            errorMsg = xhr.responseJSON.error;
-                        } else if (xhr.responseText) {
-                            try {
-                                const resp = JSON.parse(xhr.responseText);
-                                if (resp.error) errorMsg = resp.error;
-                            } catch (e) {}
-                        }
-                        showAlert(errorMsg, 'error');
-                    }
-                });
-            }
-        }
-
-        // Filter functionality
-        $('#statusFilter, #dateFilter').change(function() {
-            filterAppointments();
-        });
-
         function filterAppointments() {
             const status = $('#statusFilter').val();
             const date = $('#dateFilter').val();
@@ -717,5 +644,69 @@
         }
     </script>
     <script src="${pageContext.request.contextPath}/js/main.js"></script>
+    <script>
+async function cancelAppointment(appointmentId) {
+    const result = await showConfirmAlert('Are you sure you want to cancel this appointment?');
+    if (result) {
+        $.ajax({
+            url: '/api/appointments/' + appointmentId + '/cancel',
+            type: 'POST',
+            success: function(response) { location.reload(); },
+            error: function(xhr, status, error) { showAlert('Failed to cancel appointment. Please try again.', 'error'); }
+        });
+    }
+}
+async function approveAppointment(appointmentId) {
+    const result = await showConfirmAlert('Are you sure you want to approve this appointment?');
+    if (result) {
+        $.ajax({
+            url: '/api/appointments/' + appointmentId + '/approve',
+            type: 'POST',
+            success: function(response) { location.reload(); },
+            error: function(xhr, status, error) { showAlert('Failed to approve appointment. Please try again.', 'error'); }
+        });
+    }
+}
+async function rejectAppointment(appointmentId) {
+    const result = await showConfirmAlert('Are you sure you want to reject this appointment?');
+    if (result) {
+        $.ajax({
+            url: '/api/appointments/' + appointmentId + '/reject',
+            type: 'POST',
+            success: function(response) { location.reload(); },
+            error: function(xhr, status, error) { showAlert('Failed to reject appointment. Please try again.', 'error'); }
+        });
+    }
+}
+async function deleteAppointment(appointmentId) {
+    const result = await showConfirmAlert('Are you sure you want to delete this appointment? This action cannot be undone.');
+    if (result) {
+        $.ajax({
+            url: '/api/appointments/' + appointmentId + '/delete',
+            type: 'POST',
+            success: function(response) { location.reload(); },
+            error: function(xhr, status, error) {
+                let errorMsg = 'Failed to delete appointment. Please try again.';
+                if (xhr.responseJSON && (xhr.responseJSON.error || xhr.responseJSON.message)) {
+                    errorMsg = xhr.responseJSON.error || xhr.responseJSON.message;
+                } else if (xhr.responseText) {
+                    try {
+                        const resp = JSON.parse(xhr.responseText);
+                        errorMsg = resp.error || resp.message || xhr.responseText;
+                    } catch (e) {
+                        errorMsg = xhr.responseText;
+                    }
+                }
+                showAlert(errorMsg, 'error');
+            }
+        });
+    }
+}
+
+        // Filter functionality
+        $('#statusFilter, #dateFilter').change(function() {
+            filterAppointments();
+        });
+    </script>
 </body>
 </html>

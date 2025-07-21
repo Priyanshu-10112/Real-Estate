@@ -724,166 +724,112 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="${pageContext.request.contextPath}/js/main.js"></script>
-
     <script>
-        function applyFilters() {
-            const statusFilter = document.getElementById('statusFilter').value;
-            const sortFilter = document.getElementById('sortFilter').value;
-            const notifications = document.querySelectorAll('.notification-card');
-            
-            notifications.forEach(card => {
-                const status = card.dataset.status;
-                const date = new Date(card.dataset.date);
-                
-                // Status filter
-                if (statusFilter && status !== statusFilter) {
-                    card.style.display = 'none';
-                } else {
-                    card.style.display = 'block';
-                }
-            });
-            
-            // Sort functionality
-            const container = document.getElementById('notificationsContainer');
-            const cards = Array.from(notifications);
-            
-            cards.sort((a, b) => {
-                const dateA = new Date(a.dataset.date);
-                const dateB = new Date(b.dataset.date);
-                
-                if (sortFilter === 'date-desc') {
-                    return dateB - dateA;
-                } else if (sortFilter === 'date-asc') {
-                    return dateA - dateB;
-                } else if (sortFilter === 'status') {
-                    return a.dataset.status.localeCompare(b.dataset.status);
-                }
-                return 0;
-            });
-            
-            cards.forEach(card => {
-                if (card.style.display !== 'none') {
-                    container.appendChild(card);
-                }
-            });
+function applyFilters() {
+    const statusFilter = document.getElementById('statusFilter').value;
+    const sortFilter = document.getElementById('sortFilter').value;
+    const notifications = document.querySelectorAll('.notification-card');
+    notifications.forEach(card => {
+        const status = card.dataset.status;
+        const date = new Date(card.dataset.date);
+        if (statusFilter && status !== statusFilter) {
+            card.style.display = 'none';
+        } else {
+            card.style.display = 'block';
         }
-        
-        function markAsRead(appointmentId) {
-            showSuccessNotification('Notification marked as read!');
+    });
+    const container = document.getElementById('notificationsContainer');
+    const cards = Array.from(notifications);
+    cards.sort((a, b) => {
+        const dateA = new Date(a.dataset.date);
+        const dateB = new Date(b.dataset.date);
+        if (sortFilter === 'date-desc') {
+            return dateB - dateA;
+        } else if (sortFilter === 'date-asc') {
+            return dateA - dateB;
+        } else if (sortFilter === 'status') {
+            return a.dataset.status.localeCompare(b.dataset.status);
         }
-        
-        function deleteNotification(appointmentId) {
-            console.log('Attempting to delete notification with ID:', appointmentId);
-            
-            if (!appointmentId || appointmentId === 'null' || appointmentId === '') {
-                showErrorNotification('Invalid notification ID');
-                return;
+        return 0;
+    });
+    cards.forEach(card => {
+        if (card.style.display !== 'none') {
+            container.appendChild(card);
+        }
+    });
+}
+window.applyFilters = applyFilters;
+document.addEventListener('DOMContentLoaded', function() {
+    function markAsRead(appointmentId) {
+        showAlert('Notification marked as read!', 'success');
+    }
+    async function deleteNotification(appointmentId) {
+        const result = await window.showConfirmAlert('Are you sure you want to cancel this appointment? This action cannot be undone.');
+        if (!result) return;
+        if (!appointmentId || appointmentId === 'null' || appointmentId === '') {
+            showAlert('Invalid notification ID', 'error');
+            return;
+        }
+        const url = '${pageContext.request.contextPath}/api/appointments/' + appointmentId + '/delete';
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             }
-            
-            if (confirm('Are you sure you want to cancel this appointment? This action cannot be undone.')) {
-                const url = '${pageContext.request.contextPath}/api/appointments/' + appointmentId + '/delete';
-                console.log('Making request to:', url);
-                
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    console.log('Response headers:', response.headers);
-                    
-                    if (!response.ok) {
-                        if (response.status === 404) {
-                            throw new Error('Notification not found or access denied');
-                        }
-                        return response.text().then(text => {
-                            console.log('Error response text:', text);
-                            throw new Error(text || 'Failed to delete notification');
-                        });
-                    }
-                    return response.text().then(text => {
-                        console.log('Success response text:', text);
-                        if (text.includes('Page Not Found')) {
-                            throw new Error('Endpoint not found. Please check server configuration.');
-                        }
-                        try {
-                            return JSON.parse(text);
-                        } catch (e) {
-                            console.log('Response is not JSON, treating as success');
-                            return { message: 'Success' };
-                        }
-                    });
-                })
-                .then(data => {
-                    console.log('Success data:', data);
-                    showSuccessNotification('Notification Cancelled successfully!');
-                    
-                    // Find the notification card by appointment ID
-                    const button = document.querySelector('[data-appointment-id="' + appointmentId + '"]');
-                    if (button) {
-                        const notificationCard = button.closest('.notification-card');
-                        if (notificationCard) {
-                            notificationCard.style.opacity = '0';
-                            notificationCard.style.transform = 'translateX(100%)';
-                            setTimeout(() => {
-                                notificationCard.remove();
-                                // Check if no notifications left
-                                const remainingCards = document.querySelectorAll('.notification-card');
-                                if (remainingCards.length === 0) {
-                                    location.reload(); // Reload to show empty state
-                                }
-                            }, 300);
-                        } else {
-                            console.log('Notification card not found, reloading page');
-                            location.reload();
-                        }
-                    } else {
-                        console.log('Delete button not found, reloading page');
-                        location.reload();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error in deleteNotification:', error);
-                    showErrorNotification(error.message || 'Failed to delete notification. Please try again.');
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    let msg = text;
+                    try {
+                        const json = JSON.parse(text);
+                        msg = json.error || json.message || text;
+                    } catch (e) {}
+                    throw new Error(msg);
                 });
             }
-        }
-        
-        function showSuccessNotification(message) {
-            showAlert(message, 'success');
-        }
-        
-        function showErrorNotification(message) {
-            showAlert(message, 'error');
-        }
-        
-        // Add event listeners for buttons
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.cancel-appointment-btn')) {
-                const button = e.target.closest('.cancel-appointment-btn');
-                const appointmentId = button.getAttribute('data-appointment-id');
-                console.log('Cancel appointment ID:', appointmentId);
-                cancelAppointment(appointmentId);
-            }
-            
-            if (e.target.closest('.mark-read-btn')) {
-                const button = e.target.closest('.mark-read-btn');
-                const appointmentId = button.getAttribute('data-appointment-id');
-                console.log('Mark read appointment ID:', appointmentId);
-                markAsRead(appointmentId);
-            }
-            
-            if (e.target.closest('.delete-notification-btn')) {
-                const button = e.target.closest('.delete-notification-btn');
-                const appointmentId = button.getAttribute('data-appointment-id');
-                console.log('Delete notification appointment ID:', appointmentId);
-                deleteNotification(appointmentId);
-            }
+            return response.text();
+        })
+        .then(data => {
+            showAlert('Notification Cancelled successfully!', 'success');
+            const button = document.querySelector('[data-appointment-id="' + appointmentId + '"]');
+            if (button) {
+                const notificationCard = button.closest('.notification-card');
+                if (notificationCard) {
+                    notificationCard.style.opacity = '0';
+                    notificationCard.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        notificationCard.remove();
+                        const remainingCards = document.querySelectorAll('.notification-card');
+                        if (remainingCards.length === 0) location.reload();
+                    }, 300);
+                } else { location.reload(); }
+            } else { location.reload(); }
+        })
+        .catch(error => {
+            showAlert(error.message || 'Failed to delete notification. Please try again.', 'error');
         });
-    </script>
+    }
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.cancel-appointment-btn')) {
+            const button = e.target.closest('.cancel-appointment-btn');
+            const appointmentId = button.getAttribute('data-appointment-id');
+        }
+        if (e.target.closest('.mark-read-btn')) {
+            const button = e.target.closest('.mark-read-btn');
+            const appointmentId = button.getAttribute('data-appointment-id');
+            markAsRead(appointmentId);
+        }
+        if (e.target.closest('.delete-notification-btn')) {
+            const button = e.target.closest('.delete-notification-btn');
+            const appointmentId = button.getAttribute('data-appointment-id');
+            deleteNotification(appointmentId);
+        }
+    });
+});
+</script>
 </body>
 </html> 
