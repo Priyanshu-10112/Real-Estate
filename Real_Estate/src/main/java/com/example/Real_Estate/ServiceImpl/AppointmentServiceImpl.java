@@ -73,38 +73,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> getAppointmentsByUserAndStatus(User user, AppointmentStatus status) {
-        return appointmentRepository.findByUserAndStatus(user, status);
-    }
-
-    @Override
     public List<Appointment> getAppointmentsByUserAndDateRange(User user, LocalDateTime startDate, LocalDateTime endDate) {
         return appointmentRepository.findByUserAndAppointmentDateBetween(user, startDate, endDate);
-    }
-
-    @Override
-    public List<Appointment> getAppointmentsByUserStatusAndDateRange(User user, AppointmentStatus status, java.time.LocalDateTime startDate, java.time.LocalDateTime endDate) {
-        return appointmentRepository.findByUserAndStatusAndAppointmentDateBetween(user, status, startDate, endDate);
-    }
-
-    @Override
-    public List<Appointment> getAppointmentsByStatusAndDateRange(AppointmentStatus status, java.time.LocalDateTime startDate, java.time.LocalDateTime endDate) {
-        return appointmentRepository.findByStatusAndAppointmentDateBetween(status, startDate, endDate);
-    }
-
-    @Override
-    public List<Appointment> getAppointmentsByStatus(AppointmentStatus status) {
-        return appointmentRepository.findByStatus(status);
-    }
-
-    @Override
-    public List<Appointment> getAppointmentsByDateRange(java.time.LocalDateTime startDate, java.time.LocalDateTime endDate) {
-        return appointmentRepository.findByAppointmentDateBetween(startDate, endDate);
-    }
-
-    @Override
-    public List<Appointment> getAllAppointments() {
-        return appointmentRepository.findAll();
     }
 
     @Override

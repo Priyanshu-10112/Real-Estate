@@ -420,6 +420,11 @@
         <div class="container">
             <!-- Quick Links at the top -->
             <div class="quick-actions mb-5" style="gap:2.5rem;">
+                <a href="${pageContext.request.contextPath}/agent/agent-properties" class="action-card">
+                    <div class="action-icon" style="background:#eaf4fb;"><i class="fas fa-building"></i></div>
+                    <h3 class="action-title">My Properties</h3>
+                    <p class="action-description">View and manage your listed or saved properties</p>
+                </a>
                 <a href="${pageContext.request.contextPath}/user/properties" class="action-card">
                     <div class="action-icon" style="background:#eaf4fb;"><i class="fas fa-search"></i></div>
                     <h3 class="action-title">Browse Properties</h3>

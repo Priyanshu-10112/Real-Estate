@@ -13,17 +13,10 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> findByUser(User user);
     
-    List<Appointment> findByUserAndStatus(User user, AppointmentStatus status);
-    
     List<Appointment> findByUserAndAppointmentDateBetween(User user, LocalDateTime startDate, LocalDateTime endDate);
     
     @Query("SELECT a FROM Appointment a JOIN a.property p WHERE p.user_id = :agent")
     List<Appointment> findByPropertyUser(@Param("agent") User agent);
 
     List<Appointment> findByUserAndNotificationDismissedFalse(User user);
-
-    List<Appointment> findByUserAndStatusAndAppointmentDateBetween(User user, AppointmentStatus status, java.time.LocalDateTime startDate, java.time.LocalDateTime endDate);
-    List<Appointment> findByStatusAndAppointmentDateBetween(AppointmentStatus status, java.time.LocalDateTime startDate, java.time.LocalDateTime endDate);
-    List<Appointment> findByStatus(AppointmentStatus status);
-    List<Appointment> findByAppointmentDateBetween(java.time.LocalDateTime startDate, java.time.LocalDateTime endDate);
 } 

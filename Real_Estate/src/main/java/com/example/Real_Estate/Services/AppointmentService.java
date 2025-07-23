@@ -21,9 +21,4 @@ public interface AppointmentService {
     Appointment dismissNotification(Long id, User user);
     // Deprecated: use the above method
     void deleteAppointment(Long id);
-    List<Appointment> getAppointmentsByUserStatusAndDateRange(User user, AppointmentStatus status, java.time.LocalDateTime startDate, java.time.LocalDateTime endDate);
-    List<Appointment> getAppointmentsByStatusAndDateRange(AppointmentStatus status, java.time.LocalDateTime startDate, java.time.LocalDateTime endDate);
-    List<Appointment> getAppointmentsByStatus(AppointmentStatus status);
-    List<Appointment> getAppointmentsByDateRange(java.time.LocalDateTime startDate, java.time.LocalDateTime endDate);
-    List<Appointment> getAllAppointments();
 } 

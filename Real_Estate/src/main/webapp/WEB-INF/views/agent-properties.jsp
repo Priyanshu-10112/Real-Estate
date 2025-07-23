@@ -9,6 +9,7 @@
 <%@ page import="com.example.Real_Estate.entity.Properties" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Locale" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -454,7 +455,15 @@
     </style>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/views/common/nav-agent.jsp" />
+    <c:set var="userType" value="${user.ur.name().toLowerCase()}" />
+    <c:choose>
+        <c:when test="${userType eq 'user'}">
+            <jsp:include page="/WEB-INF/views/common/nav-user.jsp" />
+        </c:when>
+        <c:when test="${userType eq 'agent'}">
+            <jsp:include page="/WEB-INF/views/common/nav-agent.jsp" />
+        </c:when>
+    </c:choose>
 
     <div class="container">
         <div class="page-header bg-light p-4 rounded shadow-sm">
@@ -482,11 +491,6 @@
                 <i class="fas fa-key"></i>
                 <h3><%= properties != null ? properties.stream().filter(p -> p.getStatus().toString().equals("RENT")).count() : 0 %></h3>
                 <p>For Rent</p>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-tag"></i>
-                <h3><%= properties != null ? properties.stream().filter(p -> p.getStatus().toString().equals("SOLD")).count() : 0 %></h3>
-                <p>Sold</p>
             </div>
         </div>
 
@@ -682,10 +686,12 @@
                 <i class="fas fa-home"></i>
                 <h3>No Properties Found</h3>
                 <p>You haven't added any properties yet. Start by adding your first property listing.</p>
-                <a href="${pageContext.request.contextPath}/agent/manage-properties?action=add" class="btn add-property-btn">
-                    <i class="fas fa-plus"></i>
-                    Add New Property
-                </a>
+                <c:if test="${userType eq 'agent'}">
+                    <a href="${pageContext.request.contextPath}/agent/manage-properties?action=add" class="btn add-property-btn">
+                        <i class="fas fa-plus"></i>
+                        Add New Property
+                    </a>
+                </c:if>
             </div>
         <% } %>
     </div>

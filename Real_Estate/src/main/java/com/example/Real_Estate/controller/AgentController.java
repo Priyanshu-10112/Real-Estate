@@ -45,7 +45,7 @@ public class AgentController {
 	@GetMapping("/agent-properties")
 	public String agentMyProperties(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("user");
-		if (user == null || user.getUr() != UserRole.AGENT) {
+		if (user == null) {
 			return "redirect:/login";
 		}
 		

@@ -356,7 +356,6 @@
     </div>
 
     <div class="container">
-        <!-- Filter Section -->
         <!-- Removed filter section -->
 
         <div class="row" id="appointmentsContainer">
@@ -498,7 +497,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script>
-function cancelAppointment(appointmentId) {
+async function cancelAppointment(appointmentId) {
     const result = await showConfirmAlert('Are you sure you want to cancel this appointment?');
     if (result) {
         $.ajax({
