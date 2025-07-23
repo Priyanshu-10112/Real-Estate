@@ -66,16 +66,44 @@ public class AppointmentApiController {
     @GetMapping("/api/appointments/filter")
     public List<Appointment> filterAppointments(
             @RequestParam(required = false) AppointmentStatus status,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
-            HttpSession session) {
-        User loggedInUser = (User) session.getAttribute("user");
-        if (status != null) {
-            return appointmentService.getAppointmentsByUserAndStatus(loggedInUser, status);
-        } else if (startDate != null && endDate != null) {
-            return appointmentService.getAppointmentsByUserAndDateRange(loggedInUser, startDate, endDate);
+            @RequestParam(required = false) String date) {
+        java.time.LocalDateTime startDate = null;
+        java.time.LocalDateTime endDate = null;
+        java.time.LocalDateTime now = java.time.LocalDateTime.now();
+
+        if (date != null && !date.isEmpty() && !date.equals("all")) {
+            switch (date) {
+                case "today":
+                    startDate = now.toLocalDate().atStartOfDay();
+                    endDate = startDate.plusDays(1).minusNanos(1);
+                    break;
+                case "week":
+                    startDate = now.with(java.time.DayOfWeek.MONDAY).toLocalDate().atStartOfDay();
+                    endDate = startDate.plusDays(7).minusNanos(1);
+                    break;
+                case "month":
+                    startDate = now.withDayOfMonth(1).toLocalDate().atStartOfDay();
+                    endDate = startDate.plusMonths(1).minusNanos(1);
+                    break;
+                default:
+                    break;
+            }
         }
-        return appointmentService.getAppointmentsByUser(loggedInUser);
+
+        // If both status and date are provided, filter by both
+        if (status != null && startDate != null && endDate != null) {
+            return appointmentService.getAppointmentsByStatusAndDateRange(status, startDate, endDate);
+        }
+        // If only status is provided
+        if (status != null) {
+            return appointmentService.getAppointmentsByStatus(status);
+        }
+        // If only date is provided
+        if (startDate != null && endDate != null) {
+            return appointmentService.getAppointmentsByDateRange(startDate, endDate);
+        }
+        // Default: return all appointments
+        return appointmentService.getAllAppointments();
     }
 
     @PostMapping("/api/appointments/{id}/approve")
@@ -157,12 +185,6 @@ public class AppointmentApiController {
             return ResponseEntity.badRequest().body("{\"error\": \"" + e.getMessage() + "\"}");
         }
     }
-
-    @GetMapping("/api/appointments/test")
-    public ResponseEntity<?> testEndpoint() {
-        return ResponseEntity.ok(Map.of("message", "Test endpoint working"));
-    }
-
     @PatchMapping("/api/notifications/{id}/dismiss")
     public ResponseEntity<?> dismissNotification(@PathVariable Long id, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("user");

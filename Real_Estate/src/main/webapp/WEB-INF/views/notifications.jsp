@@ -794,7 +794,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.text();
         })
         .then(data => {
-            showAlert('Notification Cancelled successfully!', 'success');
+            showAlert('Appointment Cancelled successfully!', 'success');
             const button = document.querySelector('[data-appointment-id="' + appointmentId + '"]');
             if (button) {
                 const notificationCard = button.closest('.notification-card');

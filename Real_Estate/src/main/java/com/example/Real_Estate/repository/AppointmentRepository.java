@@ -21,4 +21,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByPropertyUser(@Param("agent") User agent);
 
     List<Appointment> findByUserAndNotificationDismissedFalse(User user);
+
+    List<Appointment> findByUserAndStatusAndAppointmentDateBetween(User user, AppointmentStatus status, java.time.LocalDateTime startDate, java.time.LocalDateTime endDate);
+    List<Appointment> findByStatusAndAppointmentDateBetween(AppointmentStatus status, java.time.LocalDateTime startDate, java.time.LocalDateTime endDate);
+    List<Appointment> findByStatus(AppointmentStatus status);
+    List<Appointment> findByAppointmentDateBetween(java.time.LocalDateTime startDate, java.time.LocalDateTime endDate);
 } 

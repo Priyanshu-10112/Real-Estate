@@ -357,33 +357,7 @@
 
     <div class="container">
         <!-- Filter Section -->
-        <div class="filter-section mb-4" style="background:#fff;box-shadow:0 2px 8px rgba(52,152,219,0.07);border-radius:18px;">
-            <h3 style="font-weight:700;color:#3498db;font-size:1.3rem;margin-bottom:20px;">Filter Appointments</h3>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="statusFilter">Status</label>
-                        <select class="form-select" id="statusFilter">
-                            <option value="all">All Status</option>
-                            <option value="PENDING">Pending</option>
-                            <option value="CONFIRMED">Confirmed</option>
-                            <option value="REJECTED">Rejected</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="dateFilter">Date Range</label>
-                        <select class="form-select" id="dateFilter">
-                            <option value="all">All Dates</option>
-                            <option value="today">Today</option>
-                            <option value="week">This Week</option>
-                            <option value="month">This Month</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Removed filter section -->
 
         <div class="row" id="appointmentsContainer">
             <c:forEach items="${appointments}" var="appointment">
@@ -445,10 +419,21 @@
                                         <i class="fas fa-clock"></i> Pending
                                     </span>
                                 </c:when>
-                                <c:when test="${appointment.status == 'CONFIRMED'}">
-                                    <span class="appointment-status status-confirmed" style="background:linear-gradient(135deg,#2ecc71,#27ae60);color:#fff;font-weight:700;">
-                                        <i class="fas fa-check-circle"></i> Confirmed
-                                    </span>
+                                 <c:when test="${appointment.status == 'CONFIRMED'}">
+<span class="appointment-status status-confirmed" style="background:linear-gradient(135deg,#2ecc71,#27ae60);color:#fff;font-weight:700;">
+    <i class="fas fa-check-circle"></i> Confirmed
+</span>
+<div class="sold-actions"
+     data-appointment-id="${appointment.id}"
+     data-appointment-date="${appointment.appointmentDate}"
+     style="display:none; margin-top: 1rem;">
+    <button class="btn btn-success" onclick="markSold('${appointment.id}')">
+        <i class="fas fa-dollar-sign"></i> Sold
+    </button>
+    <button class="btn btn-warning" onclick="markNotSold('${appointment.id}')">
+        <i class="fas fa-times"></i> Not Sold
+    </button>
+</div>
                                 </c:when>
                                 <c:when test="${appointment.status == 'REJECTED'}">
                                     <span class="appointment-status status-rejected" style="background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;font-weight:700;">
@@ -511,141 +496,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function filterAppointments() {
-            const status = $('#statusFilter').val();
-            const date = $('#dateFilter').val();
-            
-            $.ajax({
-                url: '/api/appointments/filter',
-                type: 'GET',
-                data: {
-                    status: status,
-                    date: date
-                },
-                success: function(response) {
-                    // Update the appointments container with filtered results
-                    updateAppointmentsContainer(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error filtering appointments:', error);
-                }
-            });
-        }
-
-        function updateAppointmentsContainer(appointments) {
-            const container = $('#appointmentsContainer');
-            container.empty();
-
-            if (appointments.length === 0) {
-                container.html(`
-                    <div class="col-12">
-                        <div class="empty-state">
-                            <i class="fas fa-calendar-times"></i>
-                            <h3>No Appointments Found</h3>
-                            <p>No appointments match your selected filters.</p>
-                        </div>
-                    </div>
-                `);
-                return;
-            }
-
-            appointments.forEach(appointment => {
-                const card = createAppointmentCard(appointment);
-                container.append(card);
-            });
-        }
-
-        function createAppointmentCard(appointment) {
-            const cancelButton = appointment.status === 'PENDING' 
-                ? `<button class="btn btn-danger" onclick="cancelAppointment('${appointment.id}')">
-                    <i class="fas fa-times"></i> Cancel
-                   </button>`
-                : '';
-            const deleteButton = (appointment.status !== 'PENDING')
-                ? `<button class="btn btn-danger" onclick="deleteAppointment('${appointment.id}')">
-                    <i class="fas fa-trash"></i> Delete
-                   </button>`
-                : '';
-            const formattedDate = new Date(appointment.appointmentDate).toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-            });
-            const formattedTime = new Date(appointment.appointmentDate).toLocaleTimeString('en-US', {
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true
-            });
-            return `
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="appointment-card">
-                        <img src="${pageContext.request.contextPath}/images/properties/${appointment.property.image}" 
-                             class="property-image" 
-                             alt="${appointment.property.propertyType}">
-                        <div class="appointment-details">
-                            <h5 class="appointment-title">${appointment.property.propertyType}</h5>
-                            
-                            <div class="property-details">
-                                <div class="appointment-info">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>${appointment.property.address}, ${appointment.property.city}</span>
-                                </div>
-                                <div class="appointment-info">
-                                    <i class="fas fa-ruler-combined"></i>
-                                    <span>${appointment.property.area} ${appointment.property.areaUnit}</span>
-                                </div>
-                            </div>
-
-                            <div class="section-divider"></div>
-
-                            <div class="user-details">
-                                <div class="user-name">
-                                    ${appointment.user.firstName} ${appointment.user.lastName}
-                                </div>
-                                <div class="appointment-info">
-                                    <i class="fas fa-envelope"></i>
-                                    <span>${appointment.user.email}</span>
-                                </div>
-                                <div class="appointment-info">
-                                    <i class="fas fa-phone"></i>
-                                    <span>${appointment.user.phoneNumber}</span>
-                                </div>
-                            </div>
-
-                            <div class="section-divider"></div>
-                            
-                            <div class="appointment-info">
-                                <i class="fas fa-calendar"></i>
-                                <span>${formattedDate}</span>
-                            </div>
-                            
-                            <div class="appointment-info">
-                                <i class="fas fa-clock"></i>
-                                <span>${formattedTime}</span>
-                            </div>
-
-                            <span class="appointment-status status-${appointment.status.toLowerCase()}">
-                                ${appointment.status}
-                            </span>
-
-                            <div class="appointment-actions">
-                                ${cancelButton}
-                                ${deleteButton}
-                                <a href="${pageContext.request.contextPath}/user/property-details/${appointment.property.id}" 
-                                   class="btn btn-primary">
-                                    <i class="fas fa-eye"></i> View Details
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-    </script>
     <script src="${pageContext.request.contextPath}/js/main.js"></script>
     <script>
-async function cancelAppointment(appointmentId) {
+function cancelAppointment(appointmentId) {
     const result = await showConfirmAlert('Are you sure you want to cancel this appointment?');
     if (result) {
         $.ajax({
@@ -703,10 +556,98 @@ async function deleteAppointment(appointmentId) {
     }
 }
 
-        // Filter functionality
-        $('#statusFilter, #dateFilter').change(function() {
-            filterAppointments();
+// Show Sold/Not Sold buttons at the correct time (for both static and AJAX-loaded cards)
+function showSoldActionsIfDue() {
+    $('.sold-actions').each(function() {
+        const appointmentDateStr = $(this).data('appointment-date');
+        const appointmentId = $(this).data('appointment-id');
+        if (!appointmentDateStr) return;
+
+        const appointmentDate = new Date(appointmentDateStr);
+        const now = new Date();
+
+        if (now >= appointmentDate) {
+            $(this).show();
+        } else {
+            const msUntil = appointmentDate - now;
+            if (msUntil > 0) {
+                setTimeout(() => {
+                    $(`.sold-actions[data-appointment-id="${appointmentId}"]`).show();
+                }, msUntil);
+            }
+        }
+    });
+}
+
+// Call this after rendering appointments (initial and after AJAX)
+$(document).ready(function() {
+    showSoldActionsIfDue();
+});
+function updateAppointmentsContainer(appointments) {
+    // Remove all server-rendered cards (if any)
+    $('#appointmentsContainer').find('.col-md-6, .col-lg-4').remove();
+
+    const container = $('#appointmentsContainer');
+    container.empty();
+
+    if (appointments.length === 0) {
+        container.html(`
+            <div class="col-12">
+                <div class="empty-state">
+                    <i class="fas fa-calendar-times"></i>
+                    <h3>No Appointments Found</h3>
+                    <p>No appointments match your selected filters.</p>
+                </div>
+            </div>
+        `);
+        return;
+    }
+
+    appointments.forEach(appointment => {
+        const card = createAppointmentCard(appointment);
+        container.append(card);
+    });
+    showSoldActionsIfDue();
+}
+
+// AJAX handlers for Sold/Not Sold
+function markSold(appointmentId) {
+    $.ajax({
+        url: '/api/appointments/' + appointmentId + '/sold',
+        type: 'POST',
+        success: function(response) {
+            showAlert('Marked as Sold!', 'success');
+            location.reload();
+        },
+        error: function(xhr, status, error) {
+            showAlert('Failed to mark as Sold. Please try again.', 'error');
+        }
+    });
+}
+async function markNotSold(appointmentId) {
+    const result = await showConfirmAlert('Are you sure that the property not sold? This action cannot be undone.');
+    if (result) {
+    $.ajax({
+            url: '/api/appointments/' + appointmentId + '/delete',
+            type: 'POST',
+            success: function(response) { location.reload(); },
+            error: function(xhr, status, error) {
+                let errorMsg = 'Failed to delete appointment. Please try again.';
+                if (xhr.responseJSON && (xhr.responseJSON.error || xhr.responseJSON.message)) {
+                    errorMsg = xhr.responseJSON.error || xhr.responseJSON.message;
+                } else if (xhr.responseText) {
+                    try {
+                        const resp = JSON.parse(xhr.responseText);
+                        errorMsg = resp.error || resp.message || xhr.responseText;
+                    } catch (e) {
+                        errorMsg = xhr.responseText;
+                    }
+                }
+                showAlert(errorMsg, 'error');
+            }
         });
+    }
+}
     </script>
 </body>
 </html>
