@@ -19,6 +19,7 @@ public interface AppointmentService {
     void deleteAppointment(Long id, User user);
     List<Appointment> getActiveNotificationsByUser(User user);
     Appointment dismissNotification(Long id, User user);
+    Appointment findById(Long id);
     // Deprecated: use the above method
     void deleteAppointment(Long id);
 } 

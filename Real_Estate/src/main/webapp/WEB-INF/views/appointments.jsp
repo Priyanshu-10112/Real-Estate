@@ -610,18 +610,29 @@ function updateAppointmentsContainer(appointments) {
 }
 
 // AJAX handlers for Sold/Not Sold
-function markSold(appointmentId) {
-    $.ajax({
-        url: '/api/appointments/' + appointmentId + '/sold',
-        type: 'POST',
-        success: function(response) {
-            showAlert('Marked as Sold!', 'success');
-            location.reload();
-        },
-        error: function(xhr, status, error) {
-            showAlert('Failed to mark as Sold. Please try again.', 'error');
-        }
+async function markSold(appointmentId) {
+    const result = await Swal.fire({
+        title: 'Mark as Sold?',
+        text: 'This will transfer property ownership to the buyer. Are you sure?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, mark as sold!',
+        cancelButtonText: 'Cancel'
     });
+    if (result.isConfirmed) {
+        $.ajax({
+            url: '/api/appointments/' + appointmentId + '/sold',
+            type: 'POST',
+            success: function(response) {
+                Swal.fire('Success', 'Property marked as sold and ownership transferred!', 'success').then(() => {
+                    location.reload();
+                });
+            },
+            error: function(xhr, status, error) {
+                Swal.fire('Error', 'Failed to mark as sold. Please try again.', 'error');
+            }
+        });
+    }
 }
 async function markNotSold(appointmentId) {
     const result = await showConfirmAlert('Are you sure that the property not sold? This action cannot be undone.');

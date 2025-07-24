@@ -706,8 +706,20 @@
 <body>
     <%-- Retrieve and check property object --%>
     <% Properties property = (Properties) request.getAttribute("prop");
-    if (property != null) { %>
-
+       if (property != null) {
+           User owner = property.getUser_id();
+           boolean ownerIsUser = owner != null && owner.getUr() == UserRole.USER;
+%>
+<% if (ownerIsUser) { %>
+    <div class="container">
+        <div class="alert alert-warning mt-5">Property details are not available for this listing.</div>
+        <div class="header-wrapper" style="display:flex; flex-direction:column; gap:1.5rem;">
+            <a href="javascript:history.back()" class="back-button" style="margin-bottom:1rem; align-self:flex-start; background:#3498db; color:#fff;">
+                <i class="fas fa-arrow-left"></i> Back to Properties
+            </a>
+        </div>
+    </div>
+<% } else { %>
     <!-- Property Header -->
     <div class="property-header" style="margin-bottom:2.5rem; box-shadow: var(--card-shadow); border-radius: 0 0 24px 24px;">
         <div class="container">
@@ -1013,6 +1025,7 @@
     });
     </script>
     <script src="${pageContext.request.contextPath}/js/main.js"></script>
+<% } %>
 <% } else { %>
     <div class="container">
         <div class="alert alert-danger">

@@ -85,6 +85,23 @@ public class AppointmentApiController {
         }
     }
 
+    @PostMapping("/api/appointments/{id}/sold")
+    public ResponseEntity<?> markPropertyAsSold(@PathVariable Long id) {
+        try {
+            Appointment appointment = appointmentService.findById(id); // Implement this if not present
+            if (appointment == null) {
+                return ResponseEntity.status(404).body("Appointment not found");
+            }
+            Properties property = appointment.getProperty();
+            property.setUser_id(appointment.getUser()); // Transfer ownership
+            property.setStatus(com.example.Real_Estate.entity.PropertyStatus.SOLD); // Set status to SOLD (adjust import if needed)
+            propertiesRepository.save(property);
+            return ResponseEntity.ok("Property marked as sold and ownership transferred.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        }
+    }
+
     @GetMapping("/api/appointments/pending-count")
     public ResponseEntity<?> getPendingAppointmentCount(HttpSession session) {
         try {

@@ -108,6 +108,11 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentRepository.findByUserAndNotificationDismissedFalse(user);
     }
 
+    @Override
+    public Appointment findById(Long id) {
+        return appointmentRepository.findById(id).orElse(null);
+    }
+
     @Transactional
     public Appointment dismissNotification(Long id, User user) {
         Appointment appointment = appointmentRepository.findById(id)
