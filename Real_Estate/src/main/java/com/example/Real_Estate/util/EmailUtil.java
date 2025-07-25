@@ -14,7 +14,7 @@ public class EmailUtil {
     public static void sendEmail(String to, String subject, String body) {
         // Sender's email ID and password
         final String from = "estateaura246@gmail.com";
-        final String password = "buieftaphejyboyu";
+        final String password = "phiabyjnwnpzfwmy";
 
         // Setup mail server properties
         Properties props = new Properties();

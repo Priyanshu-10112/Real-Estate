@@ -7,12 +7,10 @@ import com.example.Real_Estate.entity.User;
 import com.example.Real_Estate.entity.Properties;
 import com.example.Real_Estate.repository.PropertiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 

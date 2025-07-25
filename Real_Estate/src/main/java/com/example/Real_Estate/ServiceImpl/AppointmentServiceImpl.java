@@ -126,4 +126,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointmentRepository.flush();
         return saved;
     }
+
+	@Override
+	public List<Appointment> getAppointmentsByUserAndStatus(User user, AppointmentStatus status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 } 

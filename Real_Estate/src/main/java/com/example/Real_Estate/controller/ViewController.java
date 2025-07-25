@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpEntity;
@@ -27,7 +26,6 @@ import com.example.Real_Estate.repository.PropertiesRepository;
 
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import com.example.Real_Estate.ServiceImpl.PropServiceImpl;
 
 @Controller
 public class ViewController {

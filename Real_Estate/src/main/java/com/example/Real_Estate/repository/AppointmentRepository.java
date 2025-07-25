@@ -1,7 +1,6 @@
 package com.example.Real_Estate.repository;
 
 import com.example.Real_Estate.entity.Appointment;
-import com.example.Real_Estate.entity.AppointmentStatus;
 import com.example.Real_Estate.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
