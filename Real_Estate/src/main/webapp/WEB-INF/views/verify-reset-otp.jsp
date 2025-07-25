@@ -94,14 +94,6 @@
                 <h1>Reset Password</h1>
                 <p class="text-muted">Enter the OTP sent to your email and set a new password</p>
             </div>
-            <% String error = (String)request.getAttribute("error"); %>
-            <% String success = (String)request.getAttribute("success"); %>
-            <% if(error != null && !error.isEmpty()) { %>
-                <script>showAlert('<%= error %>', 'error');</script>
-            <% } %>
-            <% if(success != null && !success.isEmpty()) { %>
-                <script>showAlert('<%= success %>', 'success');</script>
-            <% } %>
             <form action="${pageContext.request.contextPath}/verify-reset-otp" method="post">
                 <div class="form-group">
                     <label for="email" class="form-label">Email address</label>
@@ -128,10 +120,9 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="${pageContext.request.contextPath}/js/main.js?v=2"></script>
-    <script>
+    <!-- Only include SweetAlert2 ONCE -->
+<script src="${pageContext.request.contextPath}/js/main.js?v=2"></script>
+<script>
     // Prefill email from URL param and make readonly
     document.addEventListener('DOMContentLoaded', function() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -142,6 +133,32 @@
             emailInput.readOnly = true;
         }
     });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<%
+    String error = (String)request.getAttribute("error");
+    String success = (String)request.getAttribute("success");
+%>
+<% if(error != null && !error.isEmpty()) { %>
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        html: '<%= error.replace("'", "\\'").replace("\n", "<br>") %>',
+        confirmButtonText: 'OK'
+    });
+</script>
+<% } %>
+<% if(success != null && !success.isEmpty()) { %>
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        html: '<%= success.replace("'", "\\'").replace("\n", "<br>") %>',
+        confirmButtonText: 'OK'
+    });
     </script>
+<% } %>
+</script>
 </body>
-</html> 
+</html>
