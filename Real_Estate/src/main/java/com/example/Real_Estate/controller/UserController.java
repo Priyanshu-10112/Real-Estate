@@ -11,6 +11,7 @@ import com.example.Real_Estate.ServiceImpl.PropServiceImpl;
 //import com.example.Real_Estate.ServiceImpl.UServiceImpl;
 import com.example.Real_Estate.dto.PropertyDto;
 import com.example.Real_Estate.entity.Properties;
+import com.example.Real_Estate.repository.UserRepo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +24,8 @@ public class UserController {
 //	private UServiceImpl us;
 	@Autowired
 	private PropServiceImpl ps;
+	@Autowired
+	private UserRepo userRepo;
 	@GetMapping("/dashboard")
 	public String dashboard(HttpSession session, Model model) {
 		
@@ -55,4 +58,6 @@ public class UserController {
 		
 		return "properties";
 	}
+
+    // Removed /favorites endpoint for 'my favorites' feature
 }
