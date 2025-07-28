@@ -144,7 +144,7 @@
     Swal.fire({
         icon: 'error',
         title: 'Error',
-        html: '<%= error.replace("'", "\\'").replace("\n", "<br>") %>',
+        html: "<%= error.replace(\"\\\"\", \"&quot;\").replace(\"'\", \"&#39;\").replace(\"\\n\", \"<br>\") %>",
         confirmButtonText: 'OK'
     });
 </script>
@@ -154,7 +154,7 @@
     Swal.fire({
         icon: 'success',
         title: 'Success!',
-        html: '<%= success.replace("'", "\\'").replace("\n", "<br>") %>',
+        html: "<%= success.replace(\"\\\"\", \"&quot;\").replace(\"'\", \"&#39;\").replace(\"\\n\", \"<br>\") %>",
         confirmButtonText: 'OK'
     });
     </script>
