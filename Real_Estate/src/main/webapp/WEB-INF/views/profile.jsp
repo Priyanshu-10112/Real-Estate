@@ -270,12 +270,6 @@
                                     <span>My Properties</span>
                                 </a>
                             </c:when>
-                            <c:otherwise>
-                                <a href="${pageContext.request.contextPath}/user/favorites" class="btn btn-outline-info" aria-label="My Favorites">
-                                    <i class="fas fa-heart"></i>
-                                    <span>My Favorites</span>
-                                </a>
-                            </c:otherwise>
                         </c:choose>
                         <a href="${pageContext.request.contextPath}/agent/dashboard" class="btn btn-success" aria-label="Back to Dashboard">
                             <i class="fas fa-arrow-left"></i>
