@@ -146,7 +146,7 @@
                 });
                 const result = await response.json();
                 if (response.ok) {
-                    showAlert('OTP sent! Please check your email for the code.<br>If you don\'t see it, check your spam folder.', 'success');
+                    showAlert('OTP sent! Please check your email for the code.If you don\'t see it, check your spam folder.', 'success');
                     setTimeout(function() {
                         window.location.href = '${pageContext.request.contextPath}/verify-reset-otp?email=' + encodeURIComponent(email);
                     }, 1800);
